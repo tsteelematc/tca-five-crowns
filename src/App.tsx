@@ -10,7 +10,7 @@ function App() {
         TCA Five Crowns
       </h1>      
       <button
-        className='btn btn-primary'
+        className='btn btn-secondary btn-soft btn-xl'
       >
         Play Five Crowns
       </button>
