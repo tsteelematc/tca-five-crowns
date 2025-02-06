@@ -24,6 +24,105 @@ function App() {
         >
           Leaderboard
         </h2>
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+        <div 
+          className="card w-full bg-base-100 card-lg shadow-xl mt-4">
+          <div className="card-body">
+            <h2 className="card-title">Leaderboard</h2>
+            <p>
+              Leadeboard goes here...
+            </p>
+          </div>
+        </div>
+
+
+
       </div>
     </div>
   )
