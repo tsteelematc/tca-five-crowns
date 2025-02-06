@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import './App.css'
 
 function App() {
+
+  const [countdownNumber, setCountdownNumber] = useState(59);
 
   return (
     <div
@@ -104,9 +107,13 @@ function App() {
           className="card w-full bg-base-100 card-lg shadow-xl mt-4">
           <div className="card-body">
             <h2 className="card-title">Leaderboard</h2>
-            <p>
-              Leadeboard goes here...
-            </p>
+            {/* For TSX uncomment the commented types below */}
+            <span 
+              className="countdown font-mono text-6xl"
+              onClick={() => setCountdownNumber(countdownNumber - 1)}
+            >
+              <span style={{ "--value": countdownNumber } as React.CSSProperties}>{countdownNumber}</span>
+            </span>
           </div>
         </div>
 
