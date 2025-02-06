@@ -18,7 +18,7 @@ function App() {
         className='p-4'
       >
         <button
-          className='btn btn-secondary btn-soft btn-xl'
+          className='btn btn-secondary btn-soft btn-xl w-full sm:w-auto text-nowrap'
         >
           Play Five Crowns
         </button>
