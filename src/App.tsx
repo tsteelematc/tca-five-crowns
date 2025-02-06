@@ -18,7 +18,7 @@ function App() {
         className='p-4'
       >
         <button
-          className='btn btn-secondary btn-soft btn-xl w-full sm:w-auto text-nowrap'
+          className='btn btn-secondary btn-soft btn-xl w-full lg:w-auto text-nowrap'
         >
           Play Five Crowns
         </button>
@@ -27,7 +27,7 @@ function App() {
         >
           Leaderboard
         </h2>
-        <div className="className grid gap-4 grid-cols-1 sm:grid-cols-2">
+        <div className="className grid gap-4 grid-cols-1 lg:grid-cols-2">
 
 
           <div
