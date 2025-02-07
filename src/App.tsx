@@ -157,40 +157,39 @@ function App() {
             className="card w-full bg-base-100 card-lg shadow-sm mt-4"
           >
             <div
-              className="card-body"
+              className="card-body p-3"
             >
               <h2
                 className="card-title"
               >
-                Leaderboard...
+                General Fun Facts
               </h2>
 
 
 
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-primary">What kind of nonsense is this</div>
+                <div className="chat-bubble chat-bubble-secondary">Did you know?</div>
               </div>
+
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-secondary">Put me on the Council and not make me a Master!??</div>
+                <div className="chat-bubble chat-bubble-light">Total games<br />6</div>
               </div>
+              
+                            <div className="chat chat-start">
+                <div className="chat-bubble chat-bubble-secondary">Last played<br /> 3d 17h 12s ago</div>
+              </div>
+
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-accent">That's never been done in the history of the Jedi.</div>
+                <div className="chat-bubble chat-bubble-light">Longest game<br />35m 18s</div>
               </div>
+
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-neutral">It's insulting!</div>
+                <div className="chat-bubble chat-bubble-secondary">Shortest game<br />12m 3s</div>
               </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble chat-bubble-info">Calm down, Anakin.</div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble chat-bubble-success">You have been given a great honor.</div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble chat-bubble-warning">To be on the Council at your age.</div>
-              </div>
-              <div className="chat chat-end">
+
+              {/* <div className="chat chat-end">
                 <div className="chat-bubble chat-bubble-error">It's never happened before.</div>
-              </div>
+              </div> */}
 
 
 
