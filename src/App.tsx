@@ -166,7 +166,7 @@ function App() {
               </h2> */}
 
               <div className="chat chat-end">
-                <div className="chat-bubble chat-bubble-light font-bold text-xl">What are some general five crowns fun facts?</div>
+                <div className="chat-bubble chat-bubble-primary font-bold text-xl underline">Show me some basic fun facts</div>
               </div>
 
               <div className="chat chat-start">
@@ -178,7 +178,7 @@ function App() {
               </div>
 
               <div className="chat chat-end">
-                <div className="chat-bubble chat-bubble-light font-bold text-xl">Show me all my games</div>
+                <div className="chat-bubble chat-bubble-primary font-bold text-xl underline">Show me all my games</div>
               </div>
 
               <div className="chat chat-start">
