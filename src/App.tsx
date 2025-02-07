@@ -24,12 +24,12 @@ function App() {
         </h2>
 
 
-        <div 
+        <div
           className="grid grid-cols-1 lg:grid-cols-2 gap-4"
         >
 
 
-<div
+          <div
             className="card w-full bg-base-100 card-lg shadow-sm mt-4"
           >
             <div
@@ -159,32 +159,83 @@ function App() {
             <div
               className="card-body p-3"
             >
-              <h2
+              {/* <h2
                 className="card-title"
               >
-                General Fun Facts
-              </h2>
+                All Games (reverse chron)
+              </h2> */}
 
-
-
-              <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-secondary">Did you know?</div>
+              <div className="chat chat-end">
+                <div className="chat-bubble chat-bubble-light font-bold text-xl">What are some general five crowns fun facts?</div>
               </div>
 
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-light">Total games<br />6</div>
-              </div>
-              
-                            <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-secondary">Last played<br /> 3d 17h 12s ago</div>
+                <div className="chat-bubble chat-bubble-secondary">Total games<br />6</div>
               </div>
 
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-light">Longest game<br />35m 18s</div>
+                <div className="chat-bubble chat-bubble-light">Last played<br /> 3d 17h 12s ago</div>
+              </div>
+
+              <div className="chat chat-end">
+                <div className="chat-bubble chat-bubble-light font-bold text-xl">Show me all my games</div>
               </div>
 
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-secondary">Shortest game<br />12m 3s</div>
+                <div className="chat-bubble chat-bubble-secondary">
+
+                  <div className="avatar-group -space-x-4">
+                    <div className="avatar avatar-placeholder">
+                      <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                        <span className="text-xs">C</span>
+                      </div>
+                    </div>
+                    <div className="avatar avatar-placeholder">
+                      <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                        <span className="text-xs">L</span>
+                      </div>
+                    </div>
+                    <div className="avatar avatar-placeholder">
+                      <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                        <span className="text-xs">M</span>
+                      </div>
+                    </div>
+                    <div className="avatar avatar-placeholder">
+                      <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                        <span className="text-xs">T</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  2026-01-01
+                  <br />
+
+                  Curly (W), Larry, Moe, Tom
+                </div>
+              </div>
+
+
+              <div className="chat chat-start">
+                <div className="chat-bubble chat-bubble-light">
+
+                  <div className="avatar-group -space-x-4">
+                    <div className="avatar avatar-placeholder">
+                      <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                        <span className="text-xs">L</span>
+                      </div>
+                    </div>
+                    <div className="avatar avatar-placeholder">
+                      <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                        <span className="text-xs">T</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  2026-01-01
+                  <br />
+
+                  Larry, Tom (W)
+                </div>
               </div>
 
               {/* <div className="chat chat-end">
