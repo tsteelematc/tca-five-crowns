@@ -7,7 +7,7 @@ function App() {
       <h1
         className='text-2xl font-bold bg-base-300 p-4 text-secondary'
       >
-        TCA Five Crowns
+        TCA Five Crowns 123 (Edited in GH Codespace, OM<span className='line-through text-base-100'>F</span>G)
       </h1>
       <div
         className="p-4"
