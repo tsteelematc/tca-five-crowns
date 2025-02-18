@@ -18,7 +18,7 @@ const Home = () => {
         Home
       </h3>
       <button 
-        className="btn btn-outline btn-secondary mt-4"
+        className="btn btn-active btn-secondary mt-4"
         onClick={
           () => nav('/setup')
         }
@@ -41,7 +41,7 @@ const Setup = () => {
         Setup
       </h3>
       <button 
-        className="btn btn-outline btn-secondary mt-4"
+        className="btn btn-active btn-secondary mt-4"
         onClick={
           () => nav('/play')
         }
@@ -64,7 +64,7 @@ const Play = () => {
         Play
       </h3>
       <button 
-        className="btn btn-outline btn-secondary mt-4"
+        className="btn btn-active btn-secondary mt-4"
         onClick={
           () => nav(-2)
         }
