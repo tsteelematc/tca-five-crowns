@@ -3,9 +3,13 @@ import {
   HashRouter
   , Routes
   , Route
+  , useNavigate
 } from 'react-router';
 
 const Home = () => {
+
+  const nav = useNavigate();
+
   return (
     <div>
       <h3
@@ -13,11 +17,22 @@ const Home = () => {
       >
         Home
       </h3>
+      <button 
+        className="btn btn-outline btn-secondary mt-4"
+        onClick={
+          () => nav('/setup')
+        }
+      >
+        Start a game of Five Crowns
+      </button>
     </div>
   );
 };
 
 const Setup = () => {
+
+  const nav = useNavigate();
+
   return (
     <div>
       <h3
@@ -25,11 +40,22 @@ const Setup = () => {
       >
         Setup
       </h3>
+      <button 
+        className="btn btn-outline btn-secondary mt-4"
+        onClick={
+          () => nav('/play')
+        }
+      >
+        Begin Your Game
+      </button>
     </div>
   );
 };
 
 const Play = () => {
+
+  const nav = useNavigate();
+
   return (
     <div>
       <h3
@@ -37,6 +63,14 @@ const Play = () => {
       >
         Play
       </h3>
+      <button 
+        className="btn btn-outline btn-secondary mt-4"
+        onClick={
+          () => nav(-2)
+        }
+      >
+        Done Playing
+      </button>
     </div>
   );
 };
