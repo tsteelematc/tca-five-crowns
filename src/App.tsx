@@ -1,19 +1,75 @@
-import './App.css'
+import './App.css';
+import {
+  HashRouter
+  , Routes
+  , Route
+} from 'react-router';
 
-function App() {
-
+const Home = () => {
   return (
     <div>
-      <h1
+      <h3
         className='text-2xl font-bold'
       >
-        TCA Five Crowns
-      </h1>      
-      <button
-        className='btn btn-secondary btn-soft btn-xl'
+        Home
+      </h3>
+    </div>
+  );
+};
+
+const Setup = () => {
+  return (
+    <div>
+      <h3
+        className='text-2xl font-bold'
       >
-        Play Five Crowns
-      </button>
+        Setup
+      </h3>
+    </div>
+  );
+};
+
+const Play = () => {
+  return (
+    <div>
+      <h3
+        className='text-2xl font-bold'
+      >
+        Play
+      </h3>
+    </div>
+  );
+};
+
+
+const App = () => {
+
+  return (
+    <div
+      className='p-4'
+    >
+      <HashRouter>
+        <Routes>
+          <Route 
+            path='/'
+            element={
+              <Home />
+            }
+          />
+          <Route 
+            path='/setup'
+            element={
+              <Setup />
+            }
+          />
+                    <Route 
+            path='/play'
+            element={
+              <Play />
+            }
+          />
+        </Routes>
+      </HashRouter>
     </div>
   )
 }
