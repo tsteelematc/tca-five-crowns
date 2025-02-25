@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router";
 
-export const Home = () => {
+interface HomeProps {
+    totalGameCount: number;
+};
+
+export const Home: React.FC<HomeProps> = ({
+    totalGameCount
+}) => {
 
     // Use a react hook for button navigation...
     const nav = useNavigate();
@@ -10,7 +16,7 @@ export const Home = () => {
             <h3
                 className='text-2xl font-bold'
             >
-                Home
+                Home ({totalGameCount} games played)
             </h3>
             <button
                 className="btn btn-active btn-secondary btn-lg mt-4"
