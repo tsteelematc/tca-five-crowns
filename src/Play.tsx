@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-export const Play = () => {
+interface PlayProps {
+    totalGameCount: number;
+    setTotalGameCount: (newTotalGameCount: number) => void;
+};
+
+export const Play: React.FC<PlayProps> = ({
+    totalGameCount
+    , setTotalGameCount
+}) => {
 
     const nav = useNavigate();
 
@@ -12,7 +20,7 @@ export const Play = () => {
             <h3
                 className='text-2xl font-bold'
             >
-                Play
+                Play ({totalGameCount} games played)
             </h3>
             <h4 className="text-lg font-semibold">
                 Turn # {turnNumber}
@@ -33,7 +41,10 @@ export const Play = () => {
             <button
                 className="btn btn-active btn-secondary btn-lg mt-4"
                 onClick={
-                    () => nav(-2)
+                    () => {
+                        setTotalGameCount(totalGameCount + 1);
+                        nav(-2);
+                    }
                 }
             >
                 Done

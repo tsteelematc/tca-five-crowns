@@ -34,13 +34,18 @@ const App = () => {
           <Route
             path='/setup'
             element={
-              <Setup />
+              <Setup 
+                totalGameCount={totalGameCount}
+              />
             } 
           />
           <Route
             path='/play'
             element={
-              <Play />
+              <Play 
+                totalGameCount={totalGameCount}
+                setTotalGameCount={setTotalGameCount}
+              />
             } 
           />
         </Routes>
