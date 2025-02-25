@@ -21,7 +21,6 @@ export const Play = () => {
                     onClick={
                         // () => turnNumber = turnNumber + 1
                         // () => {
-                        //     console.log(turnNumber);
                         //     turnNumber = turnNumber + 1;
                         //     console.log(turnNumber);
                         // }
