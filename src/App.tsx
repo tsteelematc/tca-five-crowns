@@ -44,6 +44,7 @@ const App = () => {
             element={
               <Play 
                 totalGameCount={totalGameCount}
+                setTotalGameCount={setTotalGameCount}
               />
             } 
           />
