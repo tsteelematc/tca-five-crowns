@@ -64,7 +64,8 @@ const App = () => {
   );
 
   // const [totalGameCount, setTotalGameCount] = useState(0);
-  const [gameResults, setGameResults] = useState(dummyGameResults);
+  const [gameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
+  // const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   return (
     <div
