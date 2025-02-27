@@ -41,40 +41,53 @@ export const Home: React.FC<HomeProps> = ({
                     >
                         Leaderboard
                     </h2>
-                    <table
-                        className="table"
-                    >
-                        <thead>
-                            <tr>
-                                <th>W</th>
-                                <th>L</th>
-                                <th>AVG</th>
-                                <th>PLAYER</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                leaderboardData.map(
-                                    x => (
+                    {
+                        leaderboardData.length === 0
+                            ? (
+                                <h3
+                                    className="text-md font-light"
+                                >
+                                    Play a game to see the leaderboard ! ! !
+                                </h3>
+                            )
+                            : (
+                                <table
+                                    className="table"
+                                >
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                {x.wins}
-                                            </td>
-                                            <td>
-                                                {x.losses}
-                                            </td>
-                                            <td>
-                                                {x.average}
-                                            </td>
-                                            <td>
-                                                {x.player}
-                                            </td>
+                                            <th>W</th>
+                                            <th>L</th>
+                                            <th>AVG</th>
+                                            <th>PLAYER</th>
                                         </tr>
-                                    )
-                                )
-                            }
-                        </tbody>
-                    </table>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            leaderboardData.map(
+                                                x => (
+                                                    <tr>
+                                                        <td>
+                                                            {x.wins}
+                                                        </td>
+                                                        <td>
+                                                            {x.losses}
+                                                        </td>
+                                                        <td>
+                                                            {x.average}
+                                                        </td>
+                                                        <td>
+                                                            {x.player}
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+
+                            )
+                    }
                 </div>
             </div>
         </>
