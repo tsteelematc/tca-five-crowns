@@ -31,6 +31,22 @@ export const Home: React.FC<HomeProps> = ({
             >
                 Play Five Crowns
             </button>
+            <div 
+                className="card w-full bg-base-100 card-md shadow-lg mt-4"
+            >
+                <div 
+                    className="card-body"
+                >
+                    <h2 
+                        className="card-title"
+                    >
+                        Leaderboard
+                    </h2>
+                    <p>
+                        Leaderboard goes here ! ! !
+                    </p>
+                </div>
+            </div>
         </>
     );
 };
