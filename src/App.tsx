@@ -8,6 +8,54 @@ import { Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
+import { GameResult } from './GameResults';
+
+const dummyGameResults: GameResult[] = [
+  {
+      winner: "Hermione"
+      , players: [
+          "Hermione"
+          , "Harry"
+          , "Ron"
+      ]
+  }
+  , {
+      winner: "Ron"
+      , players: [
+          "Hermione"
+          , "Ron"
+      ]
+  }
+  , {
+      winner: "Larry"
+      , players: [
+          "Larry"
+          , "Curly"
+          , "Moe"
+      ]
+  }
+  , {
+      winner: "Harry"
+      , players: [
+          "Curly"
+          , "Harry"
+      ]
+  }
+  , {
+      winner: "Ron"
+      , players: [
+          "Ron"
+          , "Voldemort"
+      ]
+  }
+  , {
+      winner: "Voldemort"
+      , players: [
+          "Ron"
+          , "Voldemort"
+      ]
+  }
+];
 
 const App = () => {
 
@@ -15,7 +63,8 @@ const App = () => {
     "App Component Func Called ! ! !"
   );
 
-  const [totalGameCount, setTotalGameCount] = useState(0);
+  // const [totalGameCount, setTotalGameCount] = useState(0);
+  const [gameResults, setGameResults] = useState(dummyGameResults);
 
   return (
     <div
@@ -27,7 +76,7 @@ const App = () => {
             path='/'
             element={
               <Home
-                totalGameCount={totalGameCount} 
+                totalGameCount={gameResults.length} 
               />
             } 
           />
@@ -35,7 +84,7 @@ const App = () => {
             path='/setup'
             element={
               <Setup 
-                totalGameCount={totalGameCount}
+                totalGameCount={gameResults.length}
               />
             } 
           />
@@ -43,8 +92,7 @@ const App = () => {
             path='/play'
             element={
               <Play 
-                totalGameCount={totalGameCount}
-                setTotalGameCount={setTotalGameCount}
+                totalGameCount={gameResults.length}
               />
             } 
           />
