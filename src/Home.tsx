@@ -3,12 +3,16 @@ import { LeaderboardEntry } from "./GameResults";
 
 interface HomeProps {
     leaderboardData: LeaderboardEntry[];
+    setTitle: (t: string) => void;
 };
 
 export const Home: React.FC<HomeProps> = ({
     leaderboardData
+    , setTitle
 }) => {
 
+    setTitle("Five Crowns");
+    
     // Use a react hook for button navigation...
     const nav = useNavigate();
 

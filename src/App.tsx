@@ -69,6 +69,8 @@ const App = () => {
   const [gameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
   // const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
+  const [title, setTitle] = useState("Five Crowns");
+
   //
   // Other code (not hooks)...
   //
@@ -87,7 +89,7 @@ const App = () => {
         <h1
           className='text-xl font-bold'
         >
-          Five Crowns
+          {title}
         </h1>
       </nav>
       <div 
@@ -102,13 +104,16 @@ const App = () => {
                   leaderboardData={
                     getLeaderboard(gameResults)
                   }
+                  setTitle={setTitle}
                 />
               } 
             />
             <Route
               path='/setup'
               element={
-                <Setup />
+                <Setup 
+                  setTitle={setTitle}
+                />
               } 
             />
             <Route
@@ -116,6 +121,7 @@ const App = () => {
               element={
                 <Play 
                   addNewGameResult={addNewGameResult}
+                  setTitle={setTitle}
                 />
               } 
             />
