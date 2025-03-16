@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { GameResult } from "./GameResults";
 
+const whildCardHands = [
+    3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+];
+
+const dummyPlayers = [
+    "Eric", "Beril", "Munch", "Tom", "Stephanie"
+];
+
 interface PlayProps {
     addNewGameResult: (r: GameResult) => void;
     setTitle: (t: string) => void;
@@ -27,11 +35,11 @@ export const Play: React.FC<PlayProps> = ({
 
     return (
         <>
-            <h4 
+            <h4
                 className="text-lg font-semibold"
             >
                 Turn #{turnNumber}
-                <button 
+                <button
                     className="btn btn-xs btn-outline btn-light ml-4"
                     onClick={
                         () => {
@@ -64,6 +72,44 @@ export const Play: React.FC<PlayProps> = ({
             >
                 Done
             </button>
+
+            <div className="overflow-x-auto mt-4">
+                <table className="table table-xs table-pin-rows table-pin-cols">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {
+                                dummyPlayers.map(
+                                    x => (
+                                        <th
+                                            key={x}
+                                        >
+                                            {x}
+                                        </th>
+                                    )
+                                )
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            whildCardHands.map(
+                                x => (
+                                    <tr>
+                                        <th>{x}</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                )
+                            )
+                        }
+
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 };
