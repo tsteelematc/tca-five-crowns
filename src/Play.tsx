@@ -7,7 +7,8 @@ const whildCardHands = [
 ];
 
 const dummyPlayers = [
-    "Eric", "Beril", "Munch", "Tom", "Stephanie"
+    "Eric", "Beril", "Munch", "Tom", "Stephanie", "Harry", "Martha", "Liam", "Olivia", "Emma"
+    , "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia", "Evelyn", "Abigail", "Ella", "Scarlett"
 ];
 
 interface PlayProps {
@@ -81,11 +82,11 @@ export const Play: React.FC<PlayProps> = ({
                             {
                                 dummyPlayers.map(
                                     x => (
-                                        <th
+                                        <td
                                             key={x}
                                         >
                                             {x}
-                                        </th>
+                                        </td>
                                     )
                                 )
                             }
@@ -96,7 +97,9 @@ export const Play: React.FC<PlayProps> = ({
                             whildCardHands.map(
                                 x => (
                                     <tr>
-                                        <th>{x}</th>
+                                        <th>
+                                            {x}
+                                        </th>
                                         <td></td>
                                         <td></td>
                                         <td></td>
