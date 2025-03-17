@@ -28,54 +28,14 @@ export const Play: React.FC<PlayProps> = ({
 
     const nav = useNavigate();
 
-    const [turnNumber, setTurnNumber] = useState(0);
-
     const [startTimestamp] = useState(
         new Date().toISOString()
     );
 
     return (
         <>
-            <h4
-                className="text-lg font-semibold"
-            >
-                Turn #{turnNumber}
-                <button
-                    className="btn btn-xs btn-outline btn-light ml-4"
-                    onClick={
-                        () => {
-                            setTurnNumber(turnNumber + 1);
-                            console.log(
-                                turnNumber
-                            );
-                        }
-                    }
-                >
-                    +
-                </button>
-            </h4>
-            <button
-                className="btn btn-active btn-secondary btn-lg mt-4"
-                onClick={
-                    () => {
-                        addNewGameResult({
-                            winner: "Barbie"
-                            , players: [
-                                "Barbie"
-                                , "Ken"
-                            ]
-                            , start: startTimestamp
-                            , end: new Date().toISOString()
-                        });
-                        nav(-2);
-                    }
-                }
-            >
-                Done
-            </button>
-
             <div className="overflow-x-auto mt-4">
-                <table className="table table-xs table-pin-rows table-pin-cols">
+                <table className="table table-lg table-pin-rows table-pin-cols">
                     <thead>
                         <tr>
                             <th></th>
@@ -96,15 +56,28 @@ export const Play: React.FC<PlayProps> = ({
                         {
                             whildCardHands.map(
                                 x => (
-                                    <tr>
-                                        <th>
+                                    <tr
+                                        className="text-center"
+                                    >
+                                        <th
+                                            className="font-normal text-sm"
+                                        >
                                             {x}
                                         </th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td
+                                            className="text-nowrap"
+                                        >
+                                            100
+                                            <span 
+                                                className="text-xs text-base-content/50 ml-1"
+                                            >
+                                                / 200
+                                            </span> 
+                                        </td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                 )
                             )
@@ -112,6 +85,33 @@ export const Play: React.FC<PlayProps> = ({
 
                     </tbody>
                 </table>
+            </div>
+
+            <div
+                className="flex flex-row"
+            >
+                <button
+                    className="btn btn-active btn-secondary btn-lg my-4"
+                    onClick={
+                        () => {
+                            addNewGameResult({
+                                winner: "Barbie"
+                                , players: [
+                                    "Barbie"
+                                    , "Ken"
+                                ]
+                                , start: startTimestamp
+                                , end: new Date().toISOString()
+                            });
+                            nav(-2);
+                        }
+                    }
+                >
+                    Tom Won
+                </button>
+                <button className="btn btn-outline btn-secondary btn-lg my-4 ml-2">
+                    Quit
+                </button>
             </div>
         </>
     );
