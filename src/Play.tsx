@@ -77,7 +77,7 @@ export const Play: React.FC<PlayProps> = ({
                                         <th
                                             className="font-normal text-sm"
                                         >
-                                            <div className="grid grid-rows-1 grid-cols-2 gap-4 mr-6">
+                                            <div className="grid grid-cols-2 gap-4 mr-6">
                                                 <span>
                                                     {x}
                                                 </span>
@@ -166,21 +166,24 @@ export const Play: React.FC<PlayProps> = ({
                         </button>
                     </form>
                     <h3
-                        className="font-bold text-lg"
+                        className="text-primary text-lg"
                     >
-                        Editing row #{editingRow}
+                        Editing scores for {editingRow}'s wild
                     </h3>
-                    <p
-                        className="py-4"
-                    >
-                        <button className="btn btn-xs btn-outline">
-                            Prev Player
-                        </button>
-                        <label
-                            className="ml-2"
-                        >
-                            Tom
-                        </label>
+                    <div className="grid grid-cols-1">
+                        <div className="join">
+                            <button className="btn btn-xs btn-outline join-item">
+                                &lt;
+                            </button>
+                            <label
+                                className="ml-2 mr-2 w-24 join-item"
+                            >
+                                Tom
+                            </label>
+                            <button className="btn btn-xs btn-outline join-item">
+                                &gt;
+                            </button>
+                        </div>
                         <div className="join ml-4">
                             <button className="btn btn-xs btn-outline join-item">
                                 -1
@@ -197,10 +200,7 @@ export const Play: React.FC<PlayProps> = ({
                                 +5
                             </button>
                         </div>
-                        <button className="btn btn-xs btn-outline">
-                            Next Player
-                        </button>
-                    </p>
+                    </div>
                 </div>
             </dialog>
 
