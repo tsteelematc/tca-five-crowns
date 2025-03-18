@@ -183,8 +183,8 @@ export const Play: React.FC<PlayProps> = ({
                         Editing scores for <span className="text-secondary font-bold">{getDisplayWildcard(editingRow)}'s</span> wild
                     </h3>
                     <div className="flex flex-col bg-info123 text-left">
-                        <div className="join my-4 inline-block">
-                            <button className="btn btn-xs btn-outline join-item">
+                        <div className="join my-4 inline-block text-nowrap">
+                            <button className="btn btn-md btn-outline join-item">
                                 &lt;
                             </button>
                             <label
@@ -192,26 +192,26 @@ export const Play: React.FC<PlayProps> = ({
                             >
                                 Tommy Boy with Long name
                             </label>
-                            <button className="btn btn-xs btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item">
                                 &gt;
                             </button>
                         </div>
                         <div className="join inline-block text-xl">
-                            <button className="btn btn-xs btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item">
                                 -1
                             </button>
                             <label
-                                className="join-item ml-4 mr-4 text-center"
+                                className="join-item ml-4 mr-4 text-center text-xl"
                             >
                                 0
                             </label>
-                            <button className="btn btn-xs btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item">
                                 +1
                             </button>
-                            <button className="btn btn-xs btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item">
                                 +5
                             </button>
-                            <button className="btn btn-xs btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item">
                                 +10
                             </button>
                         </div>
