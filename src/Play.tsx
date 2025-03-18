@@ -16,6 +16,16 @@ interface PlayProps {
     setTitle: (t: string) => void;
 };
 
+const getDisplayWildcard = (x: number): string => (
+    x < 11
+        ? x.toString()
+        : x === 11
+            ? "J"
+            : x === 12
+                ? "Q"
+                : "K"
+);
+
 export const Play: React.FC<PlayProps> = ({
     addNewGameResult
     , setTitle
@@ -80,16 +90,10 @@ export const Play: React.FC<PlayProps> = ({
                                             <div className="grid grid-cols-2 gap-4 mr-6">
                                                 <span>
                                                     {
-                                                        x < 11
-                                                            ? x 
-                                                            : x === 11
-                                                                ? "J"
-                                                                : x === 12 
-                                                                    ? "Q"
-                                                                    : "K"
+                                                        getDisplayWildcard(x)
                                                     }
                                                 </span>
-                                                <button 
+                                                <button
                                                     className="btn btn-xs btn-dash ml-4 w-8"
                                                     onClick={
                                                         () => editRow(x)
@@ -176,7 +180,7 @@ export const Play: React.FC<PlayProps> = ({
                     <h3
                         className="text-primary text-lg"
                     >
-                        Editing scores for {editingRow}'s wild
+                        Editing scores for {getDisplayWildcard(editingRow)}'s wild
                     </h3>
                     <div className="grid grid-cols-1">
                         <div className="join">
@@ -196,7 +200,7 @@ export const Play: React.FC<PlayProps> = ({
                             <button className="btn btn-xs btn-outline join-item">
                                 -1
                             </button>
-                            <label 
+                            <label
                                 className="join-item ml-4 mr-4 text-center"
                             >
                                 0
