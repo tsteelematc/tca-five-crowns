@@ -35,6 +35,12 @@ export const Play: React.FC<PlayProps> = ({
     const [berilEasterEgg, setBerilEasterEgg] = useState(false);
 
     const editRowDialogRef = useRef<HTMLDialogElement | null>(null);
+    const [editingRow, setEditingRow] = useState(0);
+
+    const editRow = (wildCard: number) => {
+        setEditingRow(wildCard);
+        editRowDialogRef.current?.showModal();
+    };
 
     return (
         <>
@@ -78,7 +84,7 @@ export const Play: React.FC<PlayProps> = ({
                                                 <button 
                                                     className="btn btn-xs btn-dash ml-4 w-8"
                                                     onClick={
-                                                        () => editRowDialogRef.current?.showModal()
+                                                        () => editRow(x)
                                                     }
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="size-4">
@@ -162,12 +168,38 @@ export const Play: React.FC<PlayProps> = ({
                     <h3
                         className="font-bold text-lg"
                     >
-                        Foo Bar Cat
+                        Editing row #{editingRow}
                     </h3>
                     <p
                         className="py-4"
                     >
-                        Dog, Parrot, Fish
+                        <button className="btn btn-xs btn-outline">
+                            Prev Player
+                        </button>
+                        <label
+                            className="ml-2"
+                        >
+                            Tom
+                        </label>
+                        <div className="join ml-4">
+                            <button className="btn btn-xs btn-outline join-item">
+                                -1
+                            </button>
+                            <label 
+                                className="join-item ml-4 mr-4 text-center"
+                            >
+                                0
+                            </label>
+                            <button className="btn btn-xs btn-outline join-item">
+                                +1
+                            </button>
+                            <button className="btn btn-xs btn-outline join-item">
+                                +5
+                            </button>
+                        </div>
+                        <button className="btn btn-xs btn-outline">
+                            Next Player
+                        </button>
                     </p>
                 </div>
             </dialog>
