@@ -79,7 +79,15 @@ export const Play: React.FC<PlayProps> = ({
                                         >
                                             <div className="grid grid-cols-2 gap-4 mr-6">
                                                 <span>
-                                                    {x}
+                                                    {
+                                                        x < 11
+                                                            ? x 
+                                                            : x === 11
+                                                                ? "J"
+                                                                : x === 12 
+                                                                    ? "Q"
+                                                                    : "K"
+                                                    }
                                                 </span>
                                                 <button 
                                                     className="btn btn-xs btn-dash ml-4 w-8"
