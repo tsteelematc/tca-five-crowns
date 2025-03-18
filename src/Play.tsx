@@ -178,25 +178,25 @@ export const Play: React.FC<PlayProps> = ({
                         </button>
                     </form>
                     <h3
-                        className="text-primary text-lg"
+                        className="text-lg"
                     >
-                        Editing scores for {getDisplayWildcard(editingRow)}'s wild
+                        Editing scores for <span className="text-secondary font-bold">{getDisplayWildcard(editingRow)}'s</span> wild
                     </h3>
-                    <div className="grid grid-cols-1">
-                        <div className="join">
+                    <div className="flex flex-col bg-info123 text-left">
+                        <div className="join my-4 inline-block">
                             <button className="btn btn-xs btn-outline join-item">
                                 &lt;
                             </button>
                             <label
-                                className="ml-2 mr-2 w-24 join-item"
+                                className="ml-2 mr-2 join-item"
                             >
-                                Tom
+                                Tommy Boy with Long name
                             </label>
                             <button className="btn btn-xs btn-outline join-item">
                                 &gt;
                             </button>
                         </div>
-                        <div className="join ml-4">
+                        <div className="join inline-block text-xl">
                             <button className="btn btn-xs btn-outline join-item">
                                 -1
                             </button>
@@ -210,6 +210,9 @@ export const Play: React.FC<PlayProps> = ({
                             </button>
                             <button className="btn btn-xs btn-outline join-item">
                                 +5
+                            </button>
+                            <button className="btn btn-xs btn-outline join-item">
+                                +10
                             </button>
                         </div>
                     </div>
