@@ -32,6 +32,8 @@ export const Play: React.FC<PlayProps> = ({
         new Date().toISOString()
     );
 
+    const [berilEasterEgg, setBerilEasterEgg] = useState(false);
+
     return (
         <>
             <div className="overflow-x-auto mt-4">
@@ -44,6 +46,11 @@ export const Play: React.FC<PlayProps> = ({
                                     x => (
                                         <td
                                             key={x}
+                                            onClick={
+                                                () => x === "Beril"
+                                                        ? setBerilEasterEgg(!berilEasterEgg)
+                                                        : console.log("You're not Beril : - O")
+                                            }
                                         >
                                             {x}
                                         </td>
@@ -77,7 +84,13 @@ export const Play: React.FC<PlayProps> = ({
                                         <td
                                             className="text-nowrap"
                                         >
-                                            100
+                                            {
+                                                Math.random() > 0.5
+                                                    ? "100"
+                                                    : berilEasterEgg 
+                                                        ? "❤️"
+                                                        : "0"
+                                            }
                                             <span
                                                 className="text-xs text-base-content/50 ml-1"
                                             >
