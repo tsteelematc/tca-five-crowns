@@ -82,8 +82,8 @@ export const Play: React.FC<PlayProps> = ({
     };
 
     const updateScoreInScoresState = (
-        player: string 
-        , wildCard: number 
+        player: string
+        , wildCard: number
         , delta: number
     ) => {
 
@@ -102,7 +102,9 @@ export const Play: React.FC<PlayProps> = ({
                     player
                     , (scores.get(player) ?? defaultScores).map(
                         (x, i) => wildCard - 3 === i
-                            ? currentScore + adjustedDelta
+                            ? delta === 0 
+                                ? 0
+                                : currentScore + adjustedDelta
                             : x
                     )
                 )
@@ -115,16 +117,16 @@ export const Play: React.FC<PlayProps> = ({
         const scoresForPlayer = scores.get(player) ?? defaultScores;
 
         const runningTotal = scoresForPlayer.reduce(
-            (acc, x, i) => i <= (wildCard - 3) && x !== -1 
-                ? acc + x 
+            (acc, x, i) => i <= (wildCard - 3) && x !== -1
+                ? acc + x
                 : acc
             , 0
         );
 
-        return runningTotal > 0 
+        return runningTotal > 0
             ? runningTotal.toString()
             : "-"
-        ;
+            ;
     };
 
     return (
@@ -193,7 +195,7 @@ export const Play: React.FC<PlayProps> = ({
                                                         <span
                                                             className="text-xs text-base-content/50 ml-1"
                                                         >
-                                                            / { getRunningTotal(y, x) }
+                                                            / {getRunningTotal(y, x)}
                                                         </span>
                                                     </td>
                                                 )
@@ -272,6 +274,15 @@ export const Play: React.FC<PlayProps> = ({
                                 className="flex-1 ml-4 mr-4 text-xl join-item text-left"
                             >
                                 {dummyPlayers[editingPlayerIndex]}
+                                &nbsp;
+                                (
+                                {
+                                    getDisplayScore(
+                                        dummyPlayers[editingPlayerIndex]
+                                        , editingRow
+                                    )
+                                }
+                                )
                             </label>
                             <button
                                 className="flex-none btn btn-md btn-outline join-item"
@@ -286,49 +297,49 @@ export const Play: React.FC<PlayProps> = ({
                                 &gt;
                             </button>
                         </div>
-                        <div className="join text-xl flex">
+                        <div className="flex">
                             <button
-                                className="btn btn-md btn-outline join-item flex-none"
+                                className="btn btn-md btn-outline join-item"
                                 onClick={
                                     () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -1)
-                                }                                
+                                }
                             >
                                 -1
                             </button>
-                            <label
-                                className="join-item ml-4 mr-4 text-xl flex-1"
-                            >
-                                {
-                                    getDisplayScore(
-                                        dummyPlayers[editingPlayerIndex]
-                                        , editingRow
-                                    )
-                                }
-                            </label>
                             <button
-                                className="btn btn-md btn-outline join-item flex-none"
+                                className="btn btn-md btn-outline btn-success join-item ml-4"
                                 onClick={
-                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +1)
-                                }                                
-                            >
-                                +1
-                            </button>
-                            <button
-                                className="btn btn-md btn-outline join-item flex-none"
-                                onClick={
-                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +5)
+                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, 0)
                                 }
                             >
-                                +5
+                                0
                             </button>
-                            <button
-                                className="btn btn-md btn-outline join-item flex-none"
-                                onClick={
-                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +10)
-                                }
-                            >
-                                +10
-                            </button>
+                            <div className="join ml-4">
+                                <button
+                                    className="btn btn-md btn-outline btn-error join-item flex-none"
+                                    onClick={
+                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +1)
+                                    }
+                                >
+                                    +1
+                                </button>
+                                <button
+                                    className="btn btn-md btn-outline btn-error join-item flex-none"
+                                    onClick={
+                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +5)
+                                    }
+                                >
+                                    +5
+                                </button>
+                                <button
+                                    className="btn btn-md btn-outline btn-error join-item flex-none"
+                                    onClick={
+                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +10)
+                                    }
+                                >
+                                    +10
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
