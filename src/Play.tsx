@@ -82,6 +82,35 @@ export const Play: React.FC<PlayProps> = ({
                     : "0"
     };
 
+    const updateScoreInScoresState = (
+        player: string 
+        , wildCard: number 
+        , delta: number
+    ) => {
+
+        const currentScore = (scores.get(player) ?? defaultScores)[wildCard - 3];
+
+        // Use adjustedDelta to handle -1 stuffy-stuff...
+        const adjustedDelta = currentScore === -1 && delta > 0
+            ? delta + 1
+            : currentScore === -1 && delta < 0
+                ? 0
+                : delta
+
+        setScores(
+            new Map(
+                scores.set(
+                    player
+                    , (scores.get(player) ?? defaultScores).map(
+                        (x, i) => wildCard - 3 === i
+                            ? currentScore + adjustedDelta
+                            : x
+                    )
+                )
+            )
+        );
+    };
+
     return (
         <>
             <div className="overflow-x-auto mt-4">
@@ -158,7 +187,6 @@ export const Play: React.FC<PlayProps> = ({
                                 )
                             )
                         }
-
                     </tbody>
                 </table>
             </div>
@@ -245,39 +273,42 @@ export const Play: React.FC<PlayProps> = ({
                         <div className="join text-xl flex">
                             <button
                                 className="btn btn-md btn-outline join-item flex-none"
+                                onClick={
+                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -1)
+                                }                                
                             >
                                 -1
                             </button>
                             <label
                                 className="join-item ml-4 mr-4 text-xl flex-1"
                             >
-                                0
+                                {
+                                    getDisplayScore(
+                                        dummyPlayers[editingPlayerIndex]
+                                        , editingRow
+                                    )
+                                }
                             </label>
                             <button
                                 className="btn btn-md btn-outline join-item flex-none"
+                                onClick={
+                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +1)
+                                }                                
                             >
                                 +1
                             </button>
                             <button
                                 className="btn btn-md btn-outline join-item flex-none"
+                                onClick={
+                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +5)
+                                }
                             >
                                 +5
                             </button>
                             <button
                                 className="btn btn-md btn-outline join-item flex-none"
                                 onClick={
-                                    () => setScores(
-                                        new Map(
-                                            scores.set(
-                                                "Tom"
-                                                , (scores.get("Tom") ?? defaultScores).map(
-                                                    (x, i) => editingRow - 3 === i
-                                                        ? x + 10
-                                                        : x
-                                                )
-                                            )
-                                        )
-                                    )
+                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +10)
                                 }
                             >
                                 +10
