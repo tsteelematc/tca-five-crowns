@@ -199,7 +199,7 @@ export const Play: React.FC<PlayProps> = ({
                                 &lt;
                             </button>
                             <label
-                                className="flex-1 ml-2 mr-2 join-item text-center"
+                                className="flex-1 ml-4 mr-4 text-xl join-item text-left"
                             >
                                 {dummyPlayers[editingPlayerIndex]}
                             </label>
@@ -216,22 +216,22 @@ export const Play: React.FC<PlayProps> = ({
                                 &gt;
                             </button>
                         </div>
-                        <div className="join inline-block text-xl">
-                            <button className="btn btn-md btn-outline join-item">
+                        <div className="join text-xl flex">
+                            <button className="btn btn-md btn-outline join-item flex-none">
                                 -1
                             </button>
                             <label
-                                className="join-item ml-4 mr-4 text-center text-xl"
+                                className="join-item ml-4 mr-4 text-xl flex-1"
                             >
                                 0
                             </label>
-                            <button className="btn btn-md btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item flex-none">
                                 +1
                             </button>
-                            <button className="btn btn-md btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item flex-none">
                                 +5
                             </button>
-                            <button className="btn btn-md btn-outline join-item">
+                            <button className="btn btn-md btn-outline join-item flex-none">
                                 +10
                             </button>
                         </div>
