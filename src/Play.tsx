@@ -7,8 +7,7 @@ const whildCardHands = [
 ];
 
 const dummyPlayers = [
-    "Eric", "Beril", "Munch", "Tom", "Stephanie", "Harry", "Martha", "Liam", "Olivia", "Emma"
-    , "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia", "Evelyn", "Abigail", "Ella", "Scarlett"
+    "Eric", "Beril", "Munch", "Tom", "Stephanie"
 ];
 
 // -1 indicates never edited, show dash, can -1 back to dash too...
@@ -111,6 +110,23 @@ export const Play: React.FC<PlayProps> = ({
         );
     };
 
+    const getRunningTotal = (player: string, wildCard: number) => {
+
+        const scoresForPlayer = scores.get(player) ?? defaultScores;
+
+        const runningTotal = scoresForPlayer.reduce(
+            (acc, x, i) => i <= (wildCard - 3) && x !== -1 
+                ? acc + x 
+                : acc
+            , 0
+        );
+
+        return runningTotal > 0 
+            ? runningTotal.toString()
+            : "-"
+        ;
+    };
+
     return (
         <>
             <div className="overflow-x-auto mt-4">
@@ -177,7 +193,7 @@ export const Play: React.FC<PlayProps> = ({
                                                         <span
                                                             className="text-xs text-base-content/50 ml-1"
                                                         >
-                                                            / 0
+                                                            / { getRunningTotal(y, x) }
                                                         </span>
                                                     </td>
                                                 )
