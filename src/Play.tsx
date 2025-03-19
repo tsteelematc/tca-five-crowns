@@ -185,9 +185,9 @@ export const Play: React.FC<PlayProps> = ({
                         Editing scores for <span className="text-secondary font-bold">{getDisplayWildcard(editingRow)}'s</span> wild
                     </h3>
                     <div className="flex flex-col bg-info123 text-left">
-                        <div className="join my-4 inline-block text-nowrap">
+                        <div className="join my-4 flex items-center">
                             <button 
-                                className="btn btn-md btn-outline join-item"
+                                className="flex-none btn btn-md btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
                                         editingPlayerIndex > 0
@@ -199,12 +199,12 @@ export const Play: React.FC<PlayProps> = ({
                                 &lt;
                             </button>
                             <label
-                                className="ml-2 mr-2 join-item"
+                                className="flex-1 ml-2 mr-2 join-item text-center"
                             >
                                 {dummyPlayers[editingPlayerIndex]}
                             </label>
                             <button 
-                                className="btn btn-md btn-outline join-item"
+                                className="flex-none btn btn-md btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
                                         editingPlayerIndex < dummyPlayers.length - 1
