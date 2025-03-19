@@ -267,12 +267,14 @@ export const Play: React.FC<PlayProps> = ({
                                 className="btn btn-md btn-outline join-item flex-none"
                                 onClick={
                                     () => setScores(
-                                        scores.set(
-                                            "Tom"
-                                            , (scores.get("Tom") ?? defaultScores).map(
-                                                (x, i) => editingRow - 3 === i
-                                                    ? x + 10
-                                                    : x
+                                        new Map(
+                                            scores.set(
+                                                "Tom"
+                                                , (scores.get("Tom") ?? defaultScores).map(
+                                                    (x, i) => editingRow - 3 === i
+                                                        ? x + 10
+                                                        : x
+                                                )
                                             )
                                         )
                                     )
