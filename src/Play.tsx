@@ -11,6 +11,9 @@ const dummyPlayers = [
     , "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia", "Evelyn", "Abigail", "Ella", "Scarlett"
 ];
 
+// -1 indicates never edited, show dash, can -1 back to dash too...
+const defaultScores = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+
 interface PlayProps {
     addNewGameResult: (r: GameResult) => void;
     setTitle: (t: string) => void;
@@ -54,8 +57,7 @@ export const Play: React.FC<PlayProps> = ({
         dummyPlayers.reduce(
             (acc, x) => acc.set(
                 x
-                , [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-                // -1 indicates never edited, show dash, can -1 back to dash too...
+                , defaultScores
             )
             , new Map<string, number[]>()
         )
@@ -69,7 +71,7 @@ export const Play: React.FC<PlayProps> = ({
 
     const getDisplayScore = (player: string, wildCard: number) => {
 
-        const playerScores = scores.get(player) ?? [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+        const playerScores = scores.get(player) ?? defaultScores;
 
         return playerScores[wildCard - 3] === -1
             ? "-"
@@ -241,7 +243,9 @@ export const Play: React.FC<PlayProps> = ({
                             </button>
                         </div>
                         <div className="join text-xl flex">
-                            <button className="btn btn-md btn-outline join-item flex-none">
+                            <button
+                                className="btn btn-md btn-outline join-item flex-none"
+                            >
                                 -1
                             </button>
                             <label
@@ -249,13 +253,31 @@ export const Play: React.FC<PlayProps> = ({
                             >
                                 0
                             </label>
-                            <button className="btn btn-md btn-outline join-item flex-none">
+                            <button
+                                className="btn btn-md btn-outline join-item flex-none"
+                            >
                                 +1
                             </button>
-                            <button className="btn btn-md btn-outline join-item flex-none">
+                            <button
+                                className="btn btn-md btn-outline join-item flex-none"
+                            >
                                 +5
                             </button>
-                            <button className="btn btn-md btn-outline join-item flex-none">
+                            <button
+                                className="btn btn-md btn-outline join-item flex-none"
+                                onClick={
+                                    () => setScores(
+                                        scores.set(
+                                            "Tom"
+                                            , (scores.get("Tom") ?? defaultScores).map(
+                                                (x, i) => editingRow - 3 === i
+                                                    ? x + 10
+                                                    : x
+                                            )
+                                        )
+                                    )
+                                }
+                            >
                                 +10
                             </button>
                         </div>
