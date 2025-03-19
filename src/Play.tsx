@@ -261,7 +261,7 @@ export const Play: React.FC<PlayProps> = ({
                     <div className="flex flex-col bg-info123 text-left">
                         <div className="join my-4 flex items-center">
                             <button
-                                className="flex-none btn btn-md btn-outline join-item"
+                                className="flex-none btn btn-sm btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
                                         editingPlayerIndex > 0
@@ -287,7 +287,7 @@ export const Play: React.FC<PlayProps> = ({
                                 )
                             </label>
                             <button
-                                className="flex-none btn btn-md btn-outline join-item"
+                                className="flex-none btn btn-sm btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
                                         editingPlayerIndex < dummyPlayers.length - 1
@@ -302,7 +302,7 @@ export const Play: React.FC<PlayProps> = ({
                         <div className="flex">
                             <div className="join">
                                 <button
-                                    className="btn btn-md btn-outline join-item"
+                                    className="btn btn-sm btn-outline join-item"
                                     onClick={
                                         () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -5)
                                     }
@@ -310,7 +310,7 @@ export const Play: React.FC<PlayProps> = ({
                                     -5
                                 </button>
                                 <button
-                                    className="btn btn-md btn-outline join-item"
+                                    className="btn btn-sm btn-outline join-item"
                                     onClick={
                                         () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -1)
                                     }
@@ -319,7 +319,7 @@ export const Play: React.FC<PlayProps> = ({
                                 </button>
                             </div>
                             <button
-                                className="btn btn-md btn-outline btn-success join-item ml-4"
+                                className="btn btn-sm btn-outline btn-success join-item ml-4"
                                 onClick={
                                     () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, 0)
                                 }
@@ -328,7 +328,7 @@ export const Play: React.FC<PlayProps> = ({
                             </button>
                             <div className="join ml-4">
                                 <button
-                                    className="btn btn-md btn-outline btn-error join-item flex-none"
+                                    className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
                                         () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +1)
                                     }
@@ -336,7 +336,7 @@ export const Play: React.FC<PlayProps> = ({
                                     +1
                                 </button>
                                 <button
-                                    className="btn btn-md btn-outline btn-error join-item flex-none"
+                                    className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
                                         () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +5)
                                     }
@@ -344,7 +344,7 @@ export const Play: React.FC<PlayProps> = ({
                                     +5
                                 </button>
                                 <button
-                                    className="btn btn-md btn-outline btn-error join-item flex-none"
+                                    className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
                                         () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +10)
                                     }
