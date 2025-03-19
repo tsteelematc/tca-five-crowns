@@ -48,10 +48,36 @@ export const Play: React.FC<PlayProps> = ({
     const [editingRow, setEditingRow] = useState(0);
     const [editingPlayerIndex, setEditingPlayer] = useState(0);
 
+    // Use a Map for local state, but spread into array of arrays for
+    // GameResult, i-o-g...
+    const [scores, setScores] = useState(
+        dummyPlayers.reduce(
+            (acc, x) => acc.set(
+                x
+                , [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+                // -1 indicates never edited, show dash, can -1 back to dash too...
+            )
+            , new Map<string, number[]>()
+        )
+    );
+
     const editRow = (wildCard: number) => {
         setEditingRow(wildCard);
         setEditingPlayer(0);
         editRowDialogRef.current?.showModal();
+    };
+
+    const getDisplayScore = (player: string, wildCard: number) => {
+
+        const playerScores = scores.get(player) ?? [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+
+        return playerScores[wildCard - 3] === -1
+            ? "-"
+            : playerScores[wildCard - 3] > 0
+                ? playerScores[wildCard - 3]
+                : berilEasterEgg
+                    ? "❤️"
+                    : "0"
     };
 
     return (
@@ -108,26 +134,24 @@ export const Play: React.FC<PlayProps> = ({
 
                                             </div>
                                         </th>
-                                        <td
-                                            className="text-nowrap"
-                                        >
-                                            {
-                                                Math.random() > 0.5
-                                                    ? "100"
-                                                    : berilEasterEgg
-                                                        ? "❤️"
-                                                        : "0"
-                                            }
-                                            <span
-                                                className="text-xs text-base-content/50 ml-1"
-                                            >
-                                                / 200
-                                            </span>
-                                        </td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        {
+                                            dummyPlayers.map(
+                                                y => (
+                                                    <td
+                                                        className="text-nowrap"
+                                                    >
+                                                        {
+                                                            getDisplayScore(y, x)
+                                                        }
+                                                        <span
+                                                            className="text-xs text-base-content/50 ml-1"
+                                                        >
+                                                            / 0
+                                                        </span>
+                                                    </td>
+                                                )
+                                            )
+                                        }
                                     </tr>
                                 )
                             )
@@ -186,7 +210,7 @@ export const Play: React.FC<PlayProps> = ({
                     </h3>
                     <div className="flex flex-col bg-info123 text-left">
                         <div className="join my-4 flex items-center">
-                            <button 
+                            <button
                                 className="flex-none btn btn-md btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
@@ -203,7 +227,7 @@ export const Play: React.FC<PlayProps> = ({
                             >
                                 {dummyPlayers[editingPlayerIndex]}
                             </label>
-                            <button 
+                            <button
                                 className="flex-none btn btn-md btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
