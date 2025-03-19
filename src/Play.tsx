@@ -46,9 +46,11 @@ export const Play: React.FC<PlayProps> = ({
 
     const editRowDialogRef = useRef<HTMLDialogElement | null>(null);
     const [editingRow, setEditingRow] = useState(0);
+    const [editingPlayerIndex, setEditingPlayer] = useState(0);
 
     const editRow = (wildCard: number) => {
         setEditingRow(wildCard);
+        setEditingPlayer(0);
         editRowDialogRef.current?.showModal();
     };
 
@@ -184,15 +186,33 @@ export const Play: React.FC<PlayProps> = ({
                     </h3>
                     <div className="flex flex-col bg-info123 text-left">
                         <div className="join my-4 inline-block text-nowrap">
-                            <button className="btn btn-md btn-outline join-item">
+                            <button 
+                                className="btn btn-md btn-outline join-item"
+                                onClick={
+                                    () => setEditingPlayer(
+                                        editingPlayerIndex > 0
+                                            ? editingPlayerIndex - 1
+                                            : dummyPlayers.length - 1
+                                    )
+                                }
+                            >
                                 &lt;
                             </button>
                             <label
                                 className="ml-2 mr-2 join-item"
                             >
-                                Tommy Boy with Long name
+                                {dummyPlayers[editingPlayerIndex]}
                             </label>
-                            <button className="btn btn-md btn-outline join-item">
+                            <button 
+                                className="btn btn-md btn-outline join-item"
+                                onClick={
+                                    () => setEditingPlayer(
+                                        editingPlayerIndex < dummyPlayers.length - 1
+                                            ? editingPlayerIndex + 1
+                                            : 0
+                                    )
+                                }
+                            >
                                 &gt;
                             </button>
                         </div>
