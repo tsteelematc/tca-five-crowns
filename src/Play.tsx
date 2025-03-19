@@ -89,12 +89,14 @@ export const Play: React.FC<PlayProps> = ({
 
         const currentScore = (scores.get(player) ?? defaultScores)[wildCard - 3];
 
-        // Use adjustedDelta to handle -1 stuffy-stuff...
-        const adjustedDelta = currentScore === -1 && delta > 0
-            ? delta + 1
-            : currentScore === -1 && delta < 0
-                ? 0
-                : delta
+        // Handle -1 stuffy-stuff...
+        const newScore = delta === 0
+            ? 0
+            : currentScore === -1 && delta > 0
+                ? currentScore + 1 + delta
+                : currentScore === -1 && delta < 0
+                    ? -1
+                    : currentScore + delta
 
         setScores(
             new Map(
@@ -102,9 +104,9 @@ export const Play: React.FC<PlayProps> = ({
                     player
                     , (scores.get(player) ?? defaultScores).map(
                         (x, i) => wildCard - 3 === i
-                            ? delta === 0 
-                                ? 0
-                                : currentScore + adjustedDelta
+                            ? newScore < 0 
+                                ? Math.max(newScore, -1)
+                                : newScore
                             : x
                     )
                 )
@@ -298,14 +300,24 @@ export const Play: React.FC<PlayProps> = ({
                             </button>
                         </div>
                         <div className="flex">
-                            <button
-                                className="btn btn-md btn-outline join-item"
-                                onClick={
-                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -1)
-                                }
-                            >
-                                -1
-                            </button>
+                            <div className="join">
+                                <button
+                                    className="btn btn-md btn-outline join-item"
+                                    onClick={
+                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -5)
+                                    }
+                                >
+                                    -5
+                                </button>
+                                <button
+                                    className="btn btn-md btn-outline join-item"
+                                    onClick={
+                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -1)
+                                    }
+                                >
+                                    -1
+                                </button>
+                            </div>
                             <button
                                 className="btn btn-md btn-outline btn-success join-item ml-4"
                                 onClick={
