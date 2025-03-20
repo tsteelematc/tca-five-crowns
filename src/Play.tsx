@@ -118,17 +118,21 @@ export const Play: React.FC<PlayProps> = ({
 
         const scoresForPlayer = scores.get(player) ?? defaultScores;
 
-        const runningTotal = scoresForPlayer.reduce(
-            (acc, x, i) => i <= (wildCard - 3) && x !== -1
-                ? acc + x
-                : acc
-            , 0
-        );
+        const runningTotal = scoresForPlayer
+            // Ooh, replace -1's with zeros before calc RT, i-o-g...
+            .map(
+                x => x === -1
+                    ? 0
+                    : x
+            )
+            .reduce(
+                (acc, x, i) => i <= (wildCard - 3)
+                    ? acc + x
+                    : acc
+                , 0
+            );
 
-        return runningTotal > 0
-            ? runningTotal.toString()
-            : "-"
-            ;
+        return runningTotal;
     };
 
     return (
