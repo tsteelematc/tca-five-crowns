@@ -176,7 +176,7 @@ export const Play: React.FC<PlayProps> = ({
                 buttons (below) to enter scores for each hand...
             </p>
             <div className="overflow-x-auto mt-4">
-                <table className="table table-lg table-pin-rows table-pin-cols">
+                <table className="table table-zebra table-lg table-pin-rows table-pin-cols">
                     <thead>
                         <tr>
                             <td
