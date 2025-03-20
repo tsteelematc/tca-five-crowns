@@ -261,7 +261,7 @@ export const Play: React.FC<PlayProps> = ({
                     possibleWinners.map(
                         x => (
                             <button
-                                className="btn btn-active btn-secondary btn-lg"
+                                className="btn btn-active btn-secondary btn-lg truncate"
                                 onClick={
                                     () => {
                                         addNewGameResult({
