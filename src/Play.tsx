@@ -104,7 +104,7 @@ export const Play: React.FC<PlayProps> = ({
                     player
                     , (scores.get(player) ?? defaultScores).map(
                         (x, i) => wildCard - 3 === i
-                            ? newScore < 0 
+                            ? newScore < 0
                                 ? Math.max(newScore, -1)
                                 : newScore
                             : x
@@ -135,7 +135,7 @@ export const Play: React.FC<PlayProps> = ({
         return runningTotal;
     };
 
-    const getPlayersWithLowestScore = () => {
+    const getPlayersWithLowestScore = (): string[] => {
 
         // Tuple [string, number] incoming...
         const playersWithTheirTotals: [string, number][] = dummyPlayers.map(
@@ -161,9 +161,10 @@ export const Play: React.FC<PlayProps> = ({
             .map(
                 x => x[0]
             )
-            .join(" & ")
-        ;
+            ;
     };
+
+    const possibleWinners = getPlayersWithLowestScore();
 
     return (
         <>
@@ -244,33 +245,47 @@ export const Play: React.FC<PlayProps> = ({
                     </tbody>
                 </table>
             </div>
-
+            {
+                possibleWinners.length > 1 && (
+                    <p
+                        className="mt-4"
+                    >
+                        Some players are tied, cut cards, rock-paper-scissors, somehow choose a single winner ! ! !
+                    </p>
+                )
+            }
             <div
-                className="flex flex-row"
+                className="grid grid-cols-2 gap-2 mt-4"
             >
+                {
+                    possibleWinners.map(
+                        x => (
+                            <button
+                                className="btn btn-active btn-secondary btn-lg"
+                                onClick={
+                                    () => {
+                                        addNewGameResult({
+                                            winner: "Barbie"
+                                            , players: [
+                                                "Barbie"
+                                                , "Ken"
+                                            ]
+                                            , start: startTimestamp
+                                            , end: new Date().toISOString()
+                                        });
+                                        nav(-2);
+                                    }
+                                }
+                            >
+                                {
+                                    `${x} Won`
+                                }
+                            </button>
+                        )
+                    )
+                }
                 <button
-                    className="btn btn-active btn-secondary btn-lg my-4"
-                    onClick={
-                        () => {
-                            addNewGameResult({
-                                winner: "Barbie"
-                                , players: [
-                                    "Barbie"
-                                    , "Ken"
-                                ]
-                                , start: startTimestamp
-                                , end: new Date().toISOString()
-                            });
-                            nav(-2);
-                        }
-                    }
-                >
-                    {
-                        `${getPlayersWithLowestScore()} Won`
-                    } 
-                </button>
-                <button 
-                    className="btn btn-outline btn-secondary btn-lg my-4 ml-2"
+                    className="btn btn-outline btn-secondary btn-lg"
                     onClick={
                         () => nav(-2)
                     }
