@@ -135,6 +135,36 @@ export const Play: React.FC<PlayProps> = ({
         return runningTotal;
     };
 
+    const getPlayersWithLowestScore = () => {
+
+        // Tuple [string, number] incoming...
+        const playersWithTheirTotals: [string, number][] = dummyPlayers.map(
+            x => [
+                x
+                , getRunningTotal(
+                    x
+                    , 13 // Last hand, hardcoded, but meh, should work forever : - O
+                )
+            ]
+        );
+
+        const lowestScore = Math.min(
+            ...playersWithTheirTotals.map(
+                x => x[1]
+            )
+        );
+
+        return playersWithTheirTotals
+            .filter(
+                x => x[1] === lowestScore
+            )
+            .map(
+                x => x[0]
+            )
+            .join(" & ")
+        ;
+    };
+
     return (
         <>
             <div className="overflow-x-auto mt-4">
@@ -235,9 +265,16 @@ export const Play: React.FC<PlayProps> = ({
                         }
                     }
                 >
-                    Tom Won
+                    {
+                        `${getPlayersWithLowestScore()} Won`
+                    } 
                 </button>
-                <button className="btn btn-outline btn-secondary btn-lg my-4 ml-2">
+                <button 
+                    className="btn btn-outline btn-secondary btn-lg my-4 ml-2"
+                    onClick={
+                        () => nav(-2)
+                    }
+                >
                     Quit
                 </button>
             </div>
