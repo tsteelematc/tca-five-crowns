@@ -207,6 +207,7 @@ export const Play: React.FC<PlayProps> = ({
                             whildCardHands.map(
                                 x => (
                                     <tr
+                                        key={x}
                                         className="text-left"
                                     >
                                         <th
@@ -235,6 +236,7 @@ export const Play: React.FC<PlayProps> = ({
                                             dummyPlayers.map(
                                                 y => (
                                                     <td
+                                                        key={y}
                                                         className="text-nowrap"
                                                     >
                                                         {
@@ -272,6 +274,7 @@ export const Play: React.FC<PlayProps> = ({
                     possibleWinners.map(
                         x => (
                             <button
+                                key={x}
                                 className="btn btn-active btn-secondary btn-lg truncate"
                                 onClick={
                                     () => {
