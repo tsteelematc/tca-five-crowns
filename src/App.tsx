@@ -9,6 +9,7 @@ import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
 import { GameResult, getGeneralFacts, getLeaderboard } from './GameResults';
+import copyTextToClipboard from 'copy-text-to-clipboard';
 
 const dummyGameResults: GameResult[] = [
   {
@@ -46,12 +47,18 @@ const App = () => {
   //
   // Other code (not hooks)...
   //
-  const addNewGameResult = (newGameResult: GameResult) => setGameResults(
-    [
-      ...gameResults
-      , newGameResult
-    ]
-  );
+  const addNewGameResult = (newGameResult: GameResult) => {
+    copyTextToClipboard(
+      JSON.stringify(newGameResult)
+    );
+
+    setGameResults(
+      [
+        ...gameResults
+        , newGameResult
+      ]
+    );
+  };
 
   return (
     <div
