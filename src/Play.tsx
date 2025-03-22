@@ -286,6 +286,9 @@ export const Play: React.FC<PlayProps> = ({
                                             ]
                                             , start: startTimestamp
                                             , end: new Date().toISOString()
+                                            , scores: [
+                                                ...scores
+                                            ]
                                         });
                                         nav(-2);
                                     }

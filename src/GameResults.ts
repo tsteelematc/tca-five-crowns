@@ -14,7 +14,8 @@ export interface GameResult {
     winner: string;
     players: string[];
     start: string;
-    end: string;    
+    end: string;
+    scores: [string, number[]][];
 };
 
 export interface LeaderboardEntry {
