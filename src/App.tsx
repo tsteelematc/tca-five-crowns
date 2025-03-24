@@ -101,6 +101,7 @@ const App = () => {
                 <Play 
                   addNewGameResult={addNewGameResult}
                   setTitle={setTitle}
+                  currentPlayers={currentPlayers}
                 />
               } 
             />

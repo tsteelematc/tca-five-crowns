@@ -36,9 +36,13 @@ export const Setup: React.FC<SetupProps> = ({
                 onClick={
                     () => {
                         setCurrentPlayers(
-                            availablePlayers.map(
-                                x => x.name
-                            )
+                            availablePlayers
+                                .filter(
+                                    x => x.checked
+                                )
+                                .map(
+                                    x => x.name
+                                )
                         );
                         foobarcat('/play');
                     }
