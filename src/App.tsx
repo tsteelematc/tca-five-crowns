@@ -51,6 +51,8 @@ const App = () => {
     ]
   );
 
+  const [currentPlayers, setCurrentPlayers] = useState<string[]>([]);
+
   return (
     <div
       className='p-0'
@@ -89,6 +91,7 @@ const App = () => {
                 <Setup 
                   setTitle={setTitle}
                   previousPlayers={getPreviousPlayers(gameResults)}
+                  setCurrentPlayers={setCurrentPlayers}
                 />
               } 
             />
