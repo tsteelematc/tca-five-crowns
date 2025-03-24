@@ -28,6 +28,14 @@ export const Setup: React.FC<SetupProps> = ({
             })
         )
     );
+    
+    const twoToSevenPlayersChosen = (): boolean => {
+        const checkedCount = availablePlayers.filter(x => x.checked).length;
+        return (
+            checkedCount >= 2 
+                && checkedCount <= 7
+        );
+    };
 
     return (
         <>
@@ -47,8 +55,13 @@ export const Setup: React.FC<SetupProps> = ({
                         foobarcat('/play');
                     }
                 }
+                disabled={!twoToSevenPlayersChosen()}
             >
-                Start Playing
+                { 
+                    twoToSevenPlayersChosen()
+                        ? "Start Playing"
+                        : "Choose 2-7 Players"
+                }
             </button>
             <div className="mt-4">
                 {
