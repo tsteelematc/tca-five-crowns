@@ -27,7 +27,7 @@ export const Home: React.FC<HomeProps> = ({
     return (
         <>
             <button
-                className="btn btn-active btn-secondary btn-lg mt-4"
+                className="btn btn-active btn-secondary btn-lg mt-4 w-full lg:w-64 text-nowrap truncate"
                 onClick={
                     () => nav("/setup")
                 }

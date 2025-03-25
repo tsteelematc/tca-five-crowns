@@ -28,19 +28,20 @@ export const Setup: React.FC<SetupProps> = ({
             })
         )
     );
+
+    const checkedPlayerCount = availablePlayers.filter(x => x.checked).length;
     
-    const twoToSevenPlayersChosen = (): boolean => {
-        const checkedCount = availablePlayers.filter(x => x.checked).length;
-        return (
-            checkedCount >= 2 
-                && checkedCount <= 7
-        );
-    };
+    const twoToSevenPlayersChosen = 
+            // Note, there is a solo mode, but the app doesn't support any fun
+            // facts for the solo mode...
+            checkedPlayerCount >= 2 
+                && checkedPlayerCount <= 7
+    ;
 
     return (
         <>
             <button
-                className="btn btn-active btn-secondary btn-lg mt-4"
+                className="btn btn-active btn-secondary btn-lg mt-4 w-full lg:w-64 text-nowrap truncate"
                 onClick={
                     () => {
                         setCurrentPlayers(
@@ -55,10 +56,10 @@ export const Setup: React.FC<SetupProps> = ({
                         foobarcat('/play');
                     }
                 }
-                disabled={!twoToSevenPlayersChosen()}
+                disabled={!twoToSevenPlayersChosen}
             >
                 { 
-                    twoToSevenPlayersChosen()
+                    twoToSevenPlayersChosen
                         ? "Start Playing"
                         : "Choose 2-7 Players"
                 }
