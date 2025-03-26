@@ -13,6 +13,10 @@ export const Setup: React.FC<SetupProps> = ({
     , setCurrentPlayers
 }) => {
 
+    //
+    // Hooks, state, effects, blah, blah, blah...
+    //
+
     useEffect(
         () => setTitle("Setup")
         , []
@@ -29,10 +33,18 @@ export const Setup: React.FC<SetupProps> = ({
         )
     );
 
+    //
+    // Other calcs, funcs, derived state, blah, blah, blah...
+    //
+    const numberOfChosenPlayers = availablePlayers.filter(x => x.checked).length;
+    const twoToSevenPlayersChosen = numberOfChosenPlayers >= 2
+        && numberOfChosenPlayers <= 7
+    ;
+
     return (
         <>
             <button
-                className="btn btn-active btn-secondary btn-lg mt-4"
+                className="btn btn-active btn-secondary btn-lg mt-4 w-full lg:w-64"
                 onClick={
                     () => {
                         setCurrentPlayers(
@@ -49,8 +61,13 @@ export const Setup: React.FC<SetupProps> = ({
                         nav('/play');
                     }
                 }
+                disabled={!twoToSevenPlayersChosen}
             >
-                Start Playing
+                {
+                    twoToSevenPlayersChosen
+                        ? "Start Playing"
+                        : "Choose 2-7 Players"
+                }
             </button>
             <div 
                 className="mt-4"
