@@ -41,15 +41,18 @@ export const Setup: React.FC<SetupProps> = ({
     const numberOfChosenPlayers = availablePlayers.filter(x => x.checked).length;
     const twoToSevenPlayersChosen = numberOfChosenPlayers >= 2
         && numberOfChosenPlayers <= 7
+        ;
+
+    const validNewPlayerName = newPlayerName.length > 0
+        && !availablePlayers.some(
+            x => x.name.toUpperCase() === newPlayerName.toUpperCase()
+        )
     ;
 
     const validateAndAddNewPlayer = () => {
 
         if (
-            newPlayerName.length === 0
-                || availablePlayers.some(
-                    x => x.name.toUpperCase() === newPlayerName.toUpperCase()
-                )
+            !validNewPlayerName
         ) {
             // Do nothing for now, could add some visual validation, blah, blah, blah...
             return;
@@ -104,7 +107,7 @@ export const Setup: React.FC<SetupProps> = ({
                 <input
                     type="text"
                     placeholder="Enter new player name..."
-                    className="input"
+                    className={`input ${validNewPlayerName ? '' : 'input-error'}`}
                     value={newPlayerName}
                     onChange={
                         (e) => setNewPlayerName(
