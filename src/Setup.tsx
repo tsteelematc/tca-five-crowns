@@ -43,8 +43,7 @@ export const Setup: React.FC<SetupProps> = ({
         && numberOfChosenPlayers <= 7
         ;
 
-    const validNewPlayerName = newPlayerName.length > 0
-        && !availablePlayers.some(
+    const duplicateNewPlayerName = availablePlayers.some(
             x => x.name.toUpperCase() === newPlayerName.toUpperCase()
         )
     ;
@@ -52,7 +51,8 @@ export const Setup: React.FC<SetupProps> = ({
     const validateAndAddNewPlayer = () => {
 
         if (
-            !validNewPlayerName
+            newPlayerName.length === 0
+                || duplicateNewPlayerName
         ) {
             // Do nothing for now, could add some visual validation, blah, blah, blah...
             return;
@@ -107,7 +107,7 @@ export const Setup: React.FC<SetupProps> = ({
                 <input
                     type="text"
                     placeholder="Enter new player name..."
-                    className={`input ${validNewPlayerName ? '' : 'input-error'}`}
+                    className={`input ${duplicateNewPlayerName ? 'input-error' : ''}`}
                     value={newPlayerName}
                     onChange={
                         (e) => setNewPlayerName(
