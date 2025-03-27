@@ -29,11 +29,11 @@ export const Play: React.FC<PlayProps> = ({
 
     return (
         <>
-            <h4 
+            <h4
                 className="text-lg font-semibold"
             >
                 Turn #{turnNumber}
-                <button 
+                <button
                     className="btn btn-xs btn-outline btn-light ml-4"
                     onClick={
                         () => {
@@ -47,13 +47,14 @@ export const Play: React.FC<PlayProps> = ({
                     +
                 </button>
             </h4>
-            <div 
+            <div
                 className="grid grid-cols-2 gap-2 mt-4"
             >
                 {
                     currentPlayers.map(
                         x => (
                             <button
+                                key={x}
                                 className="btn btn-active btn-secondary btn-lg mt-4"
                                 onClick={
                                     () => {
@@ -62,6 +63,7 @@ export const Play: React.FC<PlayProps> = ({
                                             , players: currentPlayers
                                             , start: startTimestamp
                                             , end: new Date().toISOString()
+                                            , turnCount: turnNumber
                                         });
                                         nav(-2);
                                     }

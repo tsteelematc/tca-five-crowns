@@ -1,34 +1,36 @@
 import './App.css'
 import {
   HashRouter
-  , Routes 
+  , Routes
   , Route
 } from 'react-router';
 import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
-import { GameResult, getGeneralFacts, getLeaderboard, getPreviousPlayers } from './GameResults';
+import { GameResult, getGeneralFacts, getLeaderboard, getPreviousPlayers, getAverageTurnCount } from './GameResults';
 
 const dummyGameResults: GameResult[] = [
   {
-      winner: "Hermione"
-      , players: [
-          "Hermione"
-          , "Harry"
-          , "Ron"
-      ]
-      , start: "2025-03-01T18:20:41.576Z"
-      , end: "2025-03-01T18:35:42.576Z"        
+    winner: "Hermione"
+    , players: [
+      "Hermione"
+      , "Harry"
+      , "Ron"
+    ]
+    , start: "2025-03-01T18:20:41.576Z"
+    , end: "2025-03-01T18:35:42.576Z"
+    , turnCount: 15
   }
   , {
-      winner: "Ron"
-      , players: [
-          "Hermione"
-          , "Ron"
-      ]
-      , start: "2025-03-05T18:40:27.576Z"
-      , end: "2025-03-05T18:45:42.576Z"        
+    winner: "Ron"
+    , players: [
+      "Hermione"
+      , "Ron"
+    ]
+    , start: "2025-03-05T18:40:27.576Z"
+    , end: "2025-03-05T18:45:42.576Z"
+    , turnCount: 10
   }
 ];
 
@@ -58,16 +60,16 @@ const App = () => {
     <div
       className='p-0'
     >
-      <div 
+      <div
         className="navbar bg-base-300 shadow-lg"
       >
-        <h1 
+        <h1
           className="text-xl font-bold"
         >
-          { title }
+          {title}
         </h1>
       </div>
-      <div 
+      <div
         className="p-4"
       >
         <HashRouter>
@@ -83,28 +85,31 @@ const App = () => {
                   generalFacts={
                     getGeneralFacts(gameResults)
                   }
+                  averageTurnCount={
+                    getAverageTurnCount(gameResults) // Pass average turn count as a prop
+                  }
                 />
-              } 
+              }
             />
             <Route
               path='/setup'
               element={
-                <Setup 
+                <Setup
                   setTitle={setTitle}
                   previousPlayers={getPreviousPlayers(gameResults)}
                   setCurrentPlayers={setCurrentPlayers}
                 />
-              } 
+              }
             />
             <Route
               path='/play'
               element={
-                <Play 
+                <Play
                   addNewGameResult={addNewGameResult}
                   setTitle={setTitle}
                   currentPlayers={currentPlayers}
                 />
-              } 
+              }
             />
           </Routes>
         </HashRouter>
@@ -113,4 +118,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
