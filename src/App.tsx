@@ -56,10 +56,10 @@ const App = () => {
 
   return (
     <div
-      className='p-0'
+      className='p-0 overflow-x-hidden'
     >
       <div 
-        className="navbar bg-base-300 shadow-lg"
+        className="navbar bg-base-300 shadow-lg overflow-x-hidden"
       >
         <h1 
           className="text-xl font-bold"

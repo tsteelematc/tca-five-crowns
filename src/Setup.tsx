@@ -76,7 +76,7 @@ export const Setup: React.FC<SetupProps> = ({
     return (
         <>
             <button
-                className="btn btn-active btn-secondary btn-lg mt-4 w-full lg:w-64"
+                className="btn btn-active btn-secondary btn-lg mt-4 w-full lg:w-64 text-nowrap overflow-x-hidden"
                 onClick={
                     () => {
                         setCurrentPlayers(
@@ -101,7 +101,9 @@ export const Setup: React.FC<SetupProps> = ({
                         : "Choose 2-7 Players"
                 }
             </button>
-            <div className="mt-4 flex">
+            <div 
+                className="mt-4 flex overflow-x-hidden"
+            >
                 <input 
                     type="text" 
                     placeholder="Enter new player name..." 
@@ -121,7 +123,7 @@ export const Setup: React.FC<SetupProps> = ({
                 </button>
             </div>
             <div 
-                className="mt-4"
+                className="mt-4 text-nowrap overflow-x-hidden"
             >
                 {
                     availablePlayers.map(
