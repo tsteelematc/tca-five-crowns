@@ -8,7 +8,7 @@ import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
-import { GameResult, getGeneralFacts, getLeaderboard } from './GameResults';
+import { GameResult, getGeneralFacts, getLeaderboard, getPreviousPlayers } from './GameResults';
 import copyTextToClipboard from 'copy-text-to-clipboard';
 
 const dummyGameResults: GameResult[] = [
@@ -44,6 +44,9 @@ const App = () => {
   // const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   const [title, setTitle] = useState(AppTitle);
+
+  const [currentPlayers, setCurrentPlayers] = useState<string[]>([]);
+
   //
   // Other code (not hooks)...
   //
@@ -62,10 +65,10 @@ const App = () => {
 
   return (
     <div
-      className='p-0'
+      className='p-0 overflow-x-hidden'
     >
       <div 
-        className="navbar bg-base-300 shadow-lg"
+        className="navbar bg-base-300 shadow-lg overflow-x-hidden"
       >
         <h1 
           className="text-xl font-bold"
@@ -97,6 +100,8 @@ const App = () => {
               element={
                 <Setup 
                   setTitle={setTitle}
+                  previousPlayers={getPreviousPlayers(gameResults)}
+                  setCurrentPlayers={setCurrentPlayers}
                 />
               } 
             />
@@ -106,6 +111,7 @@ const App = () => {
                 <Play 
                   addNewGameResult={addNewGameResult}
                   setTitle={setTitle}
+                  currentPlayers={currentPlayers}
                 />
               } 
             />

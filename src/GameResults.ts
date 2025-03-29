@@ -66,6 +66,15 @@ export const getLeaderboard = (
 
 export const getGeneralFacts = (results: GameResult[]): GeneralFacts => {
 
+    if (results.length === 0) {
+        return {
+            lastPlayed: "n/a"
+            , totalGames: 0
+            , shortestGame: "n/a"
+            , longestGame: "n/a"
+        };
+    }
+
     // Calcs for lastPlayed...
     const now = Date.now();
 
@@ -90,6 +99,20 @@ export const getGeneralFacts = (results: GameResult[]): GeneralFacts => {
         , shortestGame: formatGameDuration(Math.min(...gameDurationsInMilliseconds))
         , longestGame: formatGameDuration(Math.max(...gameDurationsInMilliseconds))
     };
+};
+
+export const getPreviousPlayers = (
+    results: GameResult[]
+) => {
+    const allPlayersForAllGamesWithDupes = results.flatMap(
+        x => x.players
+    );
+
+    return [
+        ...new Set(allPlayersForAllGamesWithDupes)
+    ].sort(
+        (a, b) => a.localeCompare(b)
+    );
 };
 
 //
@@ -121,18 +144,4 @@ const getLeaderboardEntry = (
         , average: avg.toFixed(3)
         , player: player
     };
-};
-
-const getPreviousPlayers = (
-    results: GameResult[]
-) => {
-    const allPlayersForAllGamesWithDupes = results.flatMap(
-        x => x.players
-    );
-
-    return [
-        ...new Set(allPlayersForAllGamesWithDupes)
-    ].sort(
-        (a, b) => a.localeCompare(b)
-    );
 };
