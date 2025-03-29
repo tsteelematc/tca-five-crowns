@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { GeneralFacts, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
-export const AppTitle = "Five Crowns";
+export const AppTitle = "Five Crowns Companion";
 
 interface HomeProps {
     leaderboardData: LeaderboardEntry[];
