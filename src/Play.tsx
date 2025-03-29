@@ -6,16 +6,13 @@ const whildCardHands = [
     3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 ];
 
-const dummyPlayers = [
-    "Eric", "Beril", "Munch", "Tom", "Stephanie"
-];
-
 // -1 indicates never edited, show dash, can -1 back to dash too...
 const defaultScores = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 
 interface PlayProps {
     addNewGameResult: (r: GameResult) => void;
     setTitle: (t: string) => void;
+    currentPlayers: string[]
 };
 
 const getDisplayWildcard = (x: number): string => (
@@ -31,6 +28,7 @@ const getDisplayWildcard = (x: number): string => (
 export const Play: React.FC<PlayProps> = ({
     addNewGameResult
     , setTitle
+    , currentPlayers
 }) => {
 
     useEffect(
@@ -53,7 +51,7 @@ export const Play: React.FC<PlayProps> = ({
     // Use a Map for local state, but spread into array of arrays for
     // GameResult, i-o-g...
     const [scores, setScores] = useState(
-        dummyPlayers.reduce(
+        currentPlayers.reduce(
             (acc, x) => acc.set(
                 x
                 , defaultScores
@@ -138,7 +136,7 @@ export const Play: React.FC<PlayProps> = ({
     const getPlayersWithLowestScore = (): string[] => {
 
         // Tuple [string, number] incoming...
-        const playersWithTheirTotals: [string, number][] = dummyPlayers.map(
+        const playersWithTheirTotals: [string, number][] = currentPlayers.map(
             x => [
                 x
                 , getRunningTotal(
@@ -185,7 +183,7 @@ export const Play: React.FC<PlayProps> = ({
                                 Wild Card
                             </td>
                             {
-                                dummyPlayers.map(
+                                currentPlayers.map(
                                     x => (
                                         <td
                                             key={x}
@@ -233,7 +231,7 @@ export const Play: React.FC<PlayProps> = ({
                                             </div>
                                         </th>
                                         {
-                                            dummyPlayers.map(
+                                            currentPlayers.map(
                                                 y => (
                                                     <td
                                                         key={y}
@@ -279,11 +277,8 @@ export const Play: React.FC<PlayProps> = ({
                                 onClick={
                                     () => {
                                         addNewGameResult({
-                                            winner: "Barbie"
-                                            , players: [
-                                                "Barbie"
-                                                , "Ken"
-                                            ]
+                                            winner: x
+                                            , players: currentPlayers
                                             , start: startTimestamp
                                             , end: new Date().toISOString()
                                             , scores: [
@@ -339,7 +334,7 @@ export const Play: React.FC<PlayProps> = ({
                                     () => setEditingPlayer(
                                         editingPlayerIndex > 0
                                             ? editingPlayerIndex - 1
-                                            : dummyPlayers.length - 1
+                                            : currentPlayers.length - 1
                                     )
                                 }
                             >
@@ -348,12 +343,12 @@ export const Play: React.FC<PlayProps> = ({
                             <label
                                 className="flex-1 ml-4 mr-4 text-xl join-item text-left"
                             >
-                                {dummyPlayers[editingPlayerIndex]}
+                                {currentPlayers[editingPlayerIndex]}
                                 &nbsp;
                                 (
                                 {
                                     getDisplayScore(
-                                        dummyPlayers[editingPlayerIndex]
+                                        currentPlayers[editingPlayerIndex]
                                         , editingRow
                                     )
                                 }
@@ -363,7 +358,7 @@ export const Play: React.FC<PlayProps> = ({
                                 className="flex-none btn btn-sm btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
-                                        editingPlayerIndex < dummyPlayers.length - 1
+                                        editingPlayerIndex < currentPlayers.length - 1
                                             ? editingPlayerIndex + 1
                                             : 0
                                     )
@@ -377,7 +372,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline join-item"
                                     onClick={
-                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -5)
+                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, -5)
                                     }
                                 >
                                     -5
@@ -385,7 +380,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline join-item"
                                     onClick={
-                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, -1)
+                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, -1)
                                     }
                                 >
                                     -1
@@ -394,7 +389,7 @@ export const Play: React.FC<PlayProps> = ({
                             <button
                                 className="btn btn-sm btn-outline btn-success join-item ml-4"
                                 onClick={
-                                    () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, 0)
+                                    () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, 0)
                                 }
                             >
                                 0
@@ -403,7 +398,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
-                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +1)
+                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, +1)
                                     }
                                 >
                                     +1
@@ -411,7 +406,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
-                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +5)
+                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, +5)
                                     }
                                 >
                                     +5
@@ -419,7 +414,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
-                                        () => updateScoreInScoresState(dummyPlayers[editingPlayerIndex], editingRow, +10)
+                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, +10)
                                     }
                                 >
                                     +10
