@@ -8,12 +8,14 @@ interface HomeProps {
     leaderboardData: LeaderboardEntry[];
     setTitle: (t: string) => void;
     generalFacts: GeneralFacts;
+    averageTurnCount: string;
 };
 
 export const Home: React.FC<HomeProps> = ({
     leaderboardData
     , setTitle
     , generalFacts
+    , averageTurnCount
 }) => {
 
     useEffect(
@@ -82,6 +84,14 @@ export const Home: React.FC<HomeProps> = ({
                                     </td>
                                     <th>
                                         {generalFacts.longestGame}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Avg. Turns Per Game
+                                    </td>
+                                    <th>
+                                        {averageTurnCount}
                                     </th>
                                 </tr>
                             </tbody>

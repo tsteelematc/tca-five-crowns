@@ -8,7 +8,7 @@ import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
-import { GameResult, getGeneralFacts, getLeaderboard, getPreviousPlayers } from './GameResults';
+import { GameResult, getAverageTurnsPerGame, getGeneralFacts, getLeaderboard, getPreviousPlayers } from './GameResults';
 
 const dummyGameResults: GameResult[] = [
   {
@@ -19,7 +19,8 @@ const dummyGameResults: GameResult[] = [
           , "Ron"
       ]
       , start: "2025-03-01T18:20:41.576Z"
-      , end: "2025-03-01T18:35:42.576Z"        
+      , end: "2025-03-01T18:35:42.576Z"
+      , turnCount: 11        
   }
   , {
       winner: "Ron"
@@ -28,7 +29,8 @@ const dummyGameResults: GameResult[] = [
           , "Ron"
       ]
       , start: "2025-03-05T18:40:27.576Z"
-      , end: "2025-03-05T18:45:42.576Z"        
+      , end: "2025-03-05T18:45:42.576Z"
+      , turnCount: 9        
   }
 ];
 
@@ -82,6 +84,9 @@ const App = () => {
                   setTitle={setTitle}
                   generalFacts={
                     getGeneralFacts(gameResults)
+                  }
+                  averageTurnCount={
+                    getAverageTurnsPerGame(gameResults)
                   }
                 />
               } 

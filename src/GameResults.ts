@@ -15,6 +15,7 @@ export interface GameResult {
     players: string[];
     start: string;
     end: string;    
+    turnCount: number;
 };
 
 export interface LeaderboardEntry {
@@ -112,6 +113,21 @@ export const getPreviousPlayers = (
     ].sort(
         (a, b) => a.localeCompare(b)
     );
+};
+
+export const getAverageTurnsPerGame = (results: GameResult[]): string => {
+    if (results.length === 0) {
+        return 'n/a';
+    }
+    
+    const totalTurns = results.reduce(
+        (sum, game) => sum + game.turnCount,
+        0
+    );
+    
+    const average = totalTurns / results.length;
+    
+    return average.toFixed(2);
 };
 
 //
