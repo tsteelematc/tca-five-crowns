@@ -60,6 +60,11 @@ export const Play: React.FC<PlayProps> = ({
         )
     );
 
+    // i-o-g... Fixed array of players that go out each turn... Maybe handles
+    // scoring turns out of order easier/possible since I don't have rules for turn
+    // scoring order...
+    const [goOuts, setGoOuts] = useState(["", "", "", "", "", "", "", "", "", "", ""]);
+
     const editRow = (wildCard: number) => {
         setEditingRow(wildCard);
         setEditingPlayer(0);
@@ -235,7 +240,7 @@ export const Play: React.FC<PlayProps> = ({
                                                 y => (
                                                     <td
                                                         key={y}
-                                                        className="text-nowrap"
+                                                        className={`text-nowrap ${goOuts[x] === y ? "text-success" : ""}`}
                                                     >
                                                         {
                                                             getDisplayScore(y, x)
@@ -284,6 +289,7 @@ export const Play: React.FC<PlayProps> = ({
                                             , scores: [
                                                 ...scores
                                             ]
+                                            , goOuts: goOuts
                                         });
                                         nav(-2);
                                     }
@@ -386,14 +392,35 @@ export const Play: React.FC<PlayProps> = ({
                                     -1
                                 </button>
                             </div>
-                            <button
-                                className="btn btn-sm btn-outline btn-success join-item ml-4"
-                                onClick={
-                                    () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, 0)
-                                }
+                            <div 
+                                className="join join-vertical ml-4"
                             >
-                                0
-                            </button>
+                                <button
+                                    className="btn btn-sm btn-outline btn-success join-item"
+                                    onClick={
+                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, 0)
+                                    }
+                                >
+                                    0
+                                </button>
+                                <button
+                                    className={`${currentPlayers[editingPlayerIndex] === goOuts[editingRow] ? "btn" : "btn btn-outline"} btn-sm btn-success join-item`}
+                                    onClick={
+                                        () => {
+                                            updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, 0);
+                                            setGoOuts(
+                                                goOuts.map(
+                                                    (x, i) => i === editingRow 
+                                                        ? currentPlayers[editingPlayerIndex]
+                                                        : x
+                                                )
+                                            );
+                                        }
+                                    }
+                                >
+                                    Out
+                                </button>
+                            </div>
                             <div className="join ml-4">
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
