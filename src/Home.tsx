@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, LeaderboardEntry } from "./GameResults";
+import { GeneralFacts, GoOutsLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
 export const AppTitle = "Five Crowns Companion";
@@ -8,12 +8,14 @@ interface HomeProps {
     leaderboardData: LeaderboardEntry[];
     setTitle: (t: string) => void;
     generalFacts: GeneralFacts;
+    goOutsLeaderboardData: GoOutsLeaderboardEntry[];
 };
 
 export const Home: React.FC<HomeProps> = ({
     leaderboardData
     , setTitle
     , generalFacts
+    , goOutsLeaderboardData
 }) => {
 
     useEffect(
@@ -143,6 +145,77 @@ export const Home: React.FC<HomeProps> = ({
                                                             </td>
                                                             <td>
                                                                 {x.player}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                            : (
+                                <p>
+                                    Play a game of Five Crowns to see the leaderboard ! ! !
+                                </p>
+                            )
+                    }
+                </div>
+            </div>
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4"
+            >
+                <div
+                    className="card-body"
+                >
+                    <h2
+                        className="card-title"
+                    >
+                        Go Outs Leaderboard
+                    </h2>
+                    {
+                        goOutsLeaderboardData.length > 0 
+                            ? (
+                                <div 
+                                    className="overflow-x-auto"
+                                >
+                                    <table 
+                                        className="table"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    PLAYER
+                                                </th>
+                                                <th>
+                                                    GO OUTS
+                                                </th>
+                                                <th>
+                                                    GAMES
+                                                </th>
+                                                <th>
+                                                    GO OUTS / GAME
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                goOutsLeaderboardData.map(
+                                                    x => (
+                                                        <tr
+                                                            key={x.player}
+                                                        >
+                                                            <td>
+                                                                {x.player}
+                                                            </td>
+                                                            <td>
+                                                                {x.totalGoOuts}
+                                                            </td>
+                                                            <td>
+                                                                {x.gamesPlayed}
+                                                            </td>
+                                                            <td>
+                                                                {x.goOutsPerGame}
                                                             </td>
                                                         </tr>
                                                     )

@@ -8,7 +8,7 @@ import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useState } from 'react';
-import { GameResult, getGeneralFacts, getLeaderboard, getPreviousPlayers } from './GameResults';
+import { GameResult, getGeneralFacts, getGoOutsPerGameLeaderboard, getLeaderboard, getPreviousPlayers } from './GameResults';
 import copyTextToClipboard from 'copy-text-to-clipboard';
 
 const dummyGameResults: GameResult[] = [
@@ -93,6 +93,9 @@ const App = () => {
                   setTitle={setTitle}
                   generalFacts={
                     getGeneralFacts(gameResults)
+                  }
+                  goOutsLeaderboardData={
+                    getGoOutsPerGameLeaderboard(gameResults)
                   }
                 />
               } 

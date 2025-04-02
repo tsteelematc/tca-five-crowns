@@ -33,6 +33,13 @@ export interface GeneralFacts {
     longestGame: string;
 };
 
+export interface GoOutsLeaderboardEntry {
+    player: string;
+    totalGoOuts: number;
+    gamesPlayed: number;
+    goOutsPerGame: string;
+};
+
 //
 // Exported functions...
 //
@@ -114,6 +121,47 @@ export const getPreviousPlayers = (
     ].sort(
         (a, b) => a.localeCompare(b)
     );
+};
+
+export const getGoOutsPerGameLeaderboard = (
+    results: GameResult[]
+): GoOutsLeaderboardEntry[] => {
+    const players = getPreviousPlayers(results);
+    
+    return players.map(player => {
+        // Find games this player participated in
+        const playerGames = results.filter(game => 
+            game.players.includes(player)
+        );
+        
+        // Count total go outs for this player
+        const totalGoOuts = playerGames.reduce((count, game) => 
+            count + game.goOuts.filter(name => name === player).length, 0
+        );
+        
+        // Calculate go outs per game ratio
+        const gamesPlayed = playerGames.length;
+        const goOutsPerGame = gamesPlayed > 0 
+            ? (totalGoOuts / gamesPlayed).toFixed(2) 
+            : "0.00";
+            
+        return {
+            player,
+            totalGoOuts,
+            gamesPlayed,
+            goOutsPerGame
+        };
+    }).sort((a, b) => {
+        // Sort by go outs per game (descending)
+        const diff = Number(b.goOutsPerGame) - Number(a.goOutsPerGame);
+        
+        // If tied on ratio, sort by total go outs (descending)
+        if (diff === 0) {
+            return b.totalGoOuts - a.totalGoOuts;
+        }
+        
+        return diff;
+    });
 };
 
 //
