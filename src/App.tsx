@@ -7,9 +7,10 @@ import {
 import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GameResult, getGeneralFacts, getGoOutsPerGameLeaderboard, getLeaderboard, getPreviousPlayers } from './GameResults';
 import copyTextToClipboard from 'copy-text-to-clipboard';
+import localforage from 'localforage';
 
 const dummyGameResults: GameResult[] = [
   {
@@ -51,6 +52,29 @@ const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(
+    () => {
+
+      const loadDarkMode = async () => {
+
+        const savedDarkMode = await localforage.getItem<boolean>("darkMode") ?? false;
+
+        if (!ignore) {
+          setDarkMode(savedDarkMode);
+        }
+      }
+
+      let ignore = false;
+
+      loadDarkMode();
+
+      return () => {
+        ignore = true;
+      }
+    }
+    , []
+  );
+
   //
   // Other code (not hooks)...
   //
@@ -83,11 +107,17 @@ const App = () => {
 
         <label className="swap swap-rotate ml-auto">
           {/* this hidden checkbox controls the state */}
-          <input 
+          <input
             type="checkbox"
             onChange={
-              () => setDarkMode(!darkMode)
-            } 
+              async () => {
+                const savedDarkMode = await localforage.setItem(
+                  "darkMode"
+                  , !darkMode
+                )
+                setDarkMode(savedDarkMode);
+              }
+            }
           />
 
           {/* sun icon */}
