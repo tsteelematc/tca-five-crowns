@@ -48,10 +48,14 @@ export const Play: React.FC<PlayProps> = ({
     const [editingRow, setEditingRow] = useState(0);
     const [editingPlayerIndex, setEditingPlayer] = useState(0);
 
+    const [orderedPlayers, setOrderedPlayers] = useState([...(currentPlayers.reverse())]);
+    const changePlayerOrderDialogRef = useRef<HTMLDialogElement | null>(null);
+    const [changePlayerSelectedPlayerIndex, setChangePlayerSelectedPlayerIndex] = useState(0);
+
     // Use a Map for local state, but spread into array of arrays for
     // GameResult, i-o-g...
     const [scores, setScores] = useState(
-        currentPlayers.reduce(
+        orderedPlayers.reduce(
             (acc, x) => acc.set(
                 x
                 , defaultScores
@@ -141,7 +145,7 @@ export const Play: React.FC<PlayProps> = ({
     const getPlayersWithLowestScore = (): string[] => {
 
         // Tuple [string, number] incoming...
-        const playersWithTheirTotals: [string, number][] = currentPlayers.map(
+        const playersWithTheirTotals: [string, number][] = orderedPlayers.map(
             x => [
                 x
                 , getRunningTotal(
@@ -182,13 +186,13 @@ export const Play: React.FC<PlayProps> = ({
                 <table className="table table-zebra table-lg table-pin-rows table-pin-cols">
                     <thead>
                         <tr>
-                            <td
+                            <th
                                 className="font-light"
                             >
-                                Wild Card
-                            </td>
+                                Wild
+                            </th>
                             {
-                                currentPlayers.map(
+                                orderedPlayers.map(
                                     x => (
                                         <td
                                             key={x}
@@ -206,6 +210,30 @@ export const Play: React.FC<PlayProps> = ({
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <th>
+                                <div className="grid grid-cols-2 gap-4 mr-6">
+                                    <span>
+                                    </span>
+                                    <button
+                                        className="btn btn-xs btn-dash ml-4 w-8"
+                                    onClick={
+                                        () => changePlayerOrderDialogRef.current?.showModal()
+                                    }
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </th>
+                            <td 
+                                className="text-nowrap text-xs font-light"
+                                colSpan={orderedPlayers.length}
+                            >
+                                Change player order
+                            </td>
+                        </tr>
                         {
                             whildCardHands.map(
                                 x => (
@@ -214,7 +242,7 @@ export const Play: React.FC<PlayProps> = ({
                                         className="text-left"
                                     >
                                         <th
-                                            className="font-normal text-sm"
+                                            className="font-normal text-sm w-8"
                                         >
                                             <div className="grid grid-cols-2 gap-4 mr-6">
                                                 <span>
@@ -232,11 +260,10 @@ export const Play: React.FC<PlayProps> = ({
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                     </svg>
                                                 </button>
-
                                             </div>
                                         </th>
                                         {
-                                            currentPlayers.map(
+                                            orderedPlayers.map(
                                                 y => (
                                                     <td
                                                         key={y}
@@ -283,7 +310,7 @@ export const Play: React.FC<PlayProps> = ({
                                     () => {
                                         addNewGameResult({
                                             winner: x
-                                            , players: currentPlayers
+                                            , players: orderedPlayers
                                             , start: startTimestamp
                                             , end: new Date().toISOString()
                                             , scores: [
@@ -311,7 +338,6 @@ export const Play: React.FC<PlayProps> = ({
                     Quit
                 </button>
             </div>
-
             <dialog
                 ref={editRowDialogRef}
                 className="modal"
@@ -340,7 +366,7 @@ export const Play: React.FC<PlayProps> = ({
                                     () => setEditingPlayer(
                                         editingPlayerIndex > 0
                                             ? editingPlayerIndex - 1
-                                            : currentPlayers.length - 1
+                                            : orderedPlayers.length - 1
                                     )
                                 }
                             >
@@ -349,12 +375,12 @@ export const Play: React.FC<PlayProps> = ({
                             <label
                                 className="flex-1 ml-4 mr-4 text-xl join-item text-left"
                             >
-                                {currentPlayers[editingPlayerIndex]}
+                                {orderedPlayers[editingPlayerIndex]}
                                 &nbsp;
                                 (
                                 {
                                     getDisplayScore(
-                                        currentPlayers[editingPlayerIndex]
+                                        orderedPlayers[editingPlayerIndex]
                                         , editingRow
                                     )
                                 }
@@ -364,7 +390,7 @@ export const Play: React.FC<PlayProps> = ({
                                 className="flex-none btn btn-sm btn-outline join-item"
                                 onClick={
                                     () => setEditingPlayer(
-                                        editingPlayerIndex < currentPlayers.length - 1
+                                        editingPlayerIndex < orderedPlayers.length - 1
                                             ? editingPlayerIndex + 1
                                             : 0
                                     )
@@ -378,7 +404,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline join-item"
                                     onClick={
-                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, -5)
+                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -5)
                                     }
                                 >
                                     -5
@@ -386,32 +412,32 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline join-item"
                                     onClick={
-                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, -1)
+                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -1)
                                     }
                                 >
                                     -1
                                 </button>
                             </div>
-                            <div 
+                            <div
                                 className="join join-vertical ml-4"
                             >
                                 <button
                                     className="btn btn-sm btn-outline btn-success join-item"
                                     onClick={
-                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, 0)
+                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0)
                                     }
                                 >
                                     0
                                 </button>
                                 <button
-                                    className={`${currentPlayers[editingPlayerIndex] === goOuts[editingRow] ? "btn" : "btn btn-outline"} btn-sm btn-success join-item`}
+                                    className={`${orderedPlayers[editingPlayerIndex] === goOuts[editingRow] ? "btn" : "btn btn-outline"} btn-sm btn-success join-item`}
                                     onClick={
                                         () => {
-                                            updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, 0);
+                                            updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0);
                                             setGoOuts(
                                                 goOuts.map(
-                                                    (x, i) => i === editingRow 
-                                                        ? currentPlayers[editingPlayerIndex]
+                                                    (x, i) => i === editingRow
+                                                        ? orderedPlayers[editingPlayerIndex]
                                                         : x
                                                 )
                                             );
@@ -425,7 +451,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
-                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, +1)
+                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +1)
                                     }
                                 >
                                     +1
@@ -433,7 +459,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
-                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, +5)
+                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +5)
                                     }
                                 >
                                     +5
@@ -441,7 +467,7 @@ export const Play: React.FC<PlayProps> = ({
                                 <button
                                     className="btn btn-sm btn-outline btn-error join-item flex-none"
                                     onClick={
-                                        () => updateScoreInScoresState(currentPlayers[editingPlayerIndex], editingRow, +10)
+                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +10)
                                     }
                                 >
                                     +10
@@ -451,7 +477,97 @@ export const Play: React.FC<PlayProps> = ({
                     </div>
                 </div>
             </dialog>
-
+            <dialog
+                ref={changePlayerOrderDialogRef}
+                className="modal"
+            >
+                <div
+                    className="modal-box"
+                >
+                    <form
+                        method="dialog"
+                    >
+                        <button
+                            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                        </button>
+                    </form>
+                    <h3
+                        className="text-lg"
+                    >
+                        Choose player, move left/right...
+                    </h3>
+                    <div className="flex flex-col bg-info123 text-left">
+                        <div
+                            className="my-4"
+                        >
+                            {
+                                orderedPlayers.map(
+                                    (x, index) => (
+                                        <label
+                                            key={x}
+                                            className="mr-4 text-nowrap"
+                                        >
+                                            <input 
+                                                type="radio" 
+                                                name="order-players" 
+                                                className="radio mr-2 my-2"
+                                                checked={index === changePlayerSelectedPlayerIndex}
+                                                onChange={() => setChangePlayerSelectedPlayerIndex(index)}
+                                            />
+                                            {x}
+                                        </label>
+                                    )
+                                )   
+                            }
+                        </div>
+                        <div className="flex w-full">
+                            <div className="join">
+                                <button
+                                    className="btn btn-sm btn-outline join-item"
+                                    onClick={() => {
+                                        if (changePlayerSelectedPlayerIndex > 0) {
+                                            const newOrderedPlayers = [...orderedPlayers];
+                                            // Swap with left neighbor
+                                            [
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex],
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex - 1]
+                                            ] = [
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex - 1],
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex]
+                                            ];
+                                            setOrderedPlayers(newOrderedPlayers);
+                                            setChangePlayerSelectedPlayerIndex(changePlayerSelectedPlayerIndex - 1);
+                                        }
+                                    }}
+                                >
+                                    Move Left
+                                </button>
+                                <button
+                                    className="btn btn-sm btn-outline join-item"
+                                    onClick={() => {
+                                        if (changePlayerSelectedPlayerIndex < orderedPlayers.length - 1) {
+                                            const newOrderedPlayers = [...orderedPlayers];
+                                            // Swap with right neighbor
+                                            [
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex],
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex + 1]
+                                            ] = [
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex + 1],
+                                                newOrderedPlayers[changePlayerSelectedPlayerIndex]
+                                            ];
+                                            setOrderedPlayers(newOrderedPlayers);
+                                            setChangePlayerSelectedPlayerIndex(changePlayerSelectedPlayerIndex + 1);
+                                        }
+                                    }}
+                                >
+                                    Move Right
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </dialog>
         </>
     );
 };
