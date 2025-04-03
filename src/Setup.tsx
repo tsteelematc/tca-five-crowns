@@ -114,7 +114,7 @@ export const Setup: React.FC<SetupProps> = ({
                     }
                 />
                 <button 
-                    className="btn btn-outline btn-neutral ml-2"
+                    className="btn btn-outline btn-secondary ml-2"
                     onClick={
                         validateAndAddNewPlayer
                     }
