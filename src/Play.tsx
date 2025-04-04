@@ -349,7 +349,7 @@ export const Play: React.FC<PlayProps> = ({
                         method="dialog"
                     >
                         <button
-                            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
                             ✕
                         </button>
                     </form>
@@ -488,7 +488,7 @@ export const Play: React.FC<PlayProps> = ({
                         method="dialog"
                     >
                         <button
-                            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
                             ✕
                         </button>
                     </form>
