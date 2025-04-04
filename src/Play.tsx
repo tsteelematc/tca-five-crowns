@@ -267,7 +267,7 @@ export const Play: React.FC<PlayProps> = ({
                                                 y => (
                                                     <td
                                                         key={y}
-                                                        className={`text-nowrap ${goOuts[x] === y ? "text-success" : ""}`}
+                                                        className={`text-nowrap ${goOuts[x - 3] === y ? "text-success" : ""}`}
                                                     >
                                                         {
                                                             getDisplayScore(y, x)
@@ -437,7 +437,7 @@ export const Play: React.FC<PlayProps> = ({
                                             updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0);
                                             setGoOuts(
                                                 goOuts.map(
-                                                    (x, i) => i === editingRow
+                                                    (x, i) => i === (editingRow - 3)
                                                         ? orderedPlayers[editingPlayerIndex]
                                                         : x
                                                 )
