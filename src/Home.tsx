@@ -188,13 +188,7 @@ export const Home: React.FC<HomeProps> = ({
                                                     PLAYER
                                                 </th>
                                                 <th>
-                                                    GO OUTS
-                                                </th>
-                                                <th>
-                                                    GAMES
-                                                </th>
-                                                <th>
-                                                    GO OUTS / GAME
+                                                    AVG GO OUTS PER GAME
                                                 </th>
                                             </tr>
                                         </thead>
@@ -209,13 +203,10 @@ export const Home: React.FC<HomeProps> = ({
                                                                 {x.player}
                                                             </td>
                                                             <td>
-                                                                {x.totalGoOuts}
-                                                            </td>
-                                                            <td>
-                                                                {x.gamesPlayed}
-                                                            </td>
-                                                            <td>
                                                                 {x.goOutsPerGame}
+                                                                <span className="text-xs font-light ml-4">
+                                                                    {x.totalGoOuts} in {x.gamesPlayed} {`game${x.gamesPlayed === 1 ? "" : "s"}`}
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     )
