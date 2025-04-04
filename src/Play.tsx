@@ -497,7 +497,7 @@ export const Play: React.FC<PlayProps> = ({
                     <h3
                         className="text-lg"
                     >
-                        Choose player, move left/right...
+                        Change player order
                     </h3>
                     <div className="flex flex-col bg-info123 text-left">
                         <div
