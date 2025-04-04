@@ -342,6 +342,7 @@ export const Play: React.FC<PlayProps> = ({
                 ref={editRowDialogRef}
                 className="modal"
             >
+                <div className="modal-backdrop bg-base-300"></div>
                 <div
                     className="modal-box"
                 >
@@ -481,6 +482,7 @@ export const Play: React.FC<PlayProps> = ({
                 ref={changePlayerOrderDialogRef}
                 className="modal"
             >
+                <div className="modal-backdrop bg-base-300"></div>
                 <div
                     className="modal-box"
                 >
