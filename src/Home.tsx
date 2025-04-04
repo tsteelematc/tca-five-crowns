@@ -171,7 +171,7 @@ export const Home: React.FC<HomeProps> = ({
                     <h2
                         className="card-title ml-3 mt-3"
                     >
-                        Go Outs Leaderboard
+                        "Go Outs" Leaderboard
                     </h2>
                     {
                         goOutsLeaderboardData.length > 0 
@@ -188,7 +188,7 @@ export const Home: React.FC<HomeProps> = ({
                                                     PLAYER
                                                 </th>
                                                 <th>
-                                                    AVG GO OUTS PER GAME
+                                                    AVG 'GO OUTS' PER GAME
                                                 </th>
                                             </tr>
                                         </thead>
