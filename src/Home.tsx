@@ -40,10 +40,10 @@ export const Home: React.FC<HomeProps> = ({
                 className="card w-full bg-base-100 card-md shadow-lg mt-4"
             >
                 <div
-                    className="card-body"
+                    className="card-body p-0"
                 >
                     <h2
-                        className="card-title"
+                        className="card-title ml-3 mt-3"
                     >
                         General
                     </h2>
@@ -95,10 +95,10 @@ export const Home: React.FC<HomeProps> = ({
                 className="card w-full bg-base-100 card-md shadow-lg mt-4"
             >
                 <div
-                    className="card-body"
+                    className="card-body p-0"
                 >
                     <h2
-                        className="card-title"
+                        className="card-title ml-3 mt-3"
                     >
                         Leaderboard
                     </h2>
@@ -166,10 +166,10 @@ export const Home: React.FC<HomeProps> = ({
                 className="card w-full bg-base-100 card-md shadow-lg mt-4"
             >
                 <div
-                    className="card-body"
+                    className="card-body p-0"
                 >
                     <h2
-                        className="card-title"
+                        className="card-title ml-3 mt-3"
                     >
                         Go Outs Leaderboard
                     </h2>
