@@ -48,7 +48,7 @@ export const Play: React.FC<PlayProps> = ({
     const [editingRow, setEditingRow] = useState(0);
     const [editingPlayerIndex, setEditingPlayer] = useState(0);
 
-    const [orderedPlayers, setOrderedPlayers] = useState([...(currentPlayers.reverse())]);
+    const [orderedPlayers, setOrderedPlayers] = useState(currentPlayers);
     const changePlayerOrderDialogRef = useRef<HTMLDialogElement | null>(null);
     const [changePlayerSelectedPlayerIndex, setChangePlayerSelectedPlayerIndex] = useState(0);
 
