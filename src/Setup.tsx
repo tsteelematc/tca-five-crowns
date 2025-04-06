@@ -18,7 +18,7 @@ export const Setup: React.FC<SetupProps> = ({
     //
 
     useEffect(
-        () => setTitle("Setup")
+        () => setTitle("Game Setup")
         , []
     );
 
@@ -95,65 +95,90 @@ export const Setup: React.FC<SetupProps> = ({
                 }
                 disabled={!twoToSevenPlayersChosen}
             >
-                {
-                    twoToSevenPlayersChosen
-                        ? "Start Playing"
-                        : "Choose 2-7 Players"
-                }
+                Start Playing {`(${numberOfChosenPlayers} player${numberOfChosenPlayers !== 1 ? "s" : ""})`}
             </button>
-            <div 
-                className="mt-4 flex overflow-x-hidden"
+
+
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
             >
-                <input 
-                    type="text" 
-                    placeholder="Enter new player name..." 
-                    className={`input ${duplicatePlayerName ? "input-error" : ""}`} 
-                    value={newPlayerName}
-                    onChange={
-                        (e) => setNewPlayerName(e.target.value)
-                    }
-                />
-                <button 
-                    className="btn btn-outline btn-secondary ml-2"
-                    onClick={
-                        validateAndAddNewPlayer
-                    }
+                <div
+                    className="card-body p-0"
                 >
-                    Add
-                </button>
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Add New Player
+                    </h2>
+                    <div 
+                        className="mx-3 mb-3 flex overflow-x-hidden"
+                    >
+                        <input 
+                            type="text" 
+                            placeholder="Enter new player name..." 
+                            className={`input ${duplicatePlayerName ? "input-error" : ""}`} 
+                            value={newPlayerName}
+                            onChange={
+                                (e) => setNewPlayerName(e.target.value)
+                            }
+                        />
+                        <button 
+                            className="btn btn-outline btn-secondary ml-2"
+                            onClick={
+                                validateAndAddNewPlayer
+                            }
+                        >
+                            Add
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div 
-                className="mt-4 text-nowrap overflow-x-hidden"
+
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
             >
-                {
-                    availablePlayers.map(
-                        x => (
-                            <label
-                                key={x.name}
-                                className="block mt-2"
-                            >
-                                <input 
-                                    type="checkbox"
-                                    className="checkbox mr-2"
-                                    checked={x.checked} 
-                                    onChange={
-                                        () => setAvailablePlayers(
-                                            availablePlayers.map(
-                                                y => ({
-                                                    name: y.name
-                                                    , checked: y.name === x.name 
-                                                        ? !y.checked
-                                                        : y.checked
-                                                })
-                                            )
-                                        )
-                                    }
-                                />
-                                {x.name}
-                            </label>
-                        )
-                    )
-                }
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Choose 2-7 Players
+                    </h2>
+                    <div 
+                        className="mx-3 mb-3 text-nowrap overflow-x-hidden"
+                    >
+                        {
+                            availablePlayers.map(
+                                x => (
+                                    <label
+                                        key={x.name}
+                                        className="block mt-2"
+                                    >
+                                        <input 
+                                            type="checkbox"
+                                            className="checkbox mr-2"
+                                            checked={x.checked} 
+                                            onChange={
+                                                () => setAvailablePlayers(
+                                                    availablePlayers.map(
+                                                        y => ({
+                                                            name: y.name
+                                                            , checked: y.name === x.name 
+                                                                ? !y.checked
+                                                                : y.checked
+                                                        })
+                                                    )
+                                                )
+                                            }
+                                        />
+                                        {x.name}
+                                    </label>
+                                )
+                            )
+                        }
+                    </div>
+                </div>
             </div>
         </>
     );
