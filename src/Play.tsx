@@ -343,133 +343,130 @@ export const Play: React.FC<PlayProps> = ({
                 className="modal"
             >
                 <div className="modal-backdrop bg-base-300"></div>
-                <div
-                    className="modal-box"
-                >
-                    <form
-                        method="dialog"
-                    >
-                        <button
-                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
-                            ✕
-                        </button>
+                <div className="modal-box">
+                    <form method="dialog">
+                        <button className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3
-                        className="text-lg"
-                    >
-                        Editing scores for <span className="text-secondary font-bold">{getDisplayWildcard(editingRow)}'s</span> wild
+                    <h3 className="text-lg font-bold mb-4">
+                        Editing scores for <span className="text-secondary">{getDisplayWildcard(editingRow)}'s</span> wild
                     </h3>
-                    <div className="flex flex-col bg-info123 text-left">
-                        <div className="join my-4 flex items-center">
+                    
+                    <div className="flex flex-col gap-4">
+                        {/* Player selector with improved styling */}
+                        <div className="flex items-center justify-between bg-base-200 p-3 rounded-lg">
                             <button
-                                className="flex-none btn btn-sm btn-outline join-item"
-                                onClick={
-                                    () => setEditingPlayer(
-                                        editingPlayerIndex > 0
-                                            ? editingPlayerIndex - 1
-                                            : orderedPlayers.length - 1
-                                    )
-                                }
+                                className="btn btn-circle btn-sm"
+                                onClick={() => setEditingPlayer(
+                                    editingPlayerIndex > 0
+                                        ? editingPlayerIndex - 1
+                                        : orderedPlayers.length - 1
+                                )}
                             >
-                                &lt;
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                </svg>
                             </button>
-                            <label
-                                className="flex-1 ml-4 mr-4 text-xl join-item text-left"
-                            >
-                                {orderedPlayers[editingPlayerIndex]}
-                                &nbsp;
-                                (
-                                {
-                                    getDisplayScore(
-                                        orderedPlayers[editingPlayerIndex]
-                                        , editingRow
-                                    )
-                                }
-                                )
-                            </label>
+                            
+                            <div className="text-center">
+                                <div className="text-xl font-bold">{orderedPlayers[editingPlayerIndex]}</div>
+                                <div className="text-sm opacity-70">
+                                    Current score: <span className="font-semibold text-lg">
+                                        {getDisplayScore(orderedPlayers[editingPlayerIndex], editingRow)}
+                                    </span>
+                                </div>
+                            </div>
+                            
                             <button
-                                className="flex-none btn btn-sm btn-outline join-item"
-                                onClick={
-                                    () => setEditingPlayer(
-                                        editingPlayerIndex < orderedPlayers.length - 1
-                                            ? editingPlayerIndex + 1
-                                            : 0
-                                    )
-                                }
+                                className="btn btn-circle btn-sm"
+                                onClick={() => setEditingPlayer(
+                                    editingPlayerIndex < orderedPlayers.length - 1
+                                        ? editingPlayerIndex + 1
+                                        : 0
+                                )}
                             >
-                                &gt;
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
                             </button>
                         </div>
-                        <div className="flex">
-                            <div className="join">
+                        
+                        {/* "Out" button moved above score controls */}
+                        <div className="flex justify-center">
+                            <button
+                                className={`btn ${orderedPlayers[editingPlayerIndex] === goOuts[editingRow - 3] ? 'btn-success' : 'btn-outline btn-success'} w-full`}
+                                onClick={() => {
+                                    updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0);
+                                    setGoOuts(
+                                        goOuts.map(
+                                            (x, i) => i === (editingRow - 3)
+                                                ? orderedPlayers[editingPlayerIndex]
+                                                : x
+                                        )
+                                    );
+                                }}
+                            >
+                                {orderedPlayers[editingPlayerIndex] === goOuts[editingRow - 3] 
+                                    ? <><span className="mr-2">✓</span> Player went out</>
+                                    : "Mark as going out (0 points)"}
+                            </button>
+                        </div>
+                        
+                        {/* Score adjustment with 3 sections */}
+                        <div className="grid grid-cols-3 gap-2">
+                            {/* Decrease score section */}
+                            <div className="flex flex-col gap-2">
+                                <span className="text-sm font-semibold opacity-70 text-center">Decrease</span>
                                 <button
-                                    className="btn btn-sm btn-outline join-item"
-                                    onClick={
-                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -5)
-                                    }
+                                    className="btn btn-outline btn-error"
+                                    onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -5)}
                                 >
                                     -5
                                 </button>
                                 <button
-                                    className="btn btn-sm btn-outline join-item"
-                                    onClick={
-                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -1)
-                                    }
+                                    className="btn btn-outline btn-error"
+                                    onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -1)}
                                 >
                                     -1
                                 </button>
                             </div>
-                            <div
-                                className="join join-vertical ml-4"
-                            >
+                            
+                            {/* Reset/zero section */}
+                            <div className="flex flex-col gap-2">
+                                <span className="text-sm font-semibold opacity-70 text-center">Reset</span>
                                 <button
-                                    className="btn btn-sm btn-outline btn-success join-item"
-                                    onClick={
-                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0)
-                                    }
+                                    className="btn btn-outline btn-neutral"
+                                    onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, -999)}
                                 >
-                                    0
+                                    Clear (-)
                                 </button>
                                 <button
-                                    className={`${orderedPlayers[editingPlayerIndex] === goOuts[editingRow - 3] ? "btn" : "btn btn-outline"} btn-sm btn-success join-item`}
-                                    onClick={
-                                        () => {
-                                            updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0);
-                                            setGoOuts(
-                                                goOuts.map(
-                                                    (x, i) => i === (editingRow - 3)
-                                                        ? orderedPlayers[editingPlayerIndex]
-                                                        : x
-                                                )
-                                            );
-                                        }
-                                    }
+                                    className="btn btn-success"
+                                    onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0)}
                                 >
-                                    Out
+                                    Zero (0)
                                 </button>
                             </div>
-                            <div className="join ml-4">
+                            
+                            {/* Increase score section */}
+                            <div className="flex flex-col gap-2">
+                                <span className="text-sm font-semibold opacity-70 text-center">Increase</span>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <button
+                                        className="btn btn-outline btn-error"
+                                        onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +1)}
+                                    >
+                                        +1
+                                    </button>
+                                    <button
+                                        className="btn btn-outline btn-error"
+                                        onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +5)}
+                                    >
+                                        +5
+                                    </button>
+                                </div>
                                 <button
-                                    className="btn btn-sm btn-outline btn-error join-item flex-none"
-                                    onClick={
-                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +1)
-                                    }
-                                >
-                                    +1
-                                </button>
-                                <button
-                                    className="btn btn-sm btn-outline btn-error join-item flex-none"
-                                    onClick={
-                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +5)
-                                    }
-                                >
-                                    +5
-                                </button>
-                                <button
-                                    className="btn btn-sm btn-outline btn-error join-item flex-none"
-                                    onClick={
-                                        () => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +10)
-                                    }
+                                    className="btn btn-outline btn-error"
+                                    onClick={() => updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, +10)}
                                 >
                                     +10
                                 </button>
