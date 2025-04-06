@@ -175,169 +175,149 @@ export const Play: React.FC<PlayProps> = ({
 
     return (
         <>
-            <p>
-                Press
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 inline mx-2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                </svg>
-                buttons (below) to enter scores for each hand...
-            </p>
-            <div className="overflow-x-auto mt-4">
-                <table className="table table-zebra table-lg table-pin-rows table-pin-cols">
-                    <thead>
-                        <tr>
-                            <th
-                                className="font-light"
-                            >
-                                Wild
-                            </th>
-                            {
-                                orderedPlayers.map(
-                                    x => (
-                                        <td
-                                            key={x}
-                                            onClick={
-                                                () => x === "Beril"
-                                                    ? setBerilEasterEgg(!berilEasterEgg)
-                                                    : console.log("You're not Beril : - O")
-                                            }
-                                        >
+            <div className="card bg-base-100 shadow-xl mb-4 border-t-4 border-primary">
+                <div className="card-body p-4">
+                    <h2 className="card-title text-primary flex items-center mb-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                        </svg>
+                        Scorecard
+                    </h2>
+                    <p className="text-base-content/70 text-sm flex items-center mt-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 inline mr-1">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                        Click edit buttons to update scores for each hand
+                    </p>
+                    
+                    <div className="overflow-x-auto mt-2">
+                        <table className="table table-zebra table-lg table-pin-rows table-pin-cols">
+                            <thead className="text-base-content/80 bg-base-200">
+                                <tr>
+                                    <th className="font-medium">Wild</th>
+                                    {orderedPlayers.map(x => (
+                                        <td key={x} className="font-semibold" onClick={() => x === "Beril" ? setBerilEasterEgg(!berilEasterEgg) : null}>
                                             {x}
                                         </td>
-                                    )
-                                )
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>
-                                <div className="grid grid-cols-2 gap-4 mr-6">
-                                    <span>
-                                    </span>
-                                    <button
-                                        className="btn btn-xs btn-dash ml-4 w-8"
-                                    onClick={
-                                        () => changePlayerOrderDialogRef.current?.showModal()
-                                    }
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </th>
-                            <td 
-                                className="text-nowrap text-xs font-light"
-                                colSpan={orderedPlayers.length}
-                            >
-                                Change player order
-                            </td>
-                        </tr>
-                        {
-                            whildCardHands.map(
-                                x => (
-                                    <tr
-                                        key={x}
-                                        className="text-left"
-                                    >
-                                        <th
-                                            className="font-normal text-sm w-8"
-                                        >
-                                            <div className="grid grid-cols-2 gap-4 mr-6">
-                                                <span>
-                                                    {
-                                                        getDisplayWildcard(x)
-                                                    }
-                                                </span>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <div className="flex items-center justify-between">
+                                            <button
+                                                className="btn btn-xs btn-outline btn-primary"
+                                                onClick={() => changePlayerOrderDialogRef.current?.showModal()}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4 mr-1">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                                </svg>
+                                                Order
+                                            </button>
+                                        </div>
+                                    </th>
+                                    <td className="text-nowrap text-xs font-light opacity-50" colSpan={orderedPlayers.length}>
+                                        Change player order
+                                    </td>
+                                </tr>
+                                {whildCardHands.map(x => (
+                                    <tr key={x} className="text-left hover:bg-base-200/50">
+                                        <th className="font-medium">
+                                            <div className="flex items-center justify-between">
+                                                <span className="badge badge-neutral">{getDisplayWildcard(x)}</span>
                                                 <button
-                                                    className="btn btn-xs btn-dash ml-4 w-8"
-                                                    onClick={
-                                                        () => editRow(x)
-                                                    }
+                                                    className="btn btn-xs btn-outline"
+                                                    onClick={() => editRow(x)}
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="size-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="size-4 mr-1">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                     </svg>
+                                                    Edit
                                                 </button>
                                             </div>
                                         </th>
-                                        {
-                                            orderedPlayers.map(
-                                                y => (
-                                                    <td
-                                                        key={y}
-                                                        className={`text-nowrap ${goOuts[x - 3] === y ? "text-success" : ""}`}
-                                                    >
-                                                        {
-                                                            getDisplayScore(y, x)
-                                                        }
-                                                        <span
-                                                            className="text-xs text-base-content/50 ml-1"
-                                                        >
-                                                            / {getRunningTotal(y, x)}
-                                                        </span>
-                                                    </td>
-                                                )
-                                            )
-                                        }
+                                        {orderedPlayers.map(y => (
+                                            <td
+                                                key={y}
+                                                className={`text-nowrap ${goOuts[x - 3] === y ? "text-success font-medium" : ""}`}
+                                            >
+                                                <span className="text-lg">{getDisplayScore(y, x)}</span>
+                                                <span className="text-xs text-base-content/50 ml-2">
+                                                    ({getRunningTotal(y, x)})
+                                                </span>
+                                                {goOuts[x - 3] === y && 
+                                                    <span className="badge badge-xs badge-success ml-1">out</span>
+                                                }
+                                            </td>
+                                        ))}
                                     </tr>
-                                )
-                            )
-                        }
-                    </tbody>
-                </table>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            {
-                possibleWinners.length > 1 && (
-                    <p
-                        className="mt-4"
-                    >
-                        Some players are tied, cut cards, rock-paper-scissors, somehow choose a single winner ! ! !
-                    </p>
-                )
-            }
-            <div
-                className="grid grid-cols-2 gap-2 mt-4"
-            >
-                {
-                    possibleWinners.map(
-                        x => (
-                            <button
-                                key={x}
-                                className="btn btn-active btn-secondary btn-lg truncate"
-                                onClick={
-                                    () => {
+            
+            {possibleWinners.length > 0 && (
+                <div className="card bg-base-100 shadow-xl mb-4 border-t-4 border-secondary">
+                    <div className="card-body">
+                        <h2 className="card-title text-secondary flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
+                            </svg>
+                            Game Results
+                        </h2>
+                        
+                        {possibleWinners.length > 1 ? (
+                            <div className="alert alert-warning mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span>Players are tied! Choose a winner or use a tiebreaker.</span>
+                            </div>
+                        ) : (
+                            <div className="alert alert-success mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <span><strong>{possibleWinners[0]}</strong> has the lowest score!</span>
+                            </div>
+                        )}
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                            {possibleWinners.map(x => (
+                                <button
+                                    key={x}
+                                    className="btn btn-secondary btn-lg gap-2"
+                                    onClick={() => {
                                         addNewGameResult({
-                                            winner: x
-                                            , players: orderedPlayers
-                                            , start: startTimestamp
-                                            , end: new Date().toISOString()
-                                            , scores: [
-                                                ...scores
-                                            ]
-                                            , goOuts: goOuts
+                                            winner: x,
+                                            players: orderedPlayers,
+                                            start: startTimestamp,
+                                            end: new Date().toISOString(),
+                                            scores: [...scores],
+                                            goOuts: goOuts
                                         });
                                         nav(-2);
-                                    }
-                                }
+                                    }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
+                                    </svg>
+                                    {x} Won
+                                </button>
+                            ))}
+                            <button
+                                className="btn btn-outline btn-error btn-lg gap-2 md:col-span-2"
+                                onClick={() => nav(-2)}
                             >
-                                {
-                                    `${x} Won`
-                                }
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                                Quit Game
                             </button>
-                        )
-                    )
-                }
-                <button
-                    className="btn btn-outline btn-secondary btn-lg"
-                    onClick={
-                        () => nav(-2)
-                    }
-                >
-                    Quit
-                </button>
-            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            
             <dialog
                 ref={editRowDialogRef}
                 className="modal"
@@ -475,94 +455,95 @@ export const Play: React.FC<PlayProps> = ({
                     </div>
                 </div>
             </dialog>
+            
             <dialog
                 ref={changePlayerOrderDialogRef}
                 className="modal"
             >
                 <div className="modal-backdrop bg-base-300"></div>
-                <div
-                    className="modal-box"
-                >
-                    <form
-                        method="dialog"
-                    >
-                        <button
-                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
-                            ✕
-                        </button>
+                <div className="modal-box">
+                    <form method="dialog">
+                        <button className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3
-                        className="text-lg"
-                    >
-                        Change player order
+                    <h3 className="text-lg font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                        </svg>
+                        Change Player Order
                     </h3>
-                    <div className="flex flex-col bg-info123 text-left">
-                        <div
-                            className="my-4"
-                        >
-                            {
-                                orderedPlayers.map(
-                                    (x, index) => (
-                                        <label
-                                            key={x}
-                                            className="mr-4 text-nowrap"
-                                        >
-                                            <input 
-                                                type="radio" 
-                                                name="order-players" 
-                                                className="radio mr-2 my-2"
-                                                checked={index === changePlayerSelectedPlayerIndex}
-                                                onChange={() => setChangePlayerSelectedPlayerIndex(index)}
-                                            />
-                                            {x}
-                                        </label>
-                                    )
-                                )   
-                            }
+                    
+                    <div className="divider my-1"></div>
+                    
+                    <div className="bg-base-200 p-4 rounded-lg mb-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {orderedPlayers.map((x, index) => (
+                                <label
+                                    key={x}
+                                    className={`flex items-center p-2 rounded cursor-pointer ${index === changePlayerSelectedPlayerIndex ? 'bg-primary/10 border border-primary/30' : 'hover:bg-base-300'}`}
+                                >
+                                    <input 
+                                        type="radio" 
+                                        name="order-players" 
+                                        className="radio radio-primary mr-2"
+                                        checked={index === changePlayerSelectedPlayerIndex}
+                                        onChange={() => setChangePlayerSelectedPlayerIndex(index)}
+                                    />
+                                    <span className={index === changePlayerSelectedPlayerIndex ? 'font-medium' : ''}>{x}</span>
+                                </label>
+                            ))}
                         </div>
-                        <div className="flex w-full">
-                            <div className="join">
-                                <button
-                                    className="btn btn-sm btn-outline join-item"
-                                    onClick={() => {
-                                        if (changePlayerSelectedPlayerIndex > 0) {
-                                            const newOrderedPlayers = [...orderedPlayers];
-                                            // Swap with left neighbor
-                                            [
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex],
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex - 1]
-                                            ] = [
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex - 1],
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex]
-                                            ];
-                                            setOrderedPlayers(newOrderedPlayers);
-                                            setChangePlayerSelectedPlayerIndex(changePlayerSelectedPlayerIndex - 1);
-                                        }
-                                    }}
-                                >
-                                    Move Left
-                                </button>
-                                <button
-                                    className="btn btn-sm btn-outline join-item"
-                                    onClick={() => {
-                                        if (changePlayerSelectedPlayerIndex < orderedPlayers.length - 1) {
-                                            const newOrderedPlayers = [...orderedPlayers];
-                                            // Swap with right neighbor
-                                            [
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex],
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex + 1]
-                                            ] = [
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex + 1],
-                                                newOrderedPlayers[changePlayerSelectedPlayerIndex]
-                                            ];
-                                            setOrderedPlayers(newOrderedPlayers);
-                                            setChangePlayerSelectedPlayerIndex(changePlayerSelectedPlayerIndex + 1);
-                                        }
-                                    }}
-                                >
-                                    Move Right
-                                </button>
-                            </div>
+                    </div>
+                    
+                    <div className="flex justify-center w-full">
+                        <div className="join">
+                            <button
+                                className="btn btn-outline btn-primary join-item"
+                                onClick={() => {
+                                    if (changePlayerSelectedPlayerIndex > 0) {
+                                        const newOrderedPlayers = [...orderedPlayers];
+                                        // Swap with left neighbor
+                                        [
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex],
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex - 1]
+                                        ] = [
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex - 1],
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex]
+                                        ];
+                                        setOrderedPlayers(newOrderedPlayers);
+                                        setChangePlayerSelectedPlayerIndex(changePlayerSelectedPlayerIndex - 1);
+                                    }
+                                }}
+                                disabled={changePlayerSelectedPlayerIndex === 0}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                                </svg>
+                                Move Left
+                            </button>
+                            <button
+                                className="btn btn-outline btn-primary join-item"
+                                onClick={() => {
+                                    if (changePlayerSelectedPlayerIndex < orderedPlayers.length - 1) {
+                                        const newOrderedPlayers = [...orderedPlayers];
+                                        // Swap with right neighbor
+                                        [
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex],
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex + 1]
+                                        ] = [
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex + 1],
+                                            newOrderedPlayers[changePlayerSelectedPlayerIndex]
+                                        ];
+                                        setOrderedPlayers(newOrderedPlayers);
+                                        setChangePlayerSelectedPlayerIndex(changePlayerSelectedPlayerIndex + 1);
+                                    }
+                                }}
+                                disabled={changePlayerSelectedPlayerIndex === orderedPlayers.length - 1}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                                </svg>
+                                Move Right
+                            </button>
                         </div>
                     </div>
                 </div>
