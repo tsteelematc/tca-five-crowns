@@ -431,7 +431,7 @@ export const Play: React.FC<PlayProps> = ({
                                     0
                                 </button>
                                 <button
-                                    className={`${orderedPlayers[editingPlayerIndex] === goOuts[editingRow] ? "btn" : "btn btn-outline"} btn-sm btn-success join-item`}
+                                    className={`${orderedPlayers[editingPlayerIndex] === goOuts[editingRow - 3] ? "btn" : "btn btn-outline"} btn-sm btn-success join-item`}
                                     onClick={
                                         () => {
                                             updateScoreInScoresState(orderedPlayers[editingPlayerIndex], editingRow, 0);
