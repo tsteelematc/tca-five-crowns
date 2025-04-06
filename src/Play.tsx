@@ -32,7 +32,7 @@ export const Play: React.FC<PlayProps> = ({
 }) => {
 
     useEffect(
-        () => setTitle("Play")
+        () => setTitle("Play Five Crowns")
         , []
     );
 
@@ -175,168 +175,199 @@ export const Play: React.FC<PlayProps> = ({
 
     return (
         <>
-            <p>
-                Press
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 inline mx-2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                </svg>
-                buttons (below) to enter scores for each hand...
-            </p>
-            <div className="overflow-x-auto mt-4">
-                <table className="table table-zebra table-lg table-pin-rows table-pin-cols">
-                    <thead>
-                        <tr>
-                            <th
-                                className="font-light"
-                            >
-                                Wild
-                            </th>
-                            {
-                                orderedPlayers.map(
-                                    x => (
-                                        <td
-                                            key={x}
-                                            onClick={
-                                                () => x === "Beril"
-                                                    ? setBerilEasterEgg(!berilEasterEgg)
-                                                    : console.log("You're not Beril : - O")
-                                            }
-                                        >
-                                            {x}
-                                        </td>
-                                    )
-                                )
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>
-                                <div className="grid grid-cols-2 gap-4 mr-6">
-                                    <span>
-                                    </span>
-                                    <button
-                                        className="btn btn-xs btn-dash ml-4 w-8"
-                                    onClick={
-                                        () => changePlayerOrderDialogRef.current?.showModal()
-                                    }
+
+
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Score Pad
+                    </h2>
+                    <p
+                        className="mx-3"
+                    >
+                        Press
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 inline mx-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                        buttons (below) to enter scores for each hand...
+                    </p>
+                    <div className="overflow-x-auto mt-0">
+                        <table className="table table-zebra table-lg table-pin-rows table-pin-cols">
+                            <thead>
+                                <tr>
+                                    <th
+                                        className="font-light"
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </th>
-                            <td 
-                                className="text-nowrap text-xs font-light"
-                                colSpan={orderedPlayers.length}
-                            >
-                                Change player order
-                            </td>
-                        </tr>
-                        {
-                            whildCardHands.map(
-                                x => (
-                                    <tr
-                                        key={x}
-                                        className="text-left"
-                                    >
-                                        <th
-                                            className="font-normal text-sm w-8"
-                                        >
-                                            <div className="grid grid-cols-2 gap-4 mr-6">
-                                                <span>
-                                                    {
-                                                        getDisplayWildcard(x)
-                                                    }
-                                                </span>
-                                                <button
-                                                    className="btn btn-xs btn-dash ml-4 w-8"
+                                        Wild
+                                    </th>
+                                    {
+                                        orderedPlayers.map(
+                                            x => (
+                                                <td
+                                                    key={x}
                                                     onClick={
-                                                        () => editRow(x)
+                                                        () => x === "Beril"
+                                                            ? setBerilEasterEgg(!berilEasterEgg)
+                                                            : console.log("You're not Beril : - O")
                                                     }
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="size-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </th>
-                                        {
-                                            orderedPlayers.map(
-                                                y => (
-                                                    <td
-                                                        key={y}
-                                                        className={`text-nowrap ${goOuts[x - 3] === y ? "text-success" : ""}`}
-                                                    >
-                                                        {
-                                                            getDisplayScore(y, x)
-                                                        }
-                                                        <span
-                                                            className="text-xs text-base-content/50 ml-1"
-                                                        >
-                                                            / {getRunningTotal(y, x)}
-                                                        </span>
-                                                    </td>
-                                                )
+                                                    {x}
+                                                </td>
                                             )
+                                        )
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <div className="grid grid-cols-2 gap-4 mr-6">
+                                            <span>
+                                            </span>
+                                            <button
+                                                className="btn btn-xs btn-dash ml-4 w-8"
+                                            onClick={
+                                                () => changePlayerOrderDialogRef.current?.showModal()
+                                            }
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </th>
+                                    <td 
+                                        className="text-nowrap text-xs font-light"
+                                        colSpan={orderedPlayers.length}
+                                    >
+                                        Change player order
+                                    </td>
+                                </tr>
+                                {
+                                    whildCardHands.map(
+                                        x => (
+                                            <tr
+                                                key={x}
+                                                className="text-left"
+                                            >
+                                                <th
+                                                    className="font-normal text-sm w-8"
+                                                >
+                                                    <div className="grid grid-cols-2 gap-4 mr-6">
+                                                        <span>
+                                                            {
+                                                                getDisplayWildcard(x)
+                                                            }
+                                                        </span>
+                                                        <button
+                                                            className="btn btn-xs btn-dash ml-4 w-8"
+                                                            onClick={
+                                                                () => editRow(x)
+                                                            }
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="size-4">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </th>
+                                                {
+                                                    orderedPlayers.map(
+                                                        y => (
+                                                            <td
+                                                                key={y}
+                                                                className={`text-nowrap ${goOuts[x - 3] === y ? "text-success" : ""}`}
+                                                            >
+                                                                {
+                                                                    getDisplayScore(y, x)
+                                                                }
+                                                                <span
+                                                                    className="text-xs text-base-content/50 ml-1"
+                                                                >
+                                                                    / {getRunningTotal(y, x)}
+                                                                </span>
+                                                            </td>
+                                                        )
+                                                    )
+                                                }
+                                            </tr>
+                                        )
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Game Over
+                    </h2>
+                    {
+                        possibleWinners.length > 1 && (
+                            <p
+                                className="mx-3"
+                            >
+                                Some players are tied, cut cards, rock-paper-scissors, somehow choose a single winner ! ! !
+                            </p>
+                        )
+                    }
+                    <div
+                        className="grid grid-cols-2 gap-2 mt-3 mx-3 mb-3"
+                    >
+                        {
+                            possibleWinners.map(
+                                x => (
+                                    <button
+                                        key={x}
+                                        className="btn btn-active btn-secondary btn-lg truncate"
+                                        onClick={
+                                            () => {
+                                                addNewGameResult({
+                                                    winner: x
+                                                    , players: orderedPlayers
+                                                    , start: startTimestamp
+                                                    , end: new Date().toISOString()
+                                                    , scores: [
+                                                        ...scores
+                                                    ]
+                                                    , goOuts: goOuts
+                                                });
+                                                nav(-2);
+                                            }
                                         }
-                                    </tr>
+                                    >
+                                        {
+                                            `${x} Won`
+                                        }
+                                    </button>
                                 )
                             )
                         }
-                    </tbody>
-                </table>
-            </div>
-            {
-                possibleWinners.length > 1 && (
-                    <p
-                        className="mt-4"
-                    >
-                        Some players are tied, cut cards, rock-paper-scissors, somehow choose a single winner ! ! !
-                    </p>
-                )
-            }
-            <div
-                className="grid grid-cols-2 gap-2 mt-4"
-            >
-                {
-                    possibleWinners.map(
-                        x => (
-                            <button
-                                key={x}
-                                className="btn btn-active btn-secondary btn-lg truncate"
-                                onClick={
-                                    () => {
-                                        addNewGameResult({
-                                            winner: x
-                                            , players: orderedPlayers
-                                            , start: startTimestamp
-                                            , end: new Date().toISOString()
-                                            , scores: [
-                                                ...scores
-                                            ]
-                                            , goOuts: goOuts
-                                        });
-                                        nav(-2);
-                                    }
-                                }
-                            >
-                                {
-                                    `${x} Won`
-                                }
-                            </button>
-                        )
-                    )
-                }
-                <button
-                    className="btn btn-outline btn-secondary btn-lg"
-                    onClick={
-                        () => nav(-2)
-                    }
-                >
-                    Quit
-                </button>
+                        <button
+                            className="btn btn-outline btn-secondary btn-lg"
+                            onClick={
+                                () => nav(-2)
+                            }
+                        >
+                            Quit
+                        </button>
+                    </div>
+                </div>
             </div>
             <dialog
                 ref={editRowDialogRef}
