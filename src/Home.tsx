@@ -37,7 +37,7 @@ export const Home: React.FC<HomeProps> = ({
                 Play Five Crowns
             </button>
             <div
-                className="card w-full bg-base-100 card-md shadow-lg mt-4"
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
             >
                 <div
                     className="card-body p-0"
@@ -92,7 +92,7 @@ export const Home: React.FC<HomeProps> = ({
                 </div>
             </div>
             <div
-                className="card w-full bg-base-100 card-md shadow-lg mt-4"
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
             >
                 <div
                     className="card-body p-0"
@@ -163,7 +163,7 @@ export const Home: React.FC<HomeProps> = ({
                 </div>
             </div>
             <div
-                className="card w-full bg-base-100 card-md shadow-lg mt-4"
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
             >
                 <div
                     className="card-body p-0"
