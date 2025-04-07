@@ -94,6 +94,18 @@ export const Play: React.FC<PlayProps> = ({
         , delta: number
     ) => {
 
+        // Always clear the go outs if this player is it for this hand/wildcard...
+        // Maybe a better way, but the go outs will be set properly after the
+        // scores are updated if the out button is being pressed...
+        setGoOuts(
+            goOuts.map(
+                (x, i) => i === (wildCard - 3) && x === player
+                    ? ""
+                    : x
+            )
+        );
+
+
         const currentScore = (scores.get(player) ?? defaultScores)[wildCard - 3];
 
         // Handle -1 stuffy-stuff...
