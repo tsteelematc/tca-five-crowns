@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, GoOutsLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GeneralFacts, getGamesByMonth, GoOutsLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
 export const AppTitle = "Five Crowns Companion";
@@ -9,6 +9,7 @@ interface HomeProps {
     setTitle: (t: string) => void;
     generalFacts: GeneralFacts;
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
+    gamesByMonth: [string, number][];
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -16,6 +17,7 @@ export const Home: React.FC<HomeProps> = ({
     , setTitle
     , generalFacts
     , goOutsLeaderboardData
+    , gamesByMonth
 }) => {
 
     useEffect(
@@ -222,6 +224,55 @@ export const Home: React.FC<HomeProps> = ({
                                 </p>
                             )
                     }
+                </div>
+            </div>
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Games By Month
+                    </h2>
+                    <div 
+                        className="overflow-x-auto"
+                    >
+                        <table 
+                            className="table"
+                        >
+                            <thead>
+                                <tr>
+                                    <th>
+                                        MONTH
+                                    </th>
+                                    <th>
+                                        # OF GAMES
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    gamesByMonth.map(
+                                        x => (
+                                            <tr
+                                                key={x[0]}
+                                            >
+                                                <td>
+                                                    {x[0]}
+                                                </td>
+                                                <td>
+                                                    {x[1]}
+                                                </td>
+                                            </tr>
+                                        )
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>
