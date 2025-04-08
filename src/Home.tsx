@@ -9,6 +9,7 @@ interface HomeProps {
     setTitle: (t: string) => void;
     generalFacts: GeneralFacts;
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
+    gameDurationData: any; // : - (
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -16,6 +17,7 @@ export const Home: React.FC<HomeProps> = ({
     , setTitle
     , generalFacts
     , goOutsLeaderboardData
+    , gameDurationData
 }) => {
 
     useEffect(
@@ -219,6 +221,68 @@ export const Home: React.FC<HomeProps> = ({
                             : (
                                 <p>
                                     Play a game of Five Crowns to see the leaderboard ! ! !
+                                </p>
+                            )
+                    }
+                </div>
+            </div>
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Game Durations
+                    </h2>
+                    {
+                        gameDurationData.length > 0 
+                            ? (
+                                <div 
+                                    className="overflow-x-auto"
+                                >
+                                    <table 
+                                        className="table"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    PLAYERS
+                                                </th>
+                                                <th>
+                                                    AVG DURATION
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                gameDurationData.map(
+                                                    (x: any) => (
+                                                        <tr
+                                                            key={x.numberOfPlayers}
+                                                        >
+                                                            <td>
+                                                                {x.numberOfPlayers}
+                                                            </td>
+                                                            <td>
+                                                                {x.avgGameDuration}
+                                                                <span className="text-xs font-light ml-4">
+                                                                    {x.gameCount} {`game${x.gameCount === 1 ? "" : "s"}`}
+                                                                </span>                                                                
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                            : (
+                                <p>
+                                    Play some Five Crowns to see : - O
                                 </p>
                             )
                     }
