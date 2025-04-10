@@ -8,7 +8,15 @@ import { AppTitle, Home } from './Home';
 import { Setup } from './Setup';
 import { Play } from './Play';
 import { useEffect, useState } from 'react';
-import { GameResult, getAverageGameDurationsByPlayerCount, getGeneralFacts, getGoOutsPerGameLeaderboard, getLeaderboard, getPreviousPlayers } from './GameResults';
+import { 
+  GameResult
+  , getAverageGameDurationsByPlayerCount
+  , getGeneralFacts
+  , getGoOutsPerGameLeaderboard
+  , getLeaderboard
+  , getPreviousPlayers
+  , getGamesByMonth 
+} from './GameResults';
 import copyTextToClipboard from 'copy-text-to-clipboard';
 import localforage from 'localforage';
 
@@ -168,6 +176,9 @@ const App = () => {
                   }
                   gameDurationData={
                     getAverageGameDurationsByPlayerCount(gameResults)
+                  }
+                  gamesByMonthData={
+                    getGamesByMonth(gameResults)
                   }
                 />
               } 

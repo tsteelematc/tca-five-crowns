@@ -10,6 +10,7 @@ interface HomeProps {
     generalFacts: GeneralFacts;
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
     gameDurationData: any; // : - (
+    gamesByMonthData: Array<[string, number]>
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -18,6 +19,7 @@ export const Home: React.FC<HomeProps> = ({
     , generalFacts
     , goOutsLeaderboardData
     , gameDurationData
+    , gamesByMonthData
 }) => {
 
     useEffect(
@@ -157,7 +159,9 @@ export const Home: React.FC<HomeProps> = ({
                                 </div>
                             )
                             : (
-                                <p>
+                                <p
+                                    className="mx-3 mb-3"
+                                >
                                     Play a game of Five Crowns to see the leaderboard ! ! !
                                 </p>
                             )
@@ -219,7 +223,9 @@ export const Home: React.FC<HomeProps> = ({
                                 </div>
                             )
                             : (
-                                <p>
+                                <p
+                                    className="mx-3 mb-3"
+                                >
                                     Play a game of Five Crowns to see the leaderboard ! ! !
                                 </p>
                             )
@@ -281,8 +287,71 @@ export const Home: React.FC<HomeProps> = ({
                                 </div>
                             )
                             : (
-                                <p>
+                                <p
+                                    className="mx-3 mb-3"
+                                >
                                     Play some Five Crowns to see : - O
+                                </p>
+                            )
+                    }
+                </div>
+            </div>
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Games by Month
+                    </h2>
+                    {
+                        leaderboardData.length > 0 
+                            ? (
+                                <div 
+                                    className="overflow-x-auto"
+                                >
+                                    <table 
+                                        className="table"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    MONTH
+                                                </th>
+                                                <th>
+                                                    # OF GAMES
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                gamesByMonthData.map(
+                                                    x => (
+                                                        <tr
+                                                            key={x[0]}
+                                                        >
+                                                            <td>
+                                                                {x[0]}
+                                                            </td>
+                                                            <td>
+                                                                {x[1]}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                            : (
+                                <p
+                                    className="mx-3 mb-3"
+                                >
+                                    Yeah right, play a game to see : - O
                                 </p>
                             )
                     }

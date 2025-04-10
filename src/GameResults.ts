@@ -190,6 +190,49 @@ export const getAverageGameDurationsByPlayerCount = (results: GameResult[]) => {
 		}));
 };
 
+export const getGamesByMonth = (results: GameResult[]): Array<[string, number]> => {
+
+    const gameStartMonths = results.map(
+        x => new Date(x.start).toLocaleString(
+            'default'
+            , {
+                month: 'short'
+            }
+        )
+    );
+
+    const groupedStartMonths = Map.groupBy(
+        gameStartMonths
+        , x => x
+    );
+
+    console.log(
+        gameStartMonths
+        , groupedStartMonths
+    );
+
+    return [
+        'Jan'
+        , 'Feb'
+        , 'Mar'
+        , 'Apr'
+        , 'May'
+        , 'Jun'
+        , 'Jul'
+        , 'Aug'
+        , 'Sep'
+        , 'Oct'
+        , 'Nov'
+        , 'Dec'
+    ].map(
+        x => [
+            x 
+            , groupedStartMonths.get(x)?.length ?? 0
+        ]
+    );
+};
+
+
 //
 // Helper functions...
 //
