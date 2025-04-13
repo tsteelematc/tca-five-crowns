@@ -3,41 +3,100 @@ import { durationFormatter } from "human-readable";
 const formatGameDuration = durationFormatter<string>();
 
 const formatLastPlayed = durationFormatter<string>({
-	allowMultiples: ["y", "mo", "d"],
+    allowMultiples: ["y", "mo", "d"],
 });
+
+// Helper function to convert wildcard number to display value
+export const getDisplayWildcard = (x: number): string => (
+    x < 11
+        ? x.toString()
+        : x === 11
+            ? "J"
+            : x === 12
+                ? "Q"
+                : "K"
+);
 
 //
 // Exported interfaces...
 //
 export interface GameResult {
-	winner: string;
-	players: string[];
-	start: string;
-	end: string;
-	scores: [string, number[]][];
-	goOuts: string[];
+    winner: string;
+    players: string[];
+    start: string;
+    end: string;
+    scores: [string, number[]][];
+    goOuts: string[];
 }
 
 export interface LeaderboardEntry {
-	wins: number;
-	losses: number;
-	average: string;
-	player: string;
+    wins: number;
+    losses: number;
+    average: string;
+    player: string;
 }
 
 export interface GeneralFacts {
-	lastPlayed: string;
-	totalGames: number;
-	shortestGame: string;
-	longestGame: string;
+    lastPlayed: string;
+    totalGames: number;
+    shortestGame: string;
+    longestGame: string;
 }
 
 export interface GoOutsLeaderboardEntry {
-	player: string;
-	totalGoOuts: number;
-	gamesPlayed: number;
-	goOutsPerGame: string;
+    player: string;
+    totalGoOuts: number;
+    gamesPlayed: number;
+    goOutsPerGame: string;
 }
+
+export interface HighestSingleHandScoreLeaderboardEntry {
+    player: string;
+    highestSingleHandScore: number;
+    wildCard: string; // Which wildcard round had this high score
+}
+
+export const getHighestSingleHandScoreLeaderboard = (
+    results: GameResult[]
+): HighestSingleHandScoreLeaderboardEntry[] => {
+    const players = getPreviousPlayers(results);
+    const playerHighestSingleHandScores = new Map<string, { score: number; wildCard: number }>();
+
+    // Go through all game results with scores
+    results.forEach((game) => {
+        // Skip games without score data
+        if (!game.scores || game.scores.length === 0) return;
+
+        // Process each player's scores
+        game.scores.forEach(([playerName, scores]) => {
+            // Find highest score for this player in this game
+            const playerMaxScore = Math.max(...scores.filter((s) => s !== -1));
+            const wildCardIndex = scores.findIndex((s) => s === playerMaxScore);
+            
+            // If we found a valid score and it's higher than what we've seen before
+            if (playerMaxScore > 0 && (!playerHighestSingleHandScores.has(playerName) || playerMaxScore > playerHighestSingleHandScores.get(playerName)!.score)) {
+                playerHighestSingleHandScores.set(playerName, { 
+                    score: playerMaxScore, 
+                    wildCard: wildCardIndex + 3 // Adjust index to wildcard value (3-13)
+                });
+            }
+        });
+    });
+
+    // Convert Map to array of leaderboard entries
+    return players
+        .map((player) => {
+            const highScoreData = playerHighestSingleHandScores.get(player);
+            
+            return {
+                player,
+                highestSingleHandScore: highScoreData?.score || 0,
+                wildCard: highScoreData ? getDisplayWildcard(highScoreData.wildCard) : "-"
+            };
+        })
+        .filter((entry) => entry.highestSingleHandScore > 0) // Only include players with recorded high scores
+        .sort((a, b) => b.highestSingleHandScore - a.highestSingleHandScore); // Sort by highest score
+};
 
 //
 // Exported functions...

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, GoOutsLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
 export const AppTitle = "Five Crowns Companion";
@@ -9,6 +9,7 @@ interface HomeProps {
     setTitle: (t: string) => void;
     generalFacts: GeneralFacts;
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
+    highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
     gamesByMonthData: Array<[string, number]>
 };
@@ -18,6 +19,7 @@ export const Home: React.FC<HomeProps> = ({
     , setTitle
     , generalFacts
     , goOutsLeaderboardData
+    , highestSingleHandScoreLeaderboardData // Updated name
     , gameDurationData
     , gamesByMonthData
 }) => {
@@ -291,6 +293,73 @@ export const Home: React.FC<HomeProps> = ({
                                     className="mx-3 mb-3"
                                 >
                                     Play some Five Crowns to see : - O
+                                </p>
+                            )
+                    }
+                </div>
+            </div>
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Highest Single Hand Score Leaderboard
+                    </h2>
+                    {
+                        highestSingleHandScoreLeaderboardData.length > 0 
+                            ? (
+                                <div 
+                                    className="overflow-x-auto"
+                                >
+                                    <table 
+                                        className="table"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    PLAYER
+                                                </th>
+                                                <th>
+                                                    HIGHEST SINGLE HAND SCORE
+                                                </th>
+                                                <th>
+                                                    WILD CARD
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                highestSingleHandScoreLeaderboardData.map(
+                                                    x => (
+                                                        <tr
+                                                            key={x.player}
+                                                        >
+                                                            <td>
+                                                                {x.player}
+                                                            </td>
+                                                            <td>
+                                                                {x.highestSingleHandScore}
+                                                            </td>
+                                                            <td>
+                                                                {x.wildCard}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                            : (
+                                <p
+                                    className="mx-3 mb-3"
+                                >
+                                    Play a game with scores to see the highest single hand score leaderboard!
                                 </p>
                             )
                     }

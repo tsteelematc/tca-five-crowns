@@ -13,6 +13,7 @@ import {
   , getAverageGameDurationsByPlayerCount
   , getGeneralFacts
   , getGoOutsPerGameLeaderboard
+  , getHighestSingleHandScoreLeaderboard
   , getLeaderboard
   , getPreviousPlayers
   , getGamesByMonth 
@@ -193,6 +194,9 @@ const App = () => {
                   }
                   goOutsLeaderboardData={
                     getGoOutsPerGameLeaderboard(gameResults)
+                  }
+                  highestSingleHandScoreLeaderboardData={
+                    getHighestSingleHandScoreLeaderboard(gameResults)
                   }
                   gameDurationData={
                     getAverageGameDurationsByPlayerCount(gameResults)

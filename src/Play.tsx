@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { GameResult } from "./GameResults";
+import { GameResult, getDisplayWildcard } from "./GameResults";
 
 const whildCardHands = [
     3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
@@ -14,16 +14,6 @@ interface PlayProps {
     setTitle: (t: string) => void;
     currentPlayers: string[]
 };
-
-const getDisplayWildcard = (x: number): string => (
-    x < 11
-        ? x.toString()
-        : x === 11
-            ? "J"
-            : x === 12
-                ? "Q"
-                : "K"
-);
 
 export const Play: React.FC<PlayProps> = ({
     addNewGameResult
