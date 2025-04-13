@@ -307,7 +307,7 @@ export const Home: React.FC<HomeProps> = ({
                     <h2
                         className="card-title ml-3 mt-3"
                     >
-                        Highest Single Hand Score Leaderboard
+                        Worst Hands
                     </h2>
                     {
                         highestSingleHandScoreLeaderboardData.length > 0 
@@ -324,7 +324,7 @@ export const Home: React.FC<HomeProps> = ({
                                                     PLAYER
                                                 </th>
                                                 <th>
-                                                    HIGHEST SINGLE HAND SCORE
+                                                    SCORE
                                                 </th>
                                                 <th>
                                                     WILD CARD
