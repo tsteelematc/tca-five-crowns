@@ -100,13 +100,42 @@ const App = () => {
       };
 
       //
-      // Build the ignore-sandwhich...
+      // Build the ignore-sandwich...
       //
 
       // Bread on top...
       let ignore = false;
 
       loadDarkMode();
+
+      // Bread on bottom...
+      return () => {
+        ignore = true;
+      };
+    }
+    , []
+  );
+
+  useEffect(
+    () => {
+
+      const loadEmail = async () => {
+
+        const savedEmail = await localforage.getItem<string>("email") ?? "";
+
+        if (!ignore) {
+          setEmailOnModal(savedEmail);
+        }
+      };
+
+      //
+      // Build the ignore-sandwich...
+      //
+
+      // Bread on top...
+      let ignore = false;
+
+      loadEmail();
 
       // Bread on bottom...
       return () => {
@@ -231,6 +260,12 @@ const App = () => {
               {/* if there is a button in form, it will close the modal */}
               <button 
                 className="btn"
+                onClick={
+                  async () => await localforage.setItem(
+                    "email"
+                    , emailOnModal
+                  )
+                }
               >
                 Save
               </button>
