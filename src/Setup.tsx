@@ -75,8 +75,14 @@ export const Setup: React.FC<SetupProps> = ({
     //
     return (
         <>
+            <button 
+                className="btn btn-xs ml-auto mb-3 mt-0 font-light"
+                onClick={() => nav(-1)}
+            >
+                &lt;&nbsp; Back
+            </button>
             <button
-                className="btn btn-active btn-secondary btn-lg mt-4 w-full lg:w-64 text-nowrap overflow-x-hidden"
+                className="btn btn-active btn-secondary btn-lg mt-1 w-full lg:w-64 text-nowrap overflow-x-hidden block"
                 onClick={
                     () => {
                         setCurrentPlayers(
