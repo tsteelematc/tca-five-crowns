@@ -238,6 +238,7 @@ const App = () => {
         ref={emailModalRef} 
         className="modal modal-bottom sm:modal-middle"
       >
+        <div className="modal-backdrop bg-base-300"></div>
         <div 
           className="modal-box"
         >
