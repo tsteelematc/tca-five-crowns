@@ -85,6 +85,8 @@ const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
 
+  const [emailOnModal, setEmailOnModal] = useState("");
+
   useEffect(
     () => {
 
@@ -210,7 +212,15 @@ const App = () => {
           <p 
             className="py-4"
           >
-            Press ESC key or click the button below to close
+            <input 
+                type="text" 
+                placeholder="Enter email address..." 
+                className="input" 
+                value={emailOnModal}
+                onChange={
+                    (e) => setEmailOnModal(e.target.value)
+                }
+            />
           </p>
           <div 
             className="modal-action"
@@ -222,7 +232,7 @@ const App = () => {
               <button 
                 className="btn"
               >
-                Close
+                Save
               </button>
             </form>
           </div>
