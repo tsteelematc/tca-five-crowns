@@ -21,6 +21,11 @@ import {
 import copyTextToClipboard from 'copy-text-to-clipboard';
 import localforage from 'localforage';
 
+import {
+  saveGameToCloud 
+  , loadGamesFromCloud
+} from './tca-cloud-api';
+
 const dummyGameResults: GameResult[] = [
   {
       winner: "Hermione"
@@ -86,6 +91,8 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   const [emailOnModal, setEmailOnModal] = useState("");
+  
+  const [emailForCloudApi, setEmailForCloudApi] = useState("");
 
   useEffect(
     () => {
@@ -125,6 +132,10 @@ const App = () => {
 
         if (!ignore) {
           setEmailOnModal(savedEmail);
+          
+          if(savedEmail.length > 0) {
+            setEmailForCloudApi(savedEmail);
+          }
         }
       };
 
@@ -148,11 +159,25 @@ const App = () => {
   //
   // Other code (not hooks)...
   //
-  const addNewGameResult = (newGameResult: GameResult) => {
+  const addNewGameResult = async (
+    newGameResult: GameResult
+  ) => {
+
     copyTextToClipboard(
       JSON.stringify(newGameResult)
     );
 
+    // Save the game to the cloud via the cloud api...
+    if (emailForCloudApi.length > 0) {
+      await saveGameToCloud(
+        emailForCloudApi 
+        , "tca-five-crowns-25s"
+        , newGameResult.end
+        , newGameResult
+      );
+    }
+
+    // Optimistically update the lifted state with the new game result...
     setGameResults(
       [
         ...gameResults
@@ -270,10 +295,16 @@ const App = () => {
               <button 
                 className="btn"
                 onClick={
-                  async () => await localforage.setItem(
-                    "email"
-                    , emailOnModal
-                  )
+                  async () => {
+                    const savedEmail = await localforage.setItem(
+                      "email"
+                      , emailOnModal
+                    );
+
+                    if (savedEmail.length > 0) {
+                      setEmailForCloudApi(savedEmail);
+                    }
+                  }
                 }
               >
                 Save
