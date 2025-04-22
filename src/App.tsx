@@ -26,52 +26,6 @@ import {
   , loadGamesFromCloud
 } from './tca-cloud-api';
 
-const dummyGameResults: GameResult[] = [
-  {
-      winner: "Hermione"
-      , players: [
-          "Hermione"
-          , "Harry"
-          , "Ron"
-      ]
-      , start: "2025-03-01T18:20:41.576Z"
-      , end: "2025-03-01T18:35:42.576Z"
-      , scores: []
-      , goOuts: ["", "", "", "", "", "", "", "", "", "", ""]
-  }
-  , {
-      winner: "Ron"
-      , players: [
-          "Hermione"
-          , "Ron"
-      ]
-      , start: "2025-03-05T18:40:27.576Z"
-      , end: "2025-03-05T18:45:42.576Z"
-      , scores: []
-      , goOuts: ["", "", "", "", "", "", "", "", "", "", ""]
-  }
-  , { 
-    "winner": "Eric"
-    , "players": 
-    [
-      "Andrew"
-      , "Erin"
-      , "Beril"
-      , "Tom"
-      , "Eric"
-    ]
-    , "start": "2025-04-12T23:36:36.517Z"
-    , "end": "2025-04-13T01:11:08.007Z"
-    , "scores": [
-      ["Andrew", [0, 8, 20, 13, 14, 3, 35, 31, 6, 20, 0]]
-      , ["Beril", [25, 0, 11, 0, 17, 17, 31, 0, 3, 16, 50]]
-      , ["Eric", [31, 5, 7, 0, 0, 5, 21, 27, 3, 0, 0]]
-      , ["Erin", [19, 0, 14, 15, 0, 0, 25, 15, 0, 12, 11]]
-      , ["Tom", [18, 0, 0, 9, 5, 22, 0, 4, 0, 37, 7]]]
-      , "goOuts": ["Andrew", "Erin", "Tom", "Eric", "Erin", "Erin", "Tom", "Beril", "Erin", "Eric", "Eric"] 
-    }
-];
-
 const App = () => {
 
   //
@@ -81,8 +35,7 @@ const App = () => {
   //
   const emailModalRef = useRef<HTMLDialogElement | null>(null);
 
-  const [gameResults, setGameResults] = useState<GameResult[]>(dummyGameResults);
-  // const [gameResults, setGameResults] = useState<GameResult[]>([]);
+  const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   const [title, setTitle] = useState(AppTitle);
 
@@ -154,6 +107,40 @@ const App = () => {
       };
     }
     , []
+  );
+
+  useEffect(
+    () => {
+
+      const loadGameResults = async () => {
+
+        const savedGameResults = await loadGamesFromCloud(
+          emailForCloudApi 
+          , "tca-five-crowns-25s"
+        );
+
+        if (!ignore) {
+          setGameResults(savedGameResults);
+        }
+      };
+
+      //
+      // Build the ignore-sandwich...
+      //
+
+      // Bread on top...
+      let ignore = false;
+
+      if (emailForCloudApi.length > 0) {
+        loadGameResults();
+      }
+
+      // Bread on bottom...
+      return () => {
+        ignore = true;
+      };
+    }
+    , [emailForCloudApi]
   );
 
   //
