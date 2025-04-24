@@ -53,14 +53,14 @@ export interface GoOutsLeaderboardEntry {
 export interface HighestSingleHandScoreLeaderboardEntry {
     player: string;
     highestSingleHandScore: number;
-    wildCard: string; // Which wildcard round had this high score
+    wildCards: string[]; // Changed from single wildCard to an array of wildcards
 }
 
 export const getHighestSingleHandScoreLeaderboard = (
     results: GameResult[]
 ): HighestSingleHandScoreLeaderboardEntry[] => {
     const players = getPreviousPlayers(results);
-    const playerHighestSingleHandScores = new Map<string, { score: number; wildCard: number }>();
+    const playerHighestSingleHandScores = new Map<string, { score: number; wildCards: number[] }>();
 
     // Go through all game results with scores
     results.forEach((game) => {
@@ -71,14 +71,32 @@ export const getHighestSingleHandScoreLeaderboard = (
         game.scores.forEach(([playerName, scores]) => {
             // Find highest score for this player in this game
             const playerMaxScore = Math.max(...scores.filter((s) => s !== -1));
-            const wildCardIndex = scores.findIndex((s) => s === playerMaxScore);
             
-            // If we found a valid score and it's higher than what we've seen before
-            if (playerMaxScore > 0 && (!playerHighestSingleHandScores.has(playerName) || playerMaxScore > playerHighestSingleHandScores.get(playerName)!.score)) {
+            // Get all occurrences of this max score
+            const wildCardIndices = scores
+                .map((score, index) => score === playerMaxScore ? index : -1)
+                .filter(index => index !== -1);
+            
+            if (playerMaxScore <= 0 || wildCardIndices.length === 0) return;
+            
+            // If this is the first time we're seeing this player or this score is higher
+            if (!playerHighestSingleHandScores.has(playerName) || 
+                playerMaxScore > playerHighestSingleHandScores.get(playerName)!.score) {
+                // New highest score - replace previous data
                 playerHighestSingleHandScores.set(playerName, { 
                     score: playerMaxScore, 
-                    wildCard: wildCardIndex + 3 // Adjust index to wildcard value (3-13)
+                    wildCards: wildCardIndices.map(index => index + 3) // Adjust each index to wildcard value
                 });
+            } 
+            // If this score equals their existing highest score
+            else if (playerMaxScore === playerHighestSingleHandScores.get(playerName)!.score) {
+                // Same highest score - add these wildcards to existing ones
+                const entry = playerHighestSingleHandScores.get(playerName)!;
+                const newWildCards = wildCardIndices.map(index => index + 3);
+                
+                // Combine existing and new wildcards, avoiding duplicates
+                entry.wildCards = [...new Set([...entry.wildCards, ...newWildCards])];
+                playerHighestSingleHandScores.set(playerName, entry);
             }
         });
     });
@@ -91,7 +109,9 @@ export const getHighestSingleHandScoreLeaderboard = (
             return {
                 player,
                 highestSingleHandScore: highScoreData?.score || 0,
-                wildCard: highScoreData ? getDisplayWildcard(highScoreData.wildCard) : "-"
+                wildCards: highScoreData 
+                    ? highScoreData.wildCards.sort((a, b) => a - b).map(wc => getDisplayWildcard(wc)) 
+                    : []
             };
         })
         .filter((entry) => entry.highestSingleHandScore > 0) // Only include players with recorded high scores

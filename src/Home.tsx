@@ -327,7 +327,7 @@ export const Home: React.FC<HomeProps> = ({
                                                     SCORE
                                                 </th>
                                                 <th>
-                                                    WILD CARD
+                                                    WILD CARDS
                                                 </th>
                                             </tr>
                                         </thead>
@@ -345,7 +345,7 @@ export const Home: React.FC<HomeProps> = ({
                                                                 {x.highestSingleHandScore}
                                                             </td>
                                                             <td>
-                                                                {x.wildCard}
+                                                                {x.wildCards.join(", ")}
                                                             </td>
                                                         </tr>
                                                     )
