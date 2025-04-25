@@ -365,7 +365,7 @@ export const Home: React.FC<HomeProps> = ({
                     }
                 </div>
             </div>
-            <div
+            {/* <div
                 className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
             >
                 <div
@@ -425,7 +425,7 @@ export const Home: React.FC<HomeProps> = ({
                             )
                     }
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
