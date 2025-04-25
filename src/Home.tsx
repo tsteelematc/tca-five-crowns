@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
 export const AppTitle = "Five Crowns Companion";
@@ -12,6 +12,7 @@ interface HomeProps {
     highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
     gamesByMonthData: Array<[string, number]>
+    allGames: GameResult[]
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -22,6 +23,7 @@ export const Home: React.FC<HomeProps> = ({
     , highestSingleHandScoreLeaderboardData // Updated name
     , gameDurationData
     // , gamesByMonthData
+    , allGames
 }) => {
 
     useEffect(
@@ -426,6 +428,67 @@ export const Home: React.FC<HomeProps> = ({
                     }
                 </div>
             </div> */}
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Game History
+                    </h2>
+                    {
+                        allGames.length > 0 
+                            ? (
+                                <div 
+                                    className="overflow-x-auto"
+                                >
+                                    <table 
+                                        className="table"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    DATE
+                                                </th>
+                                                <th>
+                                                    PLAYERS
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                allGames.map(
+                                                    x => (
+                                                        <tr
+                                                            key={x.end}
+                                                        >
+                                                            <td>
+                                                                {x.end}
+                                                            </td>
+                                                            <td>
+                                                                {x.players.join(", ")}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                            : (
+                                <p
+                                    className="mx-3 mb-3"
+                                >
+                                    Blah...
+                                </p>
+                            )
+                    }
+                </div>
+            </div>
         </>
     );
 };

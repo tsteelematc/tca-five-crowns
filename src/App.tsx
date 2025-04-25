@@ -328,6 +328,11 @@ const App = () => {
                   gamesByMonthData={
                     getGamesByMonth(gameResults)
                   }
+                  allGames={
+                    gameResults.sort(
+                      (a, b) => Date.parse(b.end) - Date.parse(a.end)
+                    )
+                  }
                 />
               } 
             />
