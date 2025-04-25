@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
 export const AppTitle = "Five Crowns Companion";
@@ -12,7 +12,7 @@ interface HomeProps {
     highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
     gamesByMonthData: Array<[string, number]>
-    allGames: GameResult[]
+    allGames: {date: string, players: string}[]
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -463,13 +463,13 @@ export const Home: React.FC<HomeProps> = ({
                                                 allGames.map(
                                                     x => (
                                                         <tr
-                                                            key={x.end}
+                                                            key={x.date}
                                                         >
                                                             <td>
-                                                                {new Date(x.end).toLocaleString("en-US")}
+                                                                {x.date}
                                                             </td>
                                                             <td>
-                                                                {x.players.join(", ")}
+                                                                {x.players}
                                                             </td>
                                                         </tr>
                                                     )

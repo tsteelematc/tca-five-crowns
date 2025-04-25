@@ -16,7 +16,8 @@ import {
   , getHighestSingleHandScoreLeaderboard
   , getLeaderboard
   , getPreviousPlayers
-  , getGamesByMonth 
+  , getGamesByMonth, 
+  getGameHistoryData
 } from './GameResults';
 import copyTextToClipboard from 'copy-text-to-clipboard';
 import localforage from 'localforage';
@@ -329,9 +330,7 @@ const App = () => {
                     getGamesByMonth(gameResults)
                   }
                   allGames={
-                    gameResults.sort(
-                      (a, b) => Date.parse(b.end) - Date.parse(a.end)
-                    )
+                    getGameHistoryData(gameResults)
                   }
                 />
               } 

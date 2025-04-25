@@ -311,6 +311,22 @@ export const getGamesByMonth = (results: GameResult[]): Array<[string, number]> 
     );
 };
 
+export const getGameHistoryData = (
+    results: GameResult[]
+) => {
+
+    const reverseChron = results.sort(
+        (a, b) => Date.parse(b.end) - Date.parse(a.end)
+    );
+
+    return reverseChron.map(
+        x => ({
+            date: new Date(x.end).toLocaleString("en-US")
+            , players: x.players.join(', ')
+        })
+    );
+};
+
 
 //
 // Helper functions...
