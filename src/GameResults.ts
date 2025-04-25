@@ -322,7 +322,26 @@ export const getGameHistoryData = (
     return reverseChron.map(
         x => ({
             date: new Date(x.end).toLocaleString("en-US")
-            , players: x.players.join(', ')
+            // , players: x.players.join(', ')
+            , players: x.scores
+                .map(
+                    x => ({
+                        name: x[0]
+                        , score: x[1].reduce(
+                            (acc, y) => y >= 0 
+                                ? acc + y
+                                : acc
+                            , 0
+                        )
+                    })
+                )
+                .sort(
+                    (a, b) => a.score - b.score
+                )
+                .map(
+                    x => `${x.name} (${x.score})`
+                )
+                .join(', ')
         })
     );
 };
