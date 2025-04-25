@@ -334,8 +334,6 @@ export const getGameHistoryData = (
                     })
                 )
                 .sort(
-                    // Lowest to highest so order of players is order of
-                    // game finish, i-o-g ! ! !
                     (a, b) => a.score - b.score
                 )
                 .map(
