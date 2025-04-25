@@ -21,7 +21,7 @@ export const Home: React.FC<HomeProps> = ({
     , goOutsLeaderboardData
     , highestSingleHandScoreLeaderboardData // Updated name
     , gameDurationData
-    , gamesByMonthData
+    // , gamesByMonthData
 }) => {
 
     useEffect(
