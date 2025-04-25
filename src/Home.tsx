@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
 
 export const AppTitle = "Five Crowns Companion";
@@ -11,7 +11,8 @@ interface HomeProps {
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
     highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
-    gamesByMonthData: Array<[string, number]>
+    gamesByMonthData: Array<[string, number]>;
+    recentGames: GameResult[]; // Added this line for the games data
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -22,6 +23,7 @@ export const Home: React.FC<HomeProps> = ({
     , highestSingleHandScoreLeaderboardData // Updated name
     , gameDurationData
     , gamesByMonthData
+    , recentGames
 }) => {
 
     useEffect(
@@ -360,6 +362,72 @@ export const Home: React.FC<HomeProps> = ({
                                     className="mx-3 mb-3"
                                 >
                                     Play a game with scores to see the highest single hand score leaderboard!
+                                </p>
+                            )
+                    }
+                </div>
+            </div>
+            <div
+                className="card w-full bg-base-100 card-md shadow-lg mt-4 border-t-4 border-secondary"
+            >
+                <div
+                    className="card-body p-0"
+                >
+                    <h2
+                        className="card-title ml-3 mt-3"
+                    >
+                        Recent Games
+                    </h2>
+                    {
+                        recentGames.length > 0 
+                            ? (
+                                <div 
+                                    className="overflow-x-auto"
+                                >
+                                    <table 
+                                        className="table"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Players</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                recentGames.map(
+                                                    (game, idx) => {
+                                                        const gameDate = new Date(game.end).toLocaleDateString();
+                                                        
+                                                        return (
+                                                            <tr key={idx}>
+                                                                <td>{gameDate}</td>
+                                                                <td>
+                                                                    {game.players.map((player, playerIdx) => {
+                                                                        const playerScore = `${player} (${game.scores[playerIdx]})`;
+                                                                        const isWinner = game.winner !== undefined && Number(game.winner) === playerIdx;
+                                                                        
+                                                                        return (
+                                                                            <div key={playerIdx}>
+                                                                                {isWinner ? <strong>{playerScore}</strong> : playerScore}
+                                                                            </div>
+                                                                        );
+                                                                    })}
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                            : (
+                                <p
+                                    className="mx-3 mb-3"
+                                >
+                                    Play a game of Five Crowns to see your game history!
                                 </p>
                             )
                     }

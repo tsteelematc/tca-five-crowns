@@ -328,6 +328,9 @@ const App = () => {
                   gamesByMonthData={
                     getGamesByMonth(gameResults)
                   }
+                  recentGames={
+                    [...gameResults].sort((a, b) => new Date(b.end).getTime() - new Date(a.end).getTime())
+                  }
                 />
               } 
             />
