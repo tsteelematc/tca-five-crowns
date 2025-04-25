@@ -303,6 +303,18 @@ export const Play: React.FC<PlayProps> = ({
                                     )
                                 }
                             </tbody>
+                            <tfoot>
+                                <th></th>
+                                {
+                                    orderedPlayers.map(
+                                        x => (
+                                            <td>
+                                                {x} ({getRunningTotal(x, 13)})
+                                            </td>
+                                        )
+                                    )
+                                }
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -324,7 +336,7 @@ export const Play: React.FC<PlayProps> = ({
                             <p
                                 className="mx-3"
                             >
-                                Some players are tied, cut cards, rock-paper-scissors, somehow choose a single winner ! ! !
+                                Some players are tied, cut cards, rock-paper-scissors, somehow choose a single winner...
                             </p>
                         )
                     }
