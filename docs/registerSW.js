@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/tca-five-crowns/sw.js', { scope: '/tca-five-crowns/' })})}
