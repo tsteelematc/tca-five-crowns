@@ -313,13 +313,11 @@ export const getGamesByMonth = (results: GameResult[]): Array<[string, number]> 
 
 export const getGameHistoryData = (
     results: GameResult[]
-) => {
-
-    const reverseChron = results.sort(
+) => results
+    .sort(
         (a, b) => Date.parse(b.end) - Date.parse(a.end)
-    );
-
-    return reverseChron.map(
+    )
+    .map(
         x => ({
             date: new Date(x.end).toLocaleString("en-US")
             // , players: x.players.join(', ')
@@ -336,6 +334,8 @@ export const getGameHistoryData = (
                     })
                 )
                 .sort(
+                    // Lowest to highest so order of players is order of
+                    // game finish, i-o-g ! ! !
                     (a, b) => a.score - b.score
                 )
                 .map(
@@ -344,8 +344,7 @@ export const getGameHistoryData = (
                 .join(', ')
         })
     );
-};
-
+;
 
 //
 // Helper functions...
