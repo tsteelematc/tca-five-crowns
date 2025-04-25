@@ -166,7 +166,7 @@ export const Home: React.FC<HomeProps> = ({
                                 <p
                                     className="mx-3 mb-3"
                                 >
-                                    Play a game of Five Crowns to see the leaderboard ! ! !
+                                    Play a game of Five Crowns to see the leaderboard...
                                 </p>
                             )
                     }
@@ -230,7 +230,7 @@ export const Home: React.FC<HomeProps> = ({
                                 <p
                                     className="mx-3 mb-3"
                                 >
-                                    Play a game of Five Crowns to see the leaderboard ! ! !
+                                    Nobody has gone out yet, play a game to see...
                                 </p>
                             )
                     }
@@ -294,7 +294,7 @@ export const Home: React.FC<HomeProps> = ({
                                 <p
                                     className="mx-3 mb-3"
                                 >
-                                    Play some Five Crowns to see : - O
+                                    No games played yet...
                                 </p>
                             )
                     }
@@ -361,7 +361,7 @@ export const Home: React.FC<HomeProps> = ({
                                 <p
                                     className="mx-3 mb-3"
                                 >
-                                    Play a game with scores to see the highest single hand score leaderboard!
+                                    Have to play to see worst hands : - )
                                 </p>
                             )
                     }
@@ -483,7 +483,7 @@ export const Home: React.FC<HomeProps> = ({
                                 <p
                                     className="mx-3 mb-3"
                                 >
-                                    Blah...
+                                    Maybe, ah, play a game : - O
                                 </p>
                             )
                     }
