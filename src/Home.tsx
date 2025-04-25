@@ -466,7 +466,7 @@ export const Home: React.FC<HomeProps> = ({
                                                             key={x.end}
                                                         >
                                                             <td>
-                                                                {x.end}
+                                                                {new Date(x.end).toLocaleString("en-US")}
                                                             </td>
                                                             <td>
                                                                 {x.players.join(", ")}
