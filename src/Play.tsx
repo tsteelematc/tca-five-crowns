@@ -404,48 +404,55 @@ export const Play: React.FC<PlayProps> = ({
                     >
                         Editing scores for <span className="text-secondary font-bold">{getDisplayWildcard(editingRow)}'s</span> wild
                     </h3>
-                    <div className="flex flex-col bg-info123 text-left">
-                        <div className="join my-4 flex items-center">
-                            <button
-                                className="flex-none btn btn-sm btn-outline join-item"
-                                onClick={
-                                    () => setEditingPlayer(
-                                        editingPlayerIndex > 0
-                                            ? editingPlayerIndex - 1
-                                            : orderedPlayers.length - 1
-                                    )
-                                }
+                    <div className="flex flex-col">
+                        <div className="flex items-center">
+                            <div className="join my-4 flex">
+                                <button
+                                    className="flex-none btn btn-sm btn-outline join-item"
+                                    onClick={
+                                        () => setEditingPlayer(
+                                            editingPlayerIndex > 0
+                                                ? editingPlayerIndex - 1
+                                                : orderedPlayers.length - 1
+                                        )
+                                    }
+                                >
+                                    &lt;
+                                </button>
+                                <button
+                                    className="flex-none btn btn-sm btn-outline join-item"
+                                    onClick={
+                                        () => setEditingPlayer(
+                                            editingPlayerIndex < orderedPlayers.length - 1
+                                                ? editingPlayerIndex + 1
+                                                : 0
+                                        )
+                                    }
+                                >
+                                    &gt;
+                                </button>
+                            </div>
+                            <div
+                                className="text-sm ml-4 font-light"
                             >
-                                &lt;
-                            </button>
-                            <label
-                                className="flex-1 ml-4 mr-4 text-xl join-item text-left"
-                            >
-                                {orderedPlayers[editingPlayerIndex]}
-                                &nbsp;
-                                (
-                                {
-                                    getDisplayScore(
-                                        orderedPlayers[editingPlayerIndex]
-                                        , editingRow
-                                    )
-                                }
-                                )
-                            </label>
-                            <button
-                                className="flex-none btn btn-sm btn-outline join-item"
-                                onClick={
-                                    () => setEditingPlayer(
-                                        editingPlayerIndex < orderedPlayers.length - 1
-                                            ? editingPlayerIndex + 1
-                                            : 0
-                                    )
-                                }
-                            >
-                                &gt;
-                            </button>
+                                Previous/Next Player
+                            </div>
                         </div>
-                        <div className="flex">
+                        <label
+                            className="flex-1 ml-0 mr-0 text-xl text-left font-bold"
+                        >
+                            {orderedPlayers[editingPlayerIndex]}
+                            &nbsp;
+                            (
+                            {
+                                getDisplayScore(
+                                    orderedPlayers[editingPlayerIndex]
+                                    , editingRow
+                                )
+                            }
+                            )
+                        </label>                        
+                        <div className="flex mt-4">
                             <div className="join">
                                 <button
                                     className="btn btn-sm btn-outline join-item"
