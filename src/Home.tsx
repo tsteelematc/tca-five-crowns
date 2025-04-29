@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry, validateGameResult } from "./GameResults";
 import { useEffect } from "react";
 import copyTextToClipboard from 'copy-text-to-clipboard';
 
@@ -12,8 +12,9 @@ interface HomeProps {
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
     highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
-    gamesByMonthData: Array<[string, number]>
-    allGames: { date: string, players: string, result: GameResult }[]
+    gamesByMonthData: Array<[string, number]>;
+    allGames: { date: string, players: string, result: GameResult }[];
+    addNewGameResult: (r: GameResult) => void;
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -25,6 +26,7 @@ export const Home: React.FC<HomeProps> = ({
     , gameDurationData
     // , gamesByMonthData
     , allGames
+    , addNewGameResult
 }) => {
 
     useEffect(
@@ -441,8 +443,28 @@ export const Home: React.FC<HomeProps> = ({
                         >
                             Game History
                         </h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" className="size-3 inline ml-auto mr-3">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        <svg 
+                            onClick={
+                                async () => {
+                                    const clip = await navigator.clipboard.readText();
+                                    const validateResult = await validateGameResult(clip);
+
+                                    if (validateResult.success) {
+                                        console.log("addNewGameResult");
+                                        addNewGameResult(validateResult.data);
+                                    }
+                                    
+                                    console.log(
+                                        "paste"
+                                        , clip
+                                        , validateGameResult(
+                                            clip
+                                        )
+                                    )
+                                }
+                            }
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-3 inline ml-auto mr-3">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
                         </svg>
                     </div>
                     {
@@ -484,7 +506,7 @@ export const Home: React.FC<HomeProps> = ({
                                                                         xmlns="http://www.w3.org/2000/svg"
                                                                         fill="none"
                                                                         viewBox="0 0 24 24"
-                                                                        stroke-width="2.5"
+                                                                        strokeWidth="2.5"
                                                                         stroke="currentColor"
                                                                         className="size-3 inline ml-1 mb-1"
                                                                         onClick={
@@ -493,7 +515,7 @@ export const Home: React.FC<HomeProps> = ({
                                                                             )
                                                                         }
                                                                     >
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
                                                                     </svg>
                                                                 </div>
                                                             </td>
@@ -518,7 +540,7 @@ export const Home: React.FC<HomeProps> = ({
             <div className="toast toast-bottom toast-center">
                 <div className="alert alert-soft">
                     <span>
-                        Copied game to clipboard, text it to someone...
+                        Game copied, now paste &amp; share...
                     </span>
                 </div>
             </div>

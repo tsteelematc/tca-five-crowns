@@ -326,6 +326,7 @@ const App = () => {
                   allGames={
                     getGameHistoryData(gameResults)
                   }
+                  addNewGameResult={addNewGameResult}
                 />
               } 
             />

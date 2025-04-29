@@ -1,4 +1,5 @@
 import { durationFormatter } from "human-readable";
+import { z } from "zod";
 
 const formatGameDuration = durationFormatter<string>();
 
@@ -28,6 +29,30 @@ export interface GameResult {
     scores: [string, number[]][];
     goOuts: string[];
 }
+
+const GameResultSchema = z.object(
+    {
+        winner: z.string()
+        , players: z.array(
+            z.string()
+        )
+        , start: z.string() 
+        , end: z.string() 
+        , scores: z.array(
+            z.tuple(
+                [
+                    z.string()
+                    , z.array(
+                        z.number()
+                    )
+                ]
+            )
+        )
+        , goOuts: z.array(
+            z.string()
+        )
+    }
+);
 
 export interface LeaderboardEntry {
     wins: number;
@@ -345,6 +370,17 @@ export const getGameHistoryData = (
     );
 ;
 
+export const validateGameResult = async (result: string) => {
+
+    const parsedObject = await safeJsonParseString(result);
+    // console.log(
+    //     "parsedObject"
+    //     , parsedObject
+    // );
+
+    return GameResultSchema.safeParse(parsedObject);
+}
+
 //
 // Helper functions...
 //
@@ -382,4 +418,14 @@ const getAvgGameDurationInMilliseconds = (results: GameResult[]) => {
         ? totalGameTimeInMilliseconds / results.length
         : 0
     ;
+};
+
+const safeJsonParseString = async (json: string) => {
+    try {
+        return JSON.parse(json);
+    }
+    catch {
+        // Empty object if parse fails, i-o-g...
+        return {};
+    }
 };
