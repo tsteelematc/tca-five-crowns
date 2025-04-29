@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
+import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
 import { useEffect } from "react";
+import copyTextToClipboard from 'copy-text-to-clipboard';
 
 export const AppTitle = "Five Crowns Companion";
 
@@ -12,7 +13,7 @@ interface HomeProps {
     highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
     gamesByMonthData: Array<[string, number]>
-    allGames: {date: string, players: string}[]
+    allGames: { date: string, players: string, result: GameResult }[]
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -111,12 +112,12 @@ export const Home: React.FC<HomeProps> = ({
                         Leaderboard
                     </h2>
                     {
-                        leaderboardData.length > 0 
+                        leaderboardData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -184,12 +185,12 @@ export const Home: React.FC<HomeProps> = ({
                         "Go Outs" Leaderboard
                     </h2>
                     {
-                        goOutsLeaderboardData.length > 0 
+                        goOutsLeaderboardData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -248,12 +249,12 @@ export const Home: React.FC<HomeProps> = ({
                         Game Durations
                     </h2>
                     {
-                        gameDurationData.length > 0 
+                        gameDurationData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -280,7 +281,7 @@ export const Home: React.FC<HomeProps> = ({
                                                                 {x.avgGameDuration}
                                                                 <span className="text-xs font-light ml-4">
                                                                     {x.gameCount} {`game${x.gameCount === 1 ? "" : "s"}`}
-                                                                </span>                                                                
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     )
@@ -312,12 +313,12 @@ export const Home: React.FC<HomeProps> = ({
                         Worst Hands
                     </h2>
                     {
-                        highestSingleHandScoreLeaderboardData.length > 0 
+                        highestSingleHandScoreLeaderboardData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -434,18 +435,23 @@ export const Home: React.FC<HomeProps> = ({
                 <div
                     className="card-body p-0"
                 >
-                    <h2
-                        className="card-title ml-3 mt-3"
-                    >
-                        Game History
-                    </h2>
+                    <div className="flex items-center">
+                        <h2
+                            className="card-title ml-3 mt-3"
+                        >
+                            Game History
+                        </h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" className="size-3 inline ml-auto mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        </svg>
+                    </div>
                     {
-                        allGames.length > 0 
+                        allGames.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -456,6 +462,7 @@ export const Home: React.FC<HomeProps> = ({
                                                 <th>
                                                     PLAYERS
                                                 </th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -469,7 +476,26 @@ export const Home: React.FC<HomeProps> = ({
                                                                 {x.date}
                                                             </td>
                                                             <td>
-                                                                {x.players}
+                                                                <div
+                                                                    className="inline"
+                                                                >
+                                                                    {x.players}
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke-width="2.5"
+                                                                        stroke="currentColor"
+                                                                        className="size-3 inline ml-1 mb-1"
+                                                                        onClick={
+                                                                            () => copyTextToClipboard(
+                                                                                JSON.stringify(x.result)
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                                                    </svg>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     )
@@ -487,6 +513,13 @@ export const Home: React.FC<HomeProps> = ({
                                 </p>
                             )
                     }
+                </div>
+            </div>
+            <div className="toast toast-bottom toast-center">
+                <div className="alert alert-soft">
+                    <span>
+                        Copied game to clipboard, text it to someone...
+                    </span>
                 </div>
             </div>
         </>

@@ -340,6 +340,7 @@ export const getGameHistoryData = (
                     x => `${x.name} (${x.score})`
                 )
                 .join(', ')
+            , result: x 
         })
     );
 ;
