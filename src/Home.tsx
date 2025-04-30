@@ -454,7 +454,7 @@ export const Home: React.FC<HomeProps> = ({
                                                     DATE
                                                 </th>
                                                 <th>
-                                                    PLAYERS
+                                                    PLAYERS (1<sup>st</sup> to N<sup>th</sup>)
                                                 </th>
                                             </tr>
                                         </thead>
