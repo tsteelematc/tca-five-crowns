@@ -454,7 +454,12 @@ export const Home: React.FC<HomeProps> = ({
                                                     DATE
                                                 </th>
                                                 <th>
-                                                    PLAYERS (1<sup>st</sup> to N<sup>th</sup>)
+                                                    PLAYERS 
+                                                    <span
+                                                        className="text-xs font-light ml-4"
+                                                    >
+                                                        1<sup>st</sup> - N<sup>th</sup>
+                                                    </span>
                                                 </th>
                                             </tr>
                                         </thead>
