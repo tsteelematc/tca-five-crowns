@@ -329,7 +329,7 @@ export const Home: React.FC<HomeProps> = ({
                                                     SCORE
                                                 </th>
                                                 <th>
-                                                    WILD CARDS
+                                                    WILD CARD(S)
                                                 </th>
                                             </tr>
                                         </thead>
