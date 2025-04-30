@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
-import { GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry } from "./GameResults";
-import { useEffect } from "react";
+import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry, validateGameResult } from "./GameResults";
+import { useEffect, useRef } from "react";
+import copyTextToClipboard from 'copy-text-to-clipboard';
 
 export const AppTitle = "Five Crowns Companion";
 
@@ -11,8 +12,9 @@ interface HomeProps {
     goOutsLeaderboardData: GoOutsLeaderboardEntry[];
     highestSingleHandScoreLeaderboardData: HighestSingleHandScoreLeaderboardEntry[]; // Updated name
     gameDurationData: any; // : - (
-    gamesByMonthData: Array<[string, number]>
-    allGames: {date: string, players: string}[]
+    gamesByMonthData: Array<[string, number]>;
+    allGames: { date: string, players: string, result: GameResult }[];
+    addNewGameResult: (r: GameResult) => void;
 };
 
 export const Home: React.FC<HomeProps> = ({
@@ -24,7 +26,11 @@ export const Home: React.FC<HomeProps> = ({
     , gameDurationData
     // , gamesByMonthData
     , allGames
+    , addNewGameResult
 }) => {
+
+    const copiedModalRef = useRef<HTMLDialogElement | null>(null);
+    const pasteModalRef = useRef<HTMLDialogElement | null>(null);
 
     useEffect(
         () => setTitle(AppTitle)
@@ -111,12 +117,12 @@ export const Home: React.FC<HomeProps> = ({
                         Leaderboard
                     </h2>
                     {
-                        leaderboardData.length > 0 
+                        leaderboardData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -184,12 +190,12 @@ export const Home: React.FC<HomeProps> = ({
                         "Go Outs" Leaderboard
                     </h2>
                     {
-                        goOutsLeaderboardData.length > 0 
+                        goOutsLeaderboardData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -248,12 +254,12 @@ export const Home: React.FC<HomeProps> = ({
                         Game Durations
                     </h2>
                     {
-                        gameDurationData.length > 0 
+                        gameDurationData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -280,7 +286,7 @@ export const Home: React.FC<HomeProps> = ({
                                                                 {x.avgGameDuration}
                                                                 <span className="text-xs font-light ml-4">
                                                                     {x.gameCount} {`game${x.gameCount === 1 ? "" : "s"}`}
-                                                                </span>                                                                
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     )
@@ -312,12 +318,12 @@ export const Home: React.FC<HomeProps> = ({
                         Worst Hands
                     </h2>
                     {
-                        highestSingleHandScoreLeaderboardData.length > 0 
+                        highestSingleHandScoreLeaderboardData.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -434,18 +440,27 @@ export const Home: React.FC<HomeProps> = ({
                 <div
                     className="card-body p-0"
                 >
-                    <h2
-                        className="card-title ml-3 mt-3"
-                    >
-                        Game History
-                    </h2>
+                    <div className="flex items-center">
+                        <h2
+                            className="card-title ml-3 mt-3"
+                        >
+                            Game History
+                        </h2>
+                        <svg
+                            onClick={
+                                () => pasteModalRef.current?.showModal()
+                            }
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-3 inline ml-auto mr-3">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        </svg>
+                    </div>
                     {
-                        allGames.length > 0 
+                        allGames.length > 0
                             ? (
-                                <div 
+                                <div
                                     className="overflow-x-auto"
                                 >
-                                    <table 
+                                    <table
                                         className="table"
                                     >
                                         <thead>
@@ -461,6 +476,7 @@ export const Home: React.FC<HomeProps> = ({
                                                         1<sup>st</sup> - N<sup>th</sup>
                                                     </span>
                                                 </th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -474,7 +490,30 @@ export const Home: React.FC<HomeProps> = ({
                                                                 {x.date}
                                                             </td>
                                                             <td>
-                                                                {x.players}
+                                                                <div
+                                                                    className="inline"
+                                                                >
+                                                                    {x.players}
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        strokeWidth="2.5"
+                                                                        stroke="currentColor"
+                                                                        className="size-3 inline ml-1 mb-1"
+                                                                        onClick={
+                                                                            () => {
+                                                                                copyTextToClipboard(
+                                                                                    JSON.stringify(x.result)
+                                                                                );
+
+                                                                                copiedModalRef.current?.showModal();
+                                                                            }
+                                                                        }
+                                                                    >
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                                                    </svg>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     )
@@ -494,6 +533,110 @@ export const Home: React.FC<HomeProps> = ({
                     }
                 </div>
             </div>
+            <dialog
+                ref={copiedModalRef}
+                className="modal modal-bottom sm:modal-middle"
+            >
+                <div className="modal-backdrop bg-base-300"></div>
+                <div
+                    className="modal-box"
+                >
+                    <form
+                        method="dialog"
+                    >
+                        <button
+                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                        </button>
+                    </form>
+                    <h3
+                        className="font-bold text-lg"
+                    >
+                        Copied Game...
+                    </h3>
+                    <p
+                        className="py-4"
+                    >
+                        Now paste it in a text message, email, or someplace to share...
+                    </p>
+                </div>
+            </dialog>
+            <dialog
+                ref={pasteModalRef}
+                className="modal modal-bottom sm:modal-middle"
+            >
+                <div className="modal-backdrop bg-base-300"></div>
+                <div
+                    className="modal-box"
+                >
+                    <form
+                        method="dialog"
+                    >
+                        <button
+                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                        </button>
+                    </form>
+                    <h3
+                        className="font-bold text-lg"
+                    >
+                        Paste Game...
+                    </h3>
+                    <p
+                        className="py-4"
+                    >
+                        Make sure a valid game is on your clipboard, then press Paste Game to add to your games...
+                    </p>
+                    <div
+                        className="modal-action"
+                    >
+                        <form
+                            method="dialog"
+                        >
+                            {/* if there is a button in form, it will close the modal */}
+                            <button
+                                className="btn"
+                                onClick={
+                                    async () => {
+                                        const clip = await navigator.clipboard.readText();
+                                        const validateResult = await validateGameResult(clip);
+                                        
+                                        if (validateResult.success) {
+
+                                            const duplicateGame = allGames
+                                                .map(
+                                                    x => x.result
+                                                )
+                                                .some(
+                                                    x => (
+                                                        x.start === validateResult.data.start
+                                                        && x.end === validateResult.data.end
+                                                    )
+                                                )
+                                            ;
+
+                                            if (!duplicateGame) {
+                                                // console.log("addNewGameResult");
+                                                addNewGameResult(validateResult.data);
+                                            }
+                                        }
+
+                                        // console.log(
+                                        //     "paste"
+                                        //     , clip
+                                        //     , validateGameResult(
+                                        //         clip
+                                        //     )
+                                        // );
+                                    }
+                                }
+                            >
+                                Paste Game
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </>
     );
 };

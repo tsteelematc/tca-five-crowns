@@ -19,7 +19,6 @@ import {
   , getGamesByMonth, 
   getGameHistoryData
 } from './GameResults';
-import copyTextToClipboard from 'copy-text-to-clipboard';
 import localforage from 'localforage';
 
 import {
@@ -150,11 +149,6 @@ const App = () => {
   const addNewGameResult = async (
     newGameResult: GameResult
   ) => {
-
-    copyTextToClipboard(
-      JSON.stringify(newGameResult)
-    );
-
     // Save the game to the cloud via the cloud api...
     if (emailForCloudApi.length > 0) {
       await saveGameToCloud(
@@ -332,6 +326,7 @@ const App = () => {
                   allGames={
                     getGameHistoryData(gameResults)
                   }
+                  addNewGameResult={addNewGameResult}
                 />
               } 
             />
