@@ -266,7 +266,7 @@ const App = () => {
             <input 
                 type="text" 
                 placeholder="Enter email address..." 
-                className="input" 
+                className="input w-full" 
                 value={emailOnModal}
                 onChange={
                     (e) => setEmailOnModal(e.target.value)
