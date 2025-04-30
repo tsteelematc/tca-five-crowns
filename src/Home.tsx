@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScoreLeaderboardEntry, LeaderboardEntry, validateGameResult } from "./GameResults";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import copyTextToClipboard from 'copy-text-to-clipboard';
 
 export const AppTitle = "Five Crowns Companion";
@@ -28,6 +28,9 @@ export const Home: React.FC<HomeProps> = ({
     , allGames
     , addNewGameResult
 }) => {
+
+    const copiedModalRef = useRef<HTMLDialogElement | null>(null);
+    const pasteModalRef = useRef<HTMLDialogElement | null>(null);
 
     useEffect(
         () => setTitle(AppTitle)
@@ -443,25 +446,9 @@ export const Home: React.FC<HomeProps> = ({
                         >
                             Game History
                         </h2>
-                        <svg 
+                        <svg
                             onClick={
-                                async () => {
-                                    const clip = await navigator.clipboard.readText();
-                                    const validateResult = await validateGameResult(clip);
-
-                                    if (validateResult.success) {
-                                        console.log("addNewGameResult");
-                                        addNewGameResult(validateResult.data);
-                                    }
-                                    
-                                    console.log(
-                                        "paste"
-                                        , clip
-                                        , validateGameResult(
-                                            clip
-                                        )
-                                    )
-                                }
+                                () => pasteModalRef.current?.showModal()
                             }
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-3 inline ml-auto mr-3">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
@@ -510,9 +497,13 @@ export const Home: React.FC<HomeProps> = ({
                                                                         stroke="currentColor"
                                                                         className="size-3 inline ml-1 mb-1"
                                                                         onClick={
-                                                                            () => copyTextToClipboard(
-                                                                                JSON.stringify(x.result)
-                                                                            )
+                                                                            () => {
+                                                                                copyTextToClipboard(
+                                                                                    JSON.stringify(x.result)
+                                                                                );
+
+                                                                                copiedModalRef.current?.showModal();
+                                                                            }
                                                                         }
                                                                     >
                                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
@@ -537,13 +528,95 @@ export const Home: React.FC<HomeProps> = ({
                     }
                 </div>
             </div>
-            <div className="toast toast-bottom toast-center">
-                <div className="alert alert-soft">
-                    <span>
-                        Game copied, now paste &amp; share...
-                    </span>
+            <dialog
+                ref={copiedModalRef}
+                className="modal modal-bottom sm:modal-middle"
+            >
+                <div className="modal-backdrop bg-base-300"></div>
+                <div
+                    className="modal-box"
+                >
+                    <form
+                        method="dialog"
+                    >
+                        <button
+                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                        </button>
+                    </form>
+                    <h3
+                        className="font-bold text-lg"
+                    >
+                        Copied Game...
+                    </h3>
+                    <p
+                        className="py-4"
+                    >
+                        Now paste it in a text message, email, or someplace to share...
+                    </p>
                 </div>
-            </div>
+            </dialog>
+            <dialog
+                ref={pasteModalRef}
+                className="modal modal-bottom sm:modal-middle"
+            >
+                <div className="modal-backdrop bg-base-300"></div>
+                <div
+                    className="modal-box"
+                >
+                    <form
+                        method="dialog"
+                    >
+                        <button
+                            className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                        </button>
+                    </form>
+                    <h3
+                        className="font-bold text-lg"
+                    >
+                        Paste Game...
+                    </h3>
+                    <p
+                        className="py-4"
+                    >
+                        Make sure a valid game is on your clipboard, then press Paste Game to add to your games...
+                    </p>
+                    <div
+                        className="modal-action"
+                    >
+                        <form
+                            method="dialog"
+                        >
+                            {/* if there is a button in form, it will close the modal */}
+                            <button
+                                className="btn"
+                                onClick={
+                                    async () => {
+                                        const clip = await navigator.clipboard.readText();
+                                        const validateResult = await validateGameResult(clip);
+
+                                        if (validateResult.success) {
+                                            console.log("addNewGameResult");
+                                            addNewGameResult(validateResult.data);
+                                        }
+
+                                        console.log(
+                                            "paste"
+                                            , clip
+                                            , validateGameResult(
+                                                clip
+                                            )
+                                        )
+                                    }
+                                }
+                            >
+                                Paste Game
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </>
     );
 };
