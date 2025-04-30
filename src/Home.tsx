@@ -595,19 +595,34 @@ export const Home: React.FC<HomeProps> = ({
                                     async () => {
                                         const clip = await navigator.clipboard.readText();
                                         const validateResult = await validateGameResult(clip);
-
+                                        
                                         if (validateResult.success) {
-                                            console.log("addNewGameResult");
-                                            addNewGameResult(validateResult.data);
+
+                                            const duplicateGame = allGames
+                                                .map(
+                                                    x => x.result
+                                                )
+                                                .some(
+                                                    x => (
+                                                        x.start === validateResult.data.start
+                                                        && x.end === validateResult.data.end
+                                                    )
+                                                )
+                                            ;
+
+                                            if (!duplicateGame) {
+                                                // console.log("addNewGameResult");
+                                                addNewGameResult(validateResult.data);
+                                            }
                                         }
 
-                                        console.log(
-                                            "paste"
-                                            , clip
-                                            , validateGameResult(
-                                                clip
-                                            )
-                                        )
+                                        // console.log(
+                                        //     "paste"
+                                        //     , clip
+                                        //     , validateGameResult(
+                                        //         clip
+                                        //     )
+                                        // );
                                     }
                                 }
                             >
