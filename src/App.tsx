@@ -327,6 +327,7 @@ const App = () => {
                     getGameHistoryData(gameResults)
                   }
                   addNewGameResult={addNewGameResult}
+                  partitionKey={emailForCloudApi}
                 />
               } 
             />

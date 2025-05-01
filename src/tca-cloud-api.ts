@@ -94,4 +94,19 @@ export const saveGameToCloud = async (
     return gameResults;    
   };
   
-  
+  export const deleteGameFromCloud = async (
+    pk: string
+    , sk: string
+  ) => {
+      
+    const url = `https://32wop75hhc.execute-api.us-east-1.amazonaws.com/prod/data/?pk=${pk}&sk=${sk}`;
+
+    const options = {
+      method: 'DELETE',
+    };
+
+    await fetch(
+      url
+      , options
+    );
+  };
