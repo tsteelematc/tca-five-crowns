@@ -498,7 +498,7 @@ export const Home: React.FC<HomeProps> = ({
                                                                 <div 
                                                                     className="inline"
                                                                 >
-                                                                    {x.date} {x.result.end}
+                                                                    {x.date}
                                                                     {
                                                                         showDelete && (
                                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" 
@@ -506,7 +506,8 @@ export const Home: React.FC<HomeProps> = ({
                                                                                 onClick={
                                                                                     async () => await deleteGameFromCloud(
                                                                                         partitionKey
-                                                                                        , `tca-five-crowns-25s%23${x.result.end}`
+                                                                                        , "tca-five-crowns-25s"
+                                                                                        , `${x.result.end}`
                                                                                     )
                                                                                 }
                                                                             >

@@ -95,14 +95,15 @@ export const saveGameToCloud = async (
   };
   
   export const deleteGameFromCloud = async (
-    pk: string
-    , sk: string
+    user: string
+    , app: string
+    , end: string
   ) => {
       
-    const url = `https://32wop75hhc.execute-api.us-east-1.amazonaws.com/prod/data/?pk=${pk}&sk=${sk}`;
+    const url = `https://32wop75hhc.execute-api.us-east-1.amazonaws.com/prod/data/?user=${user}&app=${app}&end=${end}`;
 
     const options = {
-      method: 'DELETE',
+      method: 'DELETE'
     };
 
     await fetch(
