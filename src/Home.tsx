@@ -170,9 +170,9 @@ export const Home: React.FC<HomeProps> = ({
                             )
                             : (
                                 <p
-                                    className="mx-3 mb-3"
+                                    className="mx-3 mb-3 font-extralight"
                                 >
-                                    Play a game of Five Crowns to see the leaderboard...
+                                    N/A
                                 </p>
                             )
                     }
@@ -234,9 +234,9 @@ export const Home: React.FC<HomeProps> = ({
                             )
                             : (
                                 <p
-                                    className="mx-3 mb-3"
+                                    className="mx-3 mb-3 font-extralight"
                                 >
-                                    Nobody has gone out yet, play a game to see...
+                                    N/A
                                 </p>
                             )
                     }
@@ -298,9 +298,9 @@ export const Home: React.FC<HomeProps> = ({
                             )
                             : (
                                 <p
-                                    className="mx-3 mb-3"
+                                    className="mx-3 mb-3 font-extralight"
                                 >
-                                    No games played yet...
+                                    N/A
                                 </p>
                             )
                     }
@@ -365,9 +365,9 @@ export const Home: React.FC<HomeProps> = ({
                             )
                             : (
                                 <p
-                                    className="mx-3 mb-3"
+                                    className="mx-3 mb-3 font-extralight"
                                 >
-                                    Have to play to see worst hands : - )
+                                    N/A
                                 </p>
                             )
                     }
@@ -426,9 +426,9 @@ export const Home: React.FC<HomeProps> = ({
                             )
                             : (
                                 <p
-                                    className="mx-3 mb-3"
+                                    className="mx-3 mb-3 font-extralight"
                                 >
-                                    Yeah right, play a game to see : - O
+                                    N/A
                                 </p>
                             )
                     }
@@ -525,9 +525,9 @@ export const Home: React.FC<HomeProps> = ({
                             )
                             : (
                                 <p
-                                    className="mx-3 mb-3"
+                                    className="mx-3 mb-3 font-extralight"
                                 >
-                                    Maybe, ah, play a game : - O
+                                    N/A
                                 </p>
                             )
                     }
