@@ -150,14 +150,14 @@ const App = () => {
     newGameResult: GameResult
   ) => {
     // Save the game to the cloud via the cloud api...
-    if (emailForCloudApi.length > 0) {
-      await saveGameToCloud(
-        emailForCloudApi 
-        , "tca-five-crowns-25s"
-        , newGameResult.end
-        , newGameResult
-      );
-    }
+    await saveGameToCloud(
+      emailForCloudApi.length > 0 
+        ? emailForCloudApi
+        : "unknown@tomfixthis.com" 
+      , "tca-five-crowns-25s"
+      , newGameResult.end
+      , newGameResult
+    );
 
     // Optimistically update the lifted state with the new game result...
     setGameResults(
