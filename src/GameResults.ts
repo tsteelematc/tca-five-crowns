@@ -167,10 +167,10 @@ export const getLeaderboard = (results: GameResult[]): LeaderboardEntry[] =>
 export const getGeneralFacts = (results: GameResult[]): GeneralFacts => {
 	if (results.length === 0) {
 		return {
-			lastPlayed: "n/a",
+			lastPlayed: "N/A",
 			totalGames: 0,
-			shortestGame: "n/a",
-			longestGame: "n/a",
+			shortestGame: "N/A",
+			longestGame: "N/A",
 		};
 	}
 
