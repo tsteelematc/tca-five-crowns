@@ -134,6 +134,9 @@ const App = () => {
       if (emailForCloudApi.length > 0) {
         loadGameResults();
       }
+      else {
+        setGameResults([]);
+      }
 
       // Bread on bottom...
       return () => {
@@ -282,10 +285,8 @@ const App = () => {
                       "email"
                       , emailOnModal
                     );
-
-                    if (savedEmail.length > 0) {
-                      setEmailForCloudApi(savedEmail);
-                    }
+                    
+                    setEmailForCloudApi(savedEmail);
                   }
                 }
               >
