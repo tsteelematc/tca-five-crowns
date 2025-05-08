@@ -3,7 +3,7 @@ import { GameResult, GeneralFacts, GoOutsLeaderboardEntry, HighestSingleHandScor
 import { useEffect, useRef } from "react";
 import copyTextToClipboard from 'copy-text-to-clipboard';
 
-export const AppTitle = "Five Crowns Companion";
+export const AppTitle = "Five Crowns Companion by tsteelematc";
 
 interface HomeProps {
     leaderboardData: LeaderboardEntry[];
